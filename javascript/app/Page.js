@@ -27,6 +27,20 @@
 					success:	function(data)
 					{
 						main_content.innerHTML	=	data;
+
+						//Execute inline JS tag (with src attributes only)
+						var scripts	=	main_content.getElementsByTagName('script'), src, script;
+
+						for(var i = 0, l = scripts.length; i < l; i++)
+						{
+							if(scripts[i].src)
+							{
+								src		=	scripts[i].getAttribute('src');
+								script	=	$.remove(scripts[i]).create('script');
+								script.setAttribute('src', src);
+								$.append(script, document.body);
+							}
+						}
 					},
 					error: function(req)
 					{
