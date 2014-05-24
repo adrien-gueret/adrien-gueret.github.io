@@ -98,7 +98,7 @@ header h2 {
   max-width: 100%;
 }
 
-#downloads {
+.downloads {
   margin-bottom: 40px;
   float: right;
 }
@@ -346,8 +346,11 @@ footer a:hover {
 }
 
 #error {
-	text-align: center;
 	display: none;
+}
+
+#error p {
+	text-align: center;
 }
 
 #error small {
@@ -384,7 +387,7 @@ footer a:hover {
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  #downloads {
+  .downloads {
     margin-bottom: 25px;
   }
   #download-zip, #download-tar-gz {
