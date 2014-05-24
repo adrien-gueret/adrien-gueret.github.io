@@ -6,8 +6,6 @@
 
 		var overlay			=	$('overlay'),
 			main_content	=	$('main_content'),
-			main_title		=	$('main_title'),
-			subtitle		=	$('sub_title'),
 			error			=	$('error'),
 			error_msg		=	$('error_msg');
 

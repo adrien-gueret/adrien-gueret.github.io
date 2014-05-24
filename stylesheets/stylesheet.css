@@ -100,6 +100,7 @@ header h2 {
 
 #downloads {
   margin-bottom: 40px;
+  float: right;
 }
 
 a.button {
@@ -242,7 +243,17 @@ form {
 
 h1 {
   font-size: 32px;
-} 
+}
+
+h1 small {
+	font-size: 15px;
+	color: #aaa;
+}
+
+h1 small a, h1 small a:visited {
+	color: inherit;
+	font-weight: normal;
+}
 
 h2 {
   font-size: 22px;
