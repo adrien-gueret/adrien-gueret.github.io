@@ -4,7 +4,8 @@
 
 	define(['DOM', 'Ajax'], function($, Ajax) {
 
-		var main_content	=	$('main_content'),
+		var overlay			=	$('overlay'),
+			main_content	=	$('main_content'),
 			main_title		=	$('main_title'),
 			subtitle		=	$('sub_title');
 
@@ -17,11 +18,17 @@
 				if(hash.length && hash.charAt(0) === '#')
 					hash	=	hash.substr(1);
 
+				$.show(overlay);
+
 				Ajax({
 					url:	'./views/'+hash,
 					success:	function(data)
 					{
 						main_content.innerHTML	=	data;
+					},
+					complete:	function()
+					{
+						$.hide(overlay);
 					}
 				});
 			}
