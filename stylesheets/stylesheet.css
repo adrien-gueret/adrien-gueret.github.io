@@ -334,6 +334,16 @@ footer a:hover {
 	display: none;
 }
 
+#error {
+	text-align: center;
+	display: none;
+}
+
+#error small {
+	font-size: 13px;
+	color: #aaa;
+}
+
 /* MISC */
 .clearfix:after {
   clear: both;
