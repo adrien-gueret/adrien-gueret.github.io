@@ -88,7 +88,7 @@
 			forEach(defaults, function (i)
 			{
 				if (options[i] === undefined)
-					options[i]	=	this;
+					options[i]	=	defaults[i];
 			});
 
 			options.dataType	=	options.dataType.toUpperCase();
@@ -124,13 +124,12 @@
 								: (options.dataType == 'XML' ? req.responseXML
 								: req.responseText), req);
 
-							if(options.historyState && window.history)
+							if(options.historyState && window.history && window.history.pushState)
 							{
 								if( ! options.historyState.url)
 									options.historyState.url	=	url;
 
-								if(window.history && window.history.pushState())
-									window.history.pushState(options.historyState, options.historyState.url, options.historyState.url);
+								window.history.pushState(options.historyState, options.historyState.url, options.historyState.url);
 							}
 						}
 						else
