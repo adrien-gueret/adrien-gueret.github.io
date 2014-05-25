@@ -129,7 +129,8 @@
 								if( ! options.historyState.url)
 									options.historyState.url	=	url;
 
-								window.history.pushState(options.historyState, options.historyState.url, options.historyState.url);
+								if(window.history && window.history.pushState())
+									window.history.pushState(options.historyState, options.historyState.url, options.historyState.url);
 							}
 						}
 						else
