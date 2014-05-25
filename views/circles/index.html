@@ -8,9 +8,48 @@
 </div>
 
 <section id="circles_section">
-	<div id="sample1"></div>
-	<button data-role="add_percent" data-value="20" data-target="sample1">+20</button>
-	<button data-role="substract_percent" data-value="20" data-target="sample1">-20</button>
+	<div class="circle">
+		<div id="sample1"></div>
+		<button data-role="substract_percent" data-value="20" data-target="sample1">-20</button>
+		<button data-role="add_percent" data-value="20" data-target="sample1">+20</button>
+	</div>
+
+	<div  class="circle">
+		<div id="sample2"></div>
+		<button data-role="substract_percent" data-value="10" data-target="sample2">-10</button>
+		<button data-role="add_percent" data-value="10" data-target="sample2">+10</button>
+	</div>
+
+	<div  class="circle">
+		<div id="sample3"></div>
+		<button data-role="substract_percent" data-value="2.52" data-target="sample3">-2.52</button>
+		<button data-role="add_percent" data-value="2.52" data-target="sample3">+2.52</button>
+	</div>
+
+	<div  class="circle">
+		<div id="sample4"></div>
+		<button data-role="substract_width" data-value="10" data-target="sample4">Width -10</button>
+		<button data-role="add_width" data-value="10" data-target="sample4">Width +10</button>
+	</div>
+
+	<div  class="circle">
+		<div id="sample5"></div>
+		<button data-role="substract_percent" data-value="5" data-target="sample5">-5</button>
+		<button data-role="add_percent" data-value="5" data-target="sample5">+5</button>
+	</div>
+
+	<span class="clearfix"></span>
 </section>
 
+<style>
+	.circle {
+		float: left;
+		margin: 15px;
+		text-align: center;
+	}
+
+	.circles-decimals {
+		font-size: .4em;
+	}
+</style>
 <script src="./javascript/app/controllers/circles.js"></script>
