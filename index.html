@@ -59,11 +59,17 @@
 	<script>
 		//Config RequireJS in order to put automatically a cache breaker and set some paths too
 		require.config({
-			baseUrl	:	'./javascript//EliyaJS/',
-			urlArgs	:	'cache_breaker=1',
-			paths	:	{
-				app			:	'../app',
-				lib			:	'../libraries'
+			baseUrl:	'./javascript//EliyaJS/',
+			urlArgs:	'cache_breaker=1',
+			paths:	{
+				app:			'../app',
+				lib:			'../libraries',
+				jquery: 		'//code.jquery.com/jquery-1.11.1.min',
+				'jquery-ui': 	'//code.jquery.com/ui/1.10.4/jquery-ui.min'
+			},
+			shim:	{
+				'jquery-ui':					['jquery'],
+				'lib/jquery/jquery.fullPage':	['jquery-ui']
 			}
 		});
 

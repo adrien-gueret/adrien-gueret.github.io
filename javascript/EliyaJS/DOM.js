@@ -21,9 +21,19 @@
 		{
 			var script		=	DOM.create('script');
 			script.onload	=	callback;
-			script.src		=	url;
+			script.setAttribute('src', url);
 			
 			return DOM.append(script, document.body);
+		};
+
+		DOM.insertStyleSheet	=	function(url)
+		{
+			var link	=	DOM.create('link');
+			link.setAttribute('rel', 'stylesheet');
+			link.setAttribute('type', 'text/css');
+			link.setAttribute('href', url);
+
+			return DOM.append(link, document.head);
 		};
 		
 		DOM.text	=	function(textContent)
@@ -38,7 +48,7 @@
 			if(textContent)
 				DOM.append(DOM.text(textContent), newTag);
 				
-				return newTag;
+			return newTag;
 		};
 			
 		DOM.empty	=	function(element)
@@ -261,6 +271,8 @@
 					DOM.fadeOut(element, delay, callback);
 				}, delay);
 			}
+
+			return DOM;
 		};
 
 		DOM.fadeIn	=	function(element, delay, display, callback)
@@ -305,6 +317,8 @@
 			}
 			else
 				callback.call(element);
+
+			return DOM;
 		};
 
 		//Expose new module to EliyaJS
