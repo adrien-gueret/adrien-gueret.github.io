@@ -10,7 +10,8 @@
 			var $fullpage	=	$('#fullpage');
 
 			$fullpage.fullpage({
-				slidesColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff']
+				slidesColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff', '#ffddcc'],
+				navigation: true
 			});
 
 			//When we click on a link (= when we want to perform an Ajax loading!)
