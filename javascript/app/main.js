@@ -8,7 +8,7 @@
 		window.EliyaJS	=	{};
 
 	//Declare dependencies of our app
-	define(['app/Page'], function (Page) {
+	define(['Role', 'app/Page'], function (Role, Page) {
 
 		window.addEventListener('hashchange', function(e)
 		{
@@ -19,6 +19,11 @@
 		});
 
 		Page.change(window.location.hash);
+
+		Role.define(document.body, 'disabled', function()
+		{
+			return false;
+		});
 	});
 
 })(window, document);

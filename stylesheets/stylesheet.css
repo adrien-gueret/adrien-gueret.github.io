@@ -153,6 +153,18 @@ a.button span {
   height: 23px;
 }
 
+a.button.big {
+	display: block;
+	margin: 0 auto 10px auto;
+	float: none;
+}
+
+[data-role="disabled"] {
+	cursor: default;
+	opacity: .3;
+	color: #333;
+}
+
 #download-zip span {
   background: transparent url(../images/zip-icon.png) 12px 50% no-repeat;
 }
@@ -161,6 +173,9 @@ a.button span {
 }
 #view-on-github span {
   background: transparent url(../images/octocat-icon.png) 12px 50% no-repeat;
+}
+#go-to-documentation span {
+	background: transparent url(../images/inspectocat-icon.png) 12px 50% no-repeat;
 }
 #view-on-github {
   margin-right: 0;
@@ -392,6 +407,11 @@ footer a:hover {
   }
   #download-zip, #download-tar-gz {
     display: none;
+  }
+  #view-on-github {
+	  float: none;
+	  display: block;
+	  margin: auto;
   }
   .inner {
     width: 94%;
