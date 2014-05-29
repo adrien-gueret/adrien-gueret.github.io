@@ -2,7 +2,8 @@
 {
 	'use strict';
 
-	require(['DOM', 'lib/jquery/jquery.fullPage'], function (DOM) {
+	require(['app/Page','DOM', 'lib/jquery/jquery.fullPage'], function (Page, DOM) {
+
 		DOM.insertStyleSheet('./stylesheets/jquery.fullPage.css');
 
 		$(document).ready(function() {
@@ -14,12 +15,11 @@
 				navigation: true
 			});
 
-			//When we click on a link (= when we want to perform an Ajax loading!)
-			$fullpage.on('click', 'a', function()
+			Page.destruct(function()
 			{
 				//Let's destroy FullpageJS in order to remove all attached events
 				$fullpage.fullpage.destroy();
-			});
+			})
 		});
 	});
 

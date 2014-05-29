@@ -4,12 +4,22 @@
 
 	define(['DOM', 'Ajax'], function($, Ajax) {
 
-		var overlay			=	$('overlay'),
-			main_content	=	$('main_content'),
-			error			=	$('error'),
-			error_msg		=	$('error_msg');
+		var overlay				=	$('overlay'),
+			main_content		=	$('main_content'),
+			error				=	$('error'),
+			error_msg			=	$('error_msg');
 
 		return {
+			destruct: function(callback)
+			{
+				window.addEventListener('hashchange', function destructCallback()
+				{
+					callback();
+					window.removeEventListener('hashchange', destructCallback);
+				});
+
+				return this;
+			},
 			change:	function(hash)
 			{
 				if( ! hash)
@@ -53,6 +63,8 @@
 						$.hide(overlay);
 					}
 				});
+
+				return this;
 			}
 		};
 	});
