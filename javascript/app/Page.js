@@ -20,7 +20,7 @@
 
 				return this;
 			},
-			change:	function(hash)
+			change:	function(hash, callback)
 			{
 				if( ! hash)
 					hash	=	'';
@@ -49,6 +49,9 @@
 								$.append(script, document.body);
 							}
 						}
+
+						if(callback)
+							callback(main_content);
 					},
 					error: function(req)
 					{

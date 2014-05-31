@@ -8,7 +8,7 @@
 		window.EliyaJS	=	{};
 
 	//Declare dependencies of our app
-	define(['Role', 'app/Page'], function (Role, Page) {
+	define(['Role', 'app/Page', 'prismjs/init'], function (Role, Page, PrismJSInit) {
 
 		window.addEventListener('hashchange', function(e)
 		{
@@ -18,7 +18,10 @@
 			Page.change(window.location.hash);
 		});
 
-		Page.change(window.location.hash);
+		Page.change(window.location.hash, function(container)
+		{
+			PrismJSInit(container);
+		});
 
 		Role.define(document.body, 'disabled', function()
 		{

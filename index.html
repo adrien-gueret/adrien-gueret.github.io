@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/prismjs.css" />
   	<link rel="icon" href="./images/favicon.png">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -46,7 +47,8 @@
 
         <footer>
         	Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a> -
-        	Octocats icons from <a href="https://octodex.github.com/">Octodex</a>
+        	Octocats icons from <a href="https://octodex.github.com/">Octodex</a> -
+        	Code highlighted with <a href="http://prismjs.com/">Prism</a>
         </footer>
         
       </div>
@@ -60,13 +62,14 @@
 	<script>
 		//Config RequireJS in order to put automatically a cache breaker and set some paths too
 		require.config({
-			baseUrl:	'./javascript//EliyaJS/',
+			baseUrl:	'./javascript/EliyaJS/',
 			urlArgs:	'cache_breaker=1',
 			paths:	{
 				app:			'../app',
 				lib:			'../libraries',
 				jquery: 		'//code.jquery.com/jquery-1.11.1.min',
-				'jquery-ui': 	'//code.jquery.com/ui/1.10.4/jquery-ui.min'
+				'jquery-ui': 	'//code.jquery.com/ui/1.10.4/jquery-ui.min',
+				prismjs:		'../libraries/PrismJS'
 			},
 			shim:	{
 				'jquery-ui':					['jquery'],

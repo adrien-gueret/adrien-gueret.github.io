@@ -5,11 +5,11 @@
 	</header>
 </div>
 
-<h2>1. Include <b>EntityPHP</b> in your project</h2>
-<pre><code class="language-php">require 'path/to/EntityPHP.php';</code></pre>
+<h2>1. Include <code>EntityPHP</code> in your project</h2>
+<pre>require 'path/to/EntityPHP.php';</pre>
 
-<h2>2. Create a class inherited from <code class="language-php">\EntityPHP\Entity</code></h2>
-<pre><code class="language-php">class Characters extends \EntityPHP\Entity
+<h2>2. Create a class inherited from <code>\EntityPHP\Entity</code></h2>
+<pre>class Characters extends \EntityPHP\Entity
 {
 	protected $firstname;
 	protected $age;
@@ -21,19 +21,19 @@
 			'age'		=>	'INT(11)',
 		);
 	}
-}</code></pre>
+}</pre>
 
 <h2>3. Connect to your database and generate your tables</h2>
-<pre><code class="language-php">\EntityPHP\Core::connectToDB('hostname', 'username', 'password', 'databasename');
-\EntityPHP\Core::generateDatabase();</code></pre>
+<pre>\EntityPHP\Core::connectToDB('hostname', 'username', 'password', 'databasename');
+\EntityPHP\Core::generateDatabase();</pre>
 
 <h2>4. Create and save a new instance of your class</h2>
-<pre><code class="language-php">$character	=	new Characters();
+<pre>$character	=	new Characters();
 $character->setProps(array(
 	'firstname'	=>	'John',
 	'age'		=>	20,
 ));
-Characters::add($character);</code></pre>
+Characters::add($character);</pre>
 
 <h2>5. That's it! Your table is generated and populated!</h2>
 <figure>
