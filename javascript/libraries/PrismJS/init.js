@@ -11,7 +11,6 @@
 					continue;
 
 				elements[i].setAttribute('data-prism-init', 1);
-				console.log(elements[i]);
 				Prism.highlightElement(elements[i]);
 			}
 		}

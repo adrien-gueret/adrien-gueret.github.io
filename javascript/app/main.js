@@ -10,18 +10,20 @@
 	//Declare dependencies of our app
 	define(['Role', 'app/Page', 'prismjs/init'], function (Role, Page, PrismJSInit) {
 
+		function initPrism(container)
+		{
+			PrismJSInit(container);
+		}
+
 		window.addEventListener('hashchange', function(e)
 		{
 			e.preventDefault();
 			e.stopPropagation();
 
-			Page.change(window.location.hash);
+			Page.change(window.location.hash, initPrism);
 		});
 
-		Page.change(window.location.hash, function(container)
-		{
-			PrismJSInit(container);
-		});
+		Page.change(window.location.hash, initPrism);
 
 		Role.define(document.body, 'disabled', function()
 		{
