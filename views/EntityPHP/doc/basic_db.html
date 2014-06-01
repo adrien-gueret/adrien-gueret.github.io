@@ -1,0 +1,111 @@
+<div>
+	<header>
+		<h1>EntityPHP  <small><a href="https://github.com/adrien-gueret/EntityPHP">adrien-gueret/EntityPHP</a></small></h1>
+		<h2>Create a basic database</h2>
+	</header>
+</div>
+
+<h2>Main concepts</h2>
+<p>
+	The goal of <b>EntityPHP</b> is to manipulate your <b>SQL</b> databases without using the <b>SQL</b> language: you just need
+	to use <b>PHP</b> classes and all requests are written and executed for you behind the scene.
+</p>
+
+<p>
+	After including <b>EntityPHP</b> into your project, each class inherited from <code class="language-php">\EntityPHP\Entity</code>
+	will be a representation of an <b>SQL</b> table.
+</p>
+
+<p>
+	For example, the code below is the most basic template defining a <em>Characters</em> table:
+</p>
+
+<pre><code class="language-php">require 'path/to/EntityPHP.php';
+
+class Characters extends \EntityPHP\Entity
+{
+	public static function __structure()
+	{
+		return array();
+	}
+}
+</code></pre>
+
+<h2>Defining fields</h2>
+
+<p>
+	Since we use simple <b>PHP</b> classes, we define the table fields as class properties:
+</p>
+<p>
+	Please note that the method <code class="language-php">__structure()</code> is mandatory
+	and must return an array defining the <b>SQL</b> type of each properties:
+</p>
+
+<pre><code class="language-php">require 'path/to/EntityPHP.php';
+
+class Characters extends \EntityPHP\Entity
+{
+	protected $firstname;
+	protected $lastname;
+	protected $age;
+
+	public static function __structure()
+	{
+		return array(
+			'firstname'	=>	'VARCHAR(255)',
+			'lastname'	=>	'VARCHAR(255)',
+			'age'		=>	'INT(10)',
+		);
+	}
+}
+</code></pre>
+
+<h2>Generating the table</h2>
+<p>
+	Our class defining our future table is ready, we now need to generate it!<br />
+	First, we need to init a connection to the database:
+</p>
+<pre><code class="language-php">\EntityPHP\Core::connectToDB('hostname', 'username', 'password', 'databasename');</code></pre>
+<p>
+	Now we can create the tables! We have two solutions for that:
+</p>
+<ol>
+	<li>Run the method <code class="language-php">\EntityPHP\Core::generateDatabase();</code></li>
+	<li>OR run the method <code class="language-php">Characters::createTable();</code></li>
+</ol>
+<p>
+	The first one will check <ins>all</ins> the classes inherited from <code class="language-php">\EntityPHP\Entity</code>: if the
+	corresponding table does not exist, it will create it. Otherwise it'll update it.
+</p>
+<p>
+	The second method simply create the corresponding class table: if it already exists, an <b>SQL</b> exception will be thrown!
+	If you want to update an existing table, you should call <code class="language-php">CorrespondingClass::updateTable();</code>.
+</p>
+<p>
+	For this simple example, no matter which method is used, result will be the same!
+</p>
+
+<figure>
+	<img src="./images/entityphp/tuto_create_database.png" alt="Structure of generated table" />
+</figure>
+
+<p>
+	As you can see, name of the generated table is the same than the class one.<br />
+	Furthermore, the primary id field is automatically generated, we don't need to handle it by ourselves.
+</p>
+<p>
+	If you want to rename the primary field or the generated table, you can set the static properties
+	<code class="language-php">$id_name</code> and/or <code class="language-php">$table_name</code> of the given class:
+</p>
+
+<pre><code class="language-php">class Characters extends \EntityPHP\Entity
+{
+	//Rename primary field and table name
+	protected static $id_name		=	'id_character';
+	protected static $table_name	=	'game_characters';
+
+	//[...]
+}
+</code></pre>
+
+<div data-include="#EntityPHP/menu.html"></div>

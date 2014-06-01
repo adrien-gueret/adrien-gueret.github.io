@@ -159,10 +159,15 @@ a.button.big {
 	float: none;
 }
 
-[data-role="disabled"] {
+[data-role~="disabled"] {
 	cursor: default;
 	opacity: .3;
 	color: #333;
+}
+
+[data-role~="active"], [data-role~="active"]:hover {
+	cursor: default;
+	color: #000;
 }
 
 #download-zip span {

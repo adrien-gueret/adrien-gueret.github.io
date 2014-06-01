@@ -20,8 +20,12 @@
 
 				return this;
 			},
-			change:	function(hash, callback)
+			change:	function(hash, callback, context)
 			{
+				var Page	=	this;
+
+				context		=	context || main_content;
+
 				if( ! hash)
 					hash	=	'';
 
@@ -34,10 +38,16 @@
 					url:	'./views/'+hash,
 					success:	function(data)
 					{
-						main_content.innerHTML	=	data;
+						context.innerHTML	=	data;
+
+						//Check for include instructions
+						var includes	=	context.querySelectorAll('[data-include]');
+
+						for(var i = 0, l = includes.length; i < l; i++)
+							Page.change(includes[i].getAttribute('data-include'), null, includes[i]);
 
 						//Execute inline JS tag (with src attributes only)
-						var scripts	=	main_content.getElementsByTagName('script'), src, script;
+						var scripts	=	context.getElementsByTagName('script'), src, script;
 
 						for(var i = 0, l = scripts.length; i < l; i++)
 						{
@@ -47,16 +57,21 @@
 								script	=	$.remove(scripts[i]).create('script');
 								script.setAttribute('src', src);
 								$.append(script, document.body);
+
+								Page.destruct(function()
+								{
+									$.remove(script);
+								});
 							}
 						}
 
 						if(callback)
-							callback(main_content);
+							callback(context);
 					},
 					error: function(req)
 					{
 						$.replaceContent(error_msg, $.text(req.status+' - ' + req.statusText))
-						 .empty(main_content)
+						 .empty(context)
 						 .show(error);
 
 						console.log(req);

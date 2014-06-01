@@ -32,7 +32,7 @@
 				if( ! element.hasAttribute || ! element.hasAttribute('data-role'))
 					return  [];
 
-				return element.getAttribute('data-role').replace(/ /g, '').split(',');
+				return element.getAttribute('data-role').split(' ');
 			},
 			has	:	function(element, roleName)
 			{
@@ -48,6 +48,38 @@
 					return Role.has(element.parentNode, roleName);
 
 				return false;
+			},
+			add	:	function(element, roleName)
+			{
+				if(Role.has(element, roleName) === false)
+				{
+					var currentRole	=	 element.getAttribute('data-role');
+
+					element.setAttribute('data-role', (currentRole ? currentRole + ' ' : '') + roleName);
+				}
+
+				return Role;
+			},
+			remove	:	function(element, roleName)
+			{
+				element	=	Role.has(element, roleName);
+
+				if(element !== false)
+				{
+					var roles		=	Role.get(element),
+						newRoles	=	[];
+
+					for(var i = 0, l = roles.length; i < l; i++)
+						if(roles[i] !== roleName)
+							newRoles.push(roles[i]);
+
+					if(newRoles.length)
+						element.setAttribute('data-role', newRoles.join(' '));
+					else
+						element.removeAttribute('data-role');
+				}
+
+				return Role;
 			},
 			define	:	function(dom_context, roleName, callback)
 			{

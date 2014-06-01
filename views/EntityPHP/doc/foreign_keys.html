@@ -1,0 +1,75 @@
+<div>
+	<header>
+		<h1>EntityPHP  <small><a href="https://github.com/adrien-gueret/EntityPHP">adrien-gueret/EntityPHP</a></small></h1>
+		<h2>Create, update &amp; delete</h2>
+	</header>
+</div>
+
+<h2>Create new entry</h2>
+<p>
+	Each class inherited from <code class="language-php">\EntityPHP\Entity</code> can access several static methods.
+	One of them is <code class="language-php">add()</code>: it takes as parameter an instance of the calling class and it'll
+	create a new entry on the corresponding table:
+</p>
+
+<pre><code class="language-php">$character	=	new Characters(array(
+	'firstname'	=>	'Jean',
+	'lastname'	=>	'Peplu',
+	'age'		=>	21,
+));
+
+//And store it to our table!
+Characters::add($character);
+</code></pre>
+
+<h2>Update an entry</h2>
+<p>
+	In order to update an entry, we first need to retrieve it. To do that, we can use the static method <code class="language-php">getById()</code>.
+	If the id given as parameter is found in the corresponding table, an instance of this class populated with data from the database will be return.
+	If nothing is found, <code class="language-php">getById()</code> will return <code class="language-php">null</code>.
+</p>
+
+<pre><code class="language-php">$myCharacter	=	Characters::getById(1);
+
+if( ! empty($myCharacter))
+{
+	//Update the character
+}
+else
+{
+	echo 'The character to update is not found.';
+}</code></pre>
+
+<p>
+	Now we are sure that our character is found, we can update it!<br />
+	To do that, we can use the built-in method <code class="language-php">setProps()</code>.
+	It takes an array as parameter on this format: <code class="language-php">array('property_name' => 'new_value')</code>.<br />
+	Once the properties have been updated, we have to save the changes to the database by calling the static method <code class="language-php">update()</code>.
+</p>
+
+<pre><code class="language-php">//Update its properties
+$myCharacter->setProps(array(
+	'firstname'	=>	'Théo',
+	'lastname'	=>	'Bligé',
+));
+
+//And save the changes!
+Characters::update($myCharacter);</code></pre>
+
+<h2>Delete an entry</h2>
+
+<p>
+	Delete an entry is very similar to update one, except that we don't use <code class="language-php">update()</code> but
+	<code class="language-php">delete()</code>:
+</p>
+
+<pre><code class="language-php">$myCharacter	=	Characters::getById(1);
+
+if( ! empty($myCharacter))
+	Characters::delete($myCharacter);
+else
+	echo 'The character to delete is not found.';</code></pre>
+
+<p>Quite easy, isn't it?</p>
+
+<div data-include="#EntityPHP/menu.html"></div>

@@ -2,9 +2,11 @@
 {
 	'use strict';
 
+	var styleSheet	=	'./stylesheets/jquery.fullPage.css';
+
 	require(['app/Page','DOM', 'lib/jquery/jquery.fullPage'], function (Page, DOM) {
 
-		DOM.insertStyleSheet('./stylesheets/jquery.fullPage.css');
+		DOM.insertStyleSheet(styleSheet);
 
 		$(document).ready(function() {
 
@@ -15,10 +17,13 @@
 				navigation: true
 			});
 
+			$fullpage.css('text-align', 'center');
+
 			Page.destruct(function()
 			{
 				//Let's destroy FullpageJS in order to remove all attached events
 				$fullpage.fullpage.destroy();
+				DOM.removeStyleSheet(styleSheet);
 			})
 		});
 	});

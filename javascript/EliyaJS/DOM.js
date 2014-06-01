@@ -35,6 +35,16 @@
 
 			return DOM.append(link, document.head);
 		};
+
+		DOM.removeStyleSheet	=	function(url)
+		{
+			var sheet	=	document.querySelector('link[href="'+url+'"]');
+
+			if(sheet)
+				DOM.remove(sheet);
+
+			return DOM;
+		};
 		
 		DOM.text	=	function(textContent)
 		{

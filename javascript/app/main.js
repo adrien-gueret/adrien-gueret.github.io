@@ -15,6 +15,11 @@
 			PrismJSInit(container);
 		}
 
+		function doNothing()
+		{
+			return false;
+		}
+
 		window.addEventListener('hashchange', function(e)
 		{
 			e.preventDefault();
@@ -25,10 +30,8 @@
 
 		Page.change(window.location.hash, initPrism);
 
-		Role.define(document.body, 'disabled', function()
-		{
-			return false;
-		});
+		Role.define(document.body, 'disabled', doNothing);
+		Role.define(document.body, 'active', doNothing);
 	});
 
 })(window, document);
