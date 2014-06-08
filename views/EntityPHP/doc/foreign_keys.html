@@ -7,7 +7,95 @@
 
 <h2><em>One to One/One to Many</em> relationships</h2>
 <p>
-	Soon...
+	With <b>EntityPHP</b>, <em>One to One</em> and <em>One to Many</em> relationships are handled in the same way. We just
+	need to define this relationship on only one of related classes.
+</p>
+<p>
+	Let's start for a <em>One to One</em> example. We have an <em>Users</em> class and a <em>Passport</em> class: an user
+	can have only one passport, a passport can belong to only one user. In order to create this relationship, you have to
+	define it either on the <em>Users</em> class or on the <em>Passport</em> one. It's up to you!
+</p>
+<p>
+	Concerning <em>One to Many</em> relationships, we must define it on the <em>One</em> side. For example, we can have an
+	<em>Authors</em> class and an <em>Articles</em> class: an article is written by one author, but an author can write many articles.
+	In this case, the relationship must be define on the <em>Articles</em> class.
+</p>
+<p>
+	So, how to define this relationship? Simply by adding a new property to the corresponding class:
+</p>
+
+<pre><code class="language-php">class Articles extends \EntityPHP\Entity
+{
+	protected $title;
+	protected $content;
+	protected $author;
+
+	public static function __structure()
+	{
+		return array(
+			'title'		=>	'VARCHAR(255)',
+			'content'	=>	'TEXT',
+			//Instead of SQL type, we use the related class name
+			//(we admit that Authors is an existed class inherited from EntityPHP\Entity)
+			'author'	=>	'Authors',
+		);
+	}
+}
+</code></pre>
+
+<p>
+	Below is the structure and indexes generated for the table corresponding to this <em>Articles</em> class:
+</p>
+
+<figure>
+	<img src="./images/entityphp/tuto_one_to_many_table.png" alt="Structure of generated table" />
+</figure>
+
+<h2><em>Many to Many</em> relationships</h2>
+<p>
+	Let's take a <em>Languages</em> class and a <em>Developers</em> class: a language is used by many developers and a
+	developer can use many languages: it's a typical case of <em>Many to Many</em> relationship!
+</p>
+<p>
+	This kind of relationships are handled in a very similar way with <b>EntityPHP</b>. We still need to define it
+	on only one class. Like <em>One to One</em> relationships, the choice is up to you!
+</p>
+<p>
+	The only difference with previous relationships is that we define it by using an array instead of a string:
+</p>
+
+<pre><code class="language-php">class Developers extends \EntityPHP\Entity
+{
+	protected $firstname;
+	protected $lastname;
+	protected $languages;
+
+	//__structure() method is mandatory and must return an array
+	public static function __structure()
+	{
+		return array(
+			'firstname'	=>	'VARCHAR(255)',
+			'lastname'	=>	'VARCHAR(255)',
+			//We want to define a Many to Many relationships, so we
+			//use an array with the class name to bind as single value
+			'languages'	=>	array('Languages'),
+		);
+	}
+}
+</code></pre>
+
+<p>
+	In order to link values between <em>Developers</em> and <em>Languages</em> tables, <b>EntityPHP</b>
+	generates a third table:
+</p>
+
+<figure>
+	<img src="./images/entityphp/tuto_many_to_many_table.png" alt="Structure of generated table" />
+</figure>
+
+<p>
+	<b>EntityPHP</b> will use this table behind the scene and automatically handle joins requests. In fact, you should
+	not be worried about any SQL tables: <b>EntityPHP</b> manages all of them for you!
 </p>
 
 <div data-include="#EntityPHP/menu.html"></div>

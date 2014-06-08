@@ -44,6 +44,7 @@ else
 	Now we are sure that our character is found, we can update it!<br />
 	To do that, we can use the built-in method <code class="language-php">setProps()</code>.
 	It takes an array as parameter on this format: <code class="language-php">array('property_name' => 'new_value')</code>.<br />
+	If you want to update only one property, you can use the method <code class="language-php">prop($propName, $value)</code>.<br />
 	Once the properties have been updated, we have to save the changes to the database by calling the static method <code class="language-php">update()</code>.
 </p>
 

@@ -1,0 +1,97 @@
+<div>
+	<header>
+		<h1>EntityPHP  <small><a href="https://github.com/adrien-gueret/EntityPHP">adrien-gueret/EntityPHP</a></small></h1>
+		<h2>Upate foreign fields</h2>
+	</header>
+</div>
+
+<h2><em>One to One/One to Many</em> relationships</h2>
+<p>
+	Update fields linked with this kind of relation ship is as easy as update a basic property: simply change the
+	corresponding property value and call the <code class="language-php">update()</code> method!
+</p>
+<p>
+	Below is an example updating the author of an article:
+</p>
+<pre><code class="language-php">//We admit that Authors & Articles classes and their tables exist
+
+//Get the article with id 1
+$myArticle	=	Articles::getById(1);
+
+//Check if character is found
+if( ! empty($myArticle))
+{
+	//Get the new author to link to the article
+	$myAuthor	=	Authors::getById(2);
+
+	if( ! empty($myAuthor))
+	{
+		//Update the "author" field of the article
+		$myArticle->prop('author', $myAuthor);
+
+		//And save the changes!
+		Articles::update($myArticle);
+	}
+	else
+	{
+		echo 'The new author of the article is not found.';
+	}
+}
+else
+{
+	echo 'The article to update is not found.';
+}
+</code></pre>
+
+<h2><em>Many to Many</em> relationships</h2>
+
+<p>
+	Properties binded with <em>Many to Many</em> relationships are lists of objects. Since these lists can be very huge,
+	<b>EntityPHP</b> does not load them by default. We need to manually ask the library to load them thanks to the
+	<code class="language-php">load()</code> method.
+</p>
+
+<p>Once loaded, we can add some objects to this list thanks by using the <code class="language-php">push()</code> method:</p>
+
+<pre><code class="language-php">//We admit that Developers & Languages classes and their tables exist
+
+//Get the developer with id 1
+$myDeveloper	=	Developers::getById(1);
+
+//Check if developer is found
+if( ! empty($myDeveloper))
+{
+	//Get language with ID 3
+	$myLanguage	=	Languages::getById(3);
+
+	if( ! empty($myLanguage))
+	{
+		//Load the "languages" properties of the developer
+		$languages	=	$myDeveloper->load('languages');
+
+		//Add the new language to this list
+		$languages->push($myLanguage);
+
+		//And save the changes!
+		Developers::update($myDeveloper);
+	}
+	else
+	{
+		echo 'The new language used by the developer is not found.';
+	}
+}
+else
+{
+	echo 'The developer to update is not found.';
+}
+</code></pre>
+
+<p>
+	The retrieved list can call the method <code class="language-php">push()</code> because it is not a simple array:
+	it's an instance of the class <code class="language-php">\EntityPHP\EntityArray</code>. Basically, this class
+	is an helper permitting us to manage lists of entities in an easier way than simple arrays. One of its particularities is
+	that it forbids storage of instances of different classes: in short, an <em>EntityArray</em> of <em>Developers</em> can
+	contain only instances of <em>Developers</em>.
+</p>
+
+<div data-include="#EntityPHP/menu.html"></div>

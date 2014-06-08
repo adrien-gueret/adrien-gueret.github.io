@@ -67,6 +67,9 @@
 
 						if(callback)
 							callback(context);
+
+						if(window.scrollTo)
+							window.scrollTo(0, 0);
 					},
 					error: function(req)
 					{
