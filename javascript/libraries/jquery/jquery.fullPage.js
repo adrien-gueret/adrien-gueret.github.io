@@ -537,19 +537,18 @@
 
 		$.fn.fullpage.moveSlideRight = function(){
 			moveSlide('next');
-		}
+		};
 
 		$.fn.fullpage.moveSlideLeft = function(){
 			moveSlide('prev');
-		}
+		};
 
 		/**
 		 * Remove events listeners added by fullPagejs
 		 */
 		$.fn.fullpage.destroy = function(){
 
-			removeMouseWheelHandler();
-			removeTouchHandler();
+			$.fn.fullpage.setAllowScrolling(false);
 
 			$(window)
 				.off('load', windowLoadHandlerCreateSlimScrolling)
@@ -567,6 +566,12 @@
 				nav.remove();
 			}
 
+			if(options.slidesNavigation)
+				$document.off('click', '.fullPage-slidesNav a');
+
+			if(options.verticalCentered)
+				container.find('.section.table').removeClass('table');
+
 			if(options.normalScrollElements){
 				$document
 					.off('mouseover', options.normalScrollElements)
@@ -580,7 +585,10 @@
 			$('.section')
 				.off('click', '.controlArrow')
 				.off('click', '.toSlide');
-		}
+
+			//Unwrap inner slides
+			container.find('.tableCell').each(function(){$(this).children().first().unwrap();});
+		};
 
 		function moveSlide(direction){
 			var activeSection = $('.section.active');
