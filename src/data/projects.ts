@@ -4,6 +4,8 @@ import marioKartWorldGuessrEnImage from "../assets/projects/mariokartworldguessr
 import marioUniversalisImage from "../assets/projects/mariouniversalis.png";
 import openclassroomsEnImage from "../assets/projects/openclassrooms-en.png";
 import openclassroomsFrImage from "../assets/projects/openclassrooms-fr.png";
+import unbalancedEnImage from "../assets/projects/this-game-is-unbalanced-en.png";
+import unbalancedFrImage from "../assets/projects/this-game-is-unbalanced-fr.png";
 
 export type ProjectImage = ImageMetadata;
 
@@ -84,7 +86,7 @@ export const storyImages: {
   universalis: ProjectImage;
   guessr: Record<"en" | "fr", ProjectImage>;
   wonder?: ProjectImage;
-  unbalanced?: ProjectImage;
+  unbalanced: Record<"en" | "fr", ProjectImage>;
 } = {
   engineering: {
     en: openclassroomsEnImage,
@@ -96,7 +98,10 @@ export const storyImages: {
     fr: marioKartWorldGuessrFrImage,
   },
   wonder: undefined,
-  unbalanced: undefined,
+  unbalanced: {
+    en: unbalancedEnImage,
+    fr: unbalancedFrImage,
+  },
 };
 
 export const playground: Project[] = [

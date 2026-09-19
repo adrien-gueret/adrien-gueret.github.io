@@ -32,6 +32,10 @@
 }
 .story-link {
   margin-top: 1.8rem;
+  display: none;
+}
+#playground {
+  display: none;
 }
 .story-link span {
   color: inherit;

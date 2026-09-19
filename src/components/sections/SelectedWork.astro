@@ -58,9 +58,9 @@ const [guessrIntro, guessrOutro] = projects.guessr.description.split('Mario Kart
       <p class="eyebrow">{unbalanced.context} · {unbalanced.year}</p>
       <h3 id="story-unbalanced-title">{unbalanced.name}</h3>
       <p>{projects.unbalanced.description}</p>
-      <ul class="story-numbers">{unbalanced.ranks.map((rank) => <li><strong>{rank.place}{fr ? 're' : 'st'}</strong> {rank.category}</li>)}</ul>
+      <ul class="story-numbers">{unbalanced.ranks.map((rank) => <li><strong>{fr ? '1er prix' : '1st prize'}</strong> {fr ? <>dans la catégorie « {rank.category} »</> : <>in the “{rank.category}” category</>}</li>)}</ul>
       <a class="button story-link" href={workPath(locale, unbalanced.slug)} aria-label={copy.work.study + ' : ' + unbalanced.name}>{copy.work.study} <span aria-hidden="true">→</span></a>
     </div>
-    <ProjectFigure image={storyImages.unbalanced} alt={fr ? 'Une partie de This Game Is Unbalanced!, créé pour la Gamedev.js 2025.' : 'Gameplay from This Game Is Unbalanced!, built for Gamedev.js 2025.'} caption={fr ? 'Une game jam pour apprendre, expérimenter et aller au bout.' : 'A game jam to learn, experiment and finish.'} pending={fr ? 'This Game Is Unbalanced! · capture à venir' : 'This Game Is Unbalanced! · screenshot to come'} />
+    <ProjectFigure image={storyImages.unbalanced[locale]} alt={fr ? "L'écran d'accueil en français de This Game Is Unbalanced!." : 'The English home screen of This Game Is Unbalanced!.'} caption={fr ? 'Une game jam pour apprendre et expérimenter avec l\'intelligence artificielle.' : 'A game jam to learn and experiment with artificial intelligence.'} pending={fr ? 'This Game Is Unbalanced! · capture à venir' : 'This Game Is Unbalanced! · screenshot to come'} />
   </article>
 </section>

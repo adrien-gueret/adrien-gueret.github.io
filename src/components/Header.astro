@@ -11,8 +11,8 @@ const { locale, copy, slug } = Astro.props;
       <span class="monogram" aria-hidden="true">ag<span>.</span></span>
     </a>
     <nav class="main-nav" aria-label={copy.nav.label}>
-      <a href={`${homePath(locale)}#work`}>{copy.nav.work}</a>
       <a href={`${homePath(locale)}#career`}>{copy.nav.career}</a>
+      <a href={`${homePath(locale)}#work`}>{copy.nav.work}</a>
     </nav>
     <LanguageSwitcher locale={locale} slug={slug} label={copy.nav.language} />
   </div>

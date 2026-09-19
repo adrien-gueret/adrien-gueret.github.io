@@ -676,6 +676,11 @@ section[id] {
   font-size: 0.75rem;
   color: var(--muted);
 }
+.footer-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
 .breadcrumbs ol {
   list-style: none;
   display: flex;

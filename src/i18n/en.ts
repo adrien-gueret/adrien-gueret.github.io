@@ -15,8 +15,8 @@ export const en: Copy = {
     caseDescription: `How I designed, built and maintain Mario Kart World Guessr: a custom map, community photos and a daily challenge, with over ${number(Math.floor(guessr.metrics.games / 1000) * 1000, "en")} games played.`,
   },
   nav: {
-    work: "Work",
-    career: "Career",
+    work: "Projects",
+    career: "Experience",
     approach: "How I work",
     playground: "Playground",
     skip: "Skip to content",
@@ -57,7 +57,7 @@ export const en: Copy = {
       unbalanced: {
         title: "This Game Is Unbalanced!",
         description:
-          "Learning Phaser with GitHub Copilot, understanding and reworking generated code, then cutting scope to ship a complete game on time.",
+          "My first game entirely designed and coded with Copilot, for a game jam. The challenge? Building a complete game with a technology I had never used before: Phaser.",
       },
       universalis: {
         title: "Mario Universalis, a personal testing ground",
@@ -163,9 +163,9 @@ export const en: Copy = {
     ],
   },
   playground: {
-    title: "The “quick little things”",
+    title: "Other projects I've built",
     intro:
-      "Game jams, experiments, and the occasional project that follows me home.",
+      "Game jams, experiments, and other projects that follow me home after work.",
     descriptions: {
       hi: "A game built for the Gamedev.js Jam 2024.",
       devil:

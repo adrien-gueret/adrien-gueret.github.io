@@ -8,7 +8,7 @@ const locale = 'en';
 <StoryLayout locale={locale} copy={copy} slug={unbalanced.slug} name={unbalanced.name} title="This Game Is Unbalanced!" description="Gamedev.js 2025: learning Phaser with GitHub Copilot, understanding generated code and adjusting scope to ship a complete game." context={unbalanced.context + ' · ' + unbalanced.year}>
 
   <Fragment slot="introduction"><p>For {unbalanced.context} {unbalanced.year}, I wanted to join the game jam, learn Phaser and make extensive use of GitHub Copilot. At the end, I also needed a finished game.</p></Fragment>
-  <ProjectFigure image={storyImages.unbalanced} alt="Gameplay from This Game Is Unbalanced!, built for Gamedev.js 2025." caption="Learning a framework and shipping a game within a game jam's deadline." pending={copy.labels.figurePending} />
+  <ProjectFigure image={storyImages.unbalanced.en} alt="The English home screen of This Game Is Unbalanced!." caption="Learning a framework and shipping a game within a game jam's deadline." pending={copy.labels.figurePending} />
   <section class="case-section" aria-labelledby="generated">
     <h2 id="generated">Quick to generate, not always quick to understand.</h2>
     <div class="prose"><p>Learning Phaser with Copilot helped me experiment quickly. But generating code did not remove the need to understand what it did, or how its parts fitted together.</p><p>I reworked sections and refactored generated code. That review was part of development, even when it took longer than generating the code in the first place.</p></div>

@@ -15,7 +15,7 @@ export const fr: Copy = {
     caseDescription: `Comment j'ai conçu, développé et fait évoluer Mario Kart World Guessr : carte interactive, photos communautaires et défi quotidien, avec plus de ${number(Math.floor(guessr.metrics.games / 1000) * 1000, "fr")} parties jouées.`,
   },
   nav: {
-    work: "Projets",
+    work: "Réalisations",
     career: "Parcours",
     approach: "Ma façon de travailler",
     playground: "Playground",
@@ -57,7 +57,7 @@ export const fr: Copy = {
       unbalanced: {
         title: "This Game Is Unbalanced!",
         description:
-          "Apprendre Phaser avec GitHub Copilot, comprendre et reprendre le code généré, puis réduire le scope pour livrer un jeu complet dans les temps.",
+          "Mon premier jeu entièrement pensé et codé avec Copilot, dans le cadre d'une game jam. Le défi ? Développer un jeu complet avec une technologie que je ne connaissais pas : Phaser.",
       },
       universalis: {
         title: "Mario Universalis, un véritable laboratoire personnel",
@@ -163,9 +163,9 @@ export const fr: Copy = {
     ],
   },
   playground: {
-    title: "Les « petits trucs rapides »",
+    title: "D'autres projets de ma conception",
     intro:
-      "Des game jams, des expériences et quelques projets qui s'invitent après le travail.",
+      "Des game jams, des expériences et autres projets qui s'invitent après le travail.",
     descriptions: {
       hi: "Un jeu développé pour la Gamedev.js Jam 2024.",
       devil:

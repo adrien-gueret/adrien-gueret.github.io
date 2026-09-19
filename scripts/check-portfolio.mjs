@@ -8,7 +8,11 @@ const slugs = ['openclassrooms-frontend-engineering', 'mario-universalis', 'mari
 const locales = ['en', 'fr'];
 const route = (locale, slug) => `${locale === 'fr' ? '/fr/' : '/'}${slug ? `work/${slug}/` : ''}`;
 const read = (pathname) => readFileSync(resolve('dist', `.${pathname}index.html`), 'utf8');
-const attributes = (tag) => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((match) => [match[1], match[2]]));
+const attributes = (tag) => {
+  const parsed = Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((match) => [match[1], match[2]]));
+  for (const match of tag.matchAll(/\s([\w:-]+)(?=\s|\/?>)/g)) parsed[match[1]] ??= '';
+  return parsed;
+};
 const tags = (html, name) => [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, 'g'))].map((match) => attributes(match[0]));
 const sitemap = readFileSync('dist/sitemap-0.xml', 'utf8');
 const sitemapEntries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => match[1]);
