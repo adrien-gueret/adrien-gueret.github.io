@@ -1,0 +1,12 @@
+---
+import { alternatePath } from '../i18n/routes';
+import type { Locale } from '../i18n/types';
+interface Props { locale: Locale; slug?: string; label: string }
+const { locale, slug, label } = Astro.props;
+---
+<nav class="language-switch" aria-label={label}>
+  {(['en', 'fr'] as const).map((language) => (
+    <a href={alternatePath(language, slug)} lang={language} hreflang={language}
+      data-language={language} aria-current={language === locale ? 'page' : undefined}>{language.toUpperCase()}</a>
+  ))}
+</nav>

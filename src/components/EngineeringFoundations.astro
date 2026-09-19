@@ -1,0 +1,16 @@
+---
+import { engineering } from '../data/career';
+import type { Locale } from '../i18n/types';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const fr = locale === 'fr';
+---
+<div class="engineering-foundations">
+  <p class="eyebrow">2016 <span aria-hidden="true">→</span> {fr ? "Aujourd'hui" : 'Today'}</p>
+  <ol class="foundation-journey">
+    <li><span>2016</span><strong>Frontend Engineer <span aria-hidden="true">→</span> Senior</strong></li>
+    <li><span>2021</span><strong>Staff Frontend Engineer</strong></li>
+    <li><span>2025</span><strong>Engineering Manager</strong></li>
+  </ol>
+  <p class="foundation-fact"><strong>~{engineering.typescriptPercent} %</strong><span>{fr ? 'de la codebase React migrée vers TypeScript' : 'of the React codebase migrated to TypeScript'}</span></p>
+</div>

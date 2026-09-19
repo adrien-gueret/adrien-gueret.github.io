@@ -1,0 +1,54 @@
+---
+import Metrics from '../Metrics.astro';
+import { mentoring, techBlog, typescriptCourse } from '../../data/teaching';
+import { number } from '../../i18n/routes';
+import type { Copy, Locale } from '../../i18n/types';
+interface Props { copy: Copy; locale: Locale }
+const { copy, locale } = Astro.props;
+const studentCount = number(mentoring.metrics.students, locale);
+const sessionCount = `${number(mentoring.metrics.sessions, locale)}+`;
+const learnerCount = `${number(Math.floor(typescriptCourse.metrics.learners / 100) * 100, locale)}+`;
+const certificationCount = `${number(Math.floor(typescriptCourse.metrics.certifications / 100) * 100, locale)}+`;
+const articleCount = `${number(techBlog.metrics.articles, locale)}+`;
+const viewCount = `${techBlog.metrics.views / 1000}K+`;
+const readCount = `${techBlog.metrics.reads / 1000}K+`;
+---
+<section class="section section-tinted teaching-section" id="teaching" aria-labelledby="teaching-title">
+  <div class="container">
+    <div class="section-heading">
+      <div><h2 id="teaching-title">{copy.teaching.title}</h2><p>{copy.teaching.intro}</p></div>
+    </div>
+    <div class="teaching-grid">
+      <article class="teaching-card">
+        <p class="eyebrow">{copy.teaching.mentoring.eyebrow}</p>
+        <h3>{copy.teaching.mentoring.title}</h3>
+        {copy.teaching.mentoring.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        <Metrics compact items={[
+          { value: studentCount, label: copy.teaching.mentoring.students },
+          { value: sessionCount, label: copy.teaching.mentoring.sessions },
+        ]} />
+      </article>
+      <article class="teaching-card course-card">
+        <p class="eyebrow">{copy.teaching.course.eyebrow}</p>
+        <h3>{typescriptCourse.name}</h3>
+        {copy.teaching.course.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        <Metrics compact items={[
+          { value: learnerCount, label: copy.teaching.course.learners },
+          { value: certificationCount, label: copy.teaching.course.certifications },
+        ]} />
+        <a class="text-link" href={typescriptCourse.url}>{copy.teaching.course.cta}<span aria-hidden="true"> ↗</span></a>
+      </article>
+      <article class="teaching-card blog-card">
+        <p class="eyebrow">{copy.teaching.blog.eyebrow}</p>
+        <h3>{copy.teaching.blog.title}</h3>
+        {copy.teaching.blog.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        <Metrics compact items={[
+          { value: articleCount, label: copy.teaching.blog.articles },
+          { value: viewCount, label: copy.teaching.blog.views },
+          { value: readCount, label: copy.teaching.blog.reads },
+        ]} />
+        <a class="text-link" href={techBlog.url}>{copy.teaching.blog.cta}<span aria-hidden="true"> ↗</span></a>
+      </article>
+    </div>
+  </div>
+</section>

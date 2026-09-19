@@ -1,0 +1,25 @@
+---
+import { playground } from '../../data/projects';
+import { date, number } from '../../i18n/routes';
+import type { Copy, Locale } from '../../i18n/types';
+interface Props { copy: Copy; locale: Locale }
+const { copy, locale } = Astro.props;
+---
+<section class="section container playground-section" id="playground" aria-labelledby="playground-title">
+  <div class="section-heading"><div><h2 id="playground-title">{copy.playground.title}</h2><p>{copy.playground.intro}</p></div></div>
+  <div class="playground-grid">
+    {playground.map((project) => <article class="playground-card" data-project={project.id}>
+      <div class="playground-top">{(project.context || project.year) && <p class="eyebrow">{[project.context, project.year].filter(Boolean).join(' / ')}</p>}</div>
+      <h3>{project.url ? <a href={project.url}>{project.name}<span aria-hidden="true"> ↗</span></a> : project.name}</h3>
+      <p>{copy.playground.descriptions[project.id]}</p>
+      <ul class="project-facts">
+        {project.ranks?.map((rank) => <li>{rank.place}{rank.total ? ` / ${rank.total}` : locale === 'fr' ? (rank.place === 1 ? 'er' : 'e') : (rank.place === 1 ? 'st' : rank.place === 32 ? 'nd' : rank.place === 49 || rank.place === 19 || rank.place === 80 ? 'th' : '')} · {rank.category === 'Overall' && locale === 'fr' ? 'Général' : rank.category}</li>)}
+        {project.sizeKB && <li>{number(project.sizeKB, locale)} kB</li>}
+        {project.released && <li><time datetime={project.released}>{date(project.released, locale)}</time></li>}
+        {copy.playground.facts[project.id].map((fact) => <li>{fact}</li>)}
+      </ul>
+      {project.stack && <ul class="tags">{project.stack.map((tech) => <li>{tech}</li>)}</ul>}
+      {project.extraUrl && <a class="text-link small-link" href={project.extraUrl}>{locale === 'fr' ? 'Version web' : 'Web version'} <span aria-hidden="true">↗</span></a>}
+    </article>)}
+  </div>
+</section>

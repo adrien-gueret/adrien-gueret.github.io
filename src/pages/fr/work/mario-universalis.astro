@@ -1,0 +1,35 @@
+---
+import StoryLayout from '../../../layouts/StoryLayout.astro';
+import ProjectFigure from '../../../components/ProjectFigure.astro';
+import { universalis, storyImages, guessr } from '../../../data/projects';
+import { number, workPath } from '../../../i18n/routes';
+import { fr as copy } from '../../../i18n/fr';
+const locale = 'fr';
+---
+<StoryLayout locale={locale} copy={copy} slug={universalis.slug} name={universalis.name} title="Mario Universalis : le projet sur lequel j'ai appris le web" description="Depuis 2007, un fansite Mario devenu mon laboratoire : PHP, API GraphQL, Gatsby, guides, SEO, bots et jeux." context={'Depuis ' + universalis.created}>
+
+  <Fragment slot="introduction"><p>J'ai lancé Mario Universalis au lycée, vers {universalis.created}. Au départ, c'était un fansite Mario et une bonne raison d'apprendre HTML et CSS. Presque vingt ans plus tard, le site est toujours vivant, et je continue à apprendre en construisant autour.</p></Fragment>
+  <ProjectFigure image={storyImages.universalis} alt="Le visuel Mario Universalis sur un fond étoilé." caption="Un site historique, autour duquel de nouveaux projets continuent de naître." pending={copy.labels.figurePending} />
+  <section class="case-section" aria-labelledby="learning">
+    <h2 id="learning">Apprendre en ayant quelque chose à construire.</h2>
+    <div class="prose"><p>Mario Universalis a longtemps été mon laboratoire technique. Après HTML et CSS sont venus PHP, JavaScript et MariaDB, puis des sujets très différents : API, génération de site, référencement, bots et jeux.</p><p>Tout cela ne forme pas une application réécrite d'un seul bloc. Le site historique en PHP et JavaScript existe à côté de projets plus modernes. Certains morceaux sont franchement vieux. D'autres beaucoup moins. C'est aussi ce qui raconte mon apprentissage.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="api">
+    <h2 id="api">Ouvrir les données, puis les réutiliser.</h2>
+    <div class="prose"><p>J'ai développé une API GraphQL publique en PHP avec webonyx/graphql-php. Elle expose les données des {universalis.games} jeux Mario référencés dans la base et sert à certains de mes propres projets.</p><p>Pour expérimenter React et Gatsby sur une partie moderne du site, j'ai consommé ces données GraphQL au build. Une même base pouvait ainsi nourrir autre chose que les pages du site historique.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="wonder">
+    <h2 id="wonder">Écrire un guide, et faire en sorte qu'il soit trouvé.</h2>
+    <div class="prose"><p>J'ai écrit moi-même la soluce de Super Mario Bros. Wonder et travaillé son référencement. Cette partie du site a reçu environ {number(universalis.wonderClicks, locale)} clics Google en un an, selon Search Console.</p><p>Sur certaines requêtes, elle obtient de très bons classements. C'est une autre facette du projet : développer les pages, mais aussi écrire un contenu utile et travailler la façon dont les lecteurs le découvrent.</p></div>
+  </section>
+  <ProjectFigure image={storyImages.wonder} alt="Une page de la soluce Super Mario Bros. Wonder sur Mario Universalis." caption="La soluce Wonder : du contenu écrit par moi-même, avec un travail sur le référencement." pending={copy.labels.figurePending} />
+  <section class="case-section" aria-labelledby="ecosystem">
+    <h2 id="ecosystem">Un site qui donne naissance à d'autres projets.</h2>
+    <div class="prose"><p>Le bot anniversaires en est un exemple : du Node.js, des données GraphQL, une tâche cron et une publication sur X et Bluesky. L'API, les guides, les bots et les jeux font partie du même terrain d'expérimentation.</p><p><a href={workPath(locale, guessr.slug)}>Mario Kart World Guessr <span aria-hidden="true">→</span></a> appartient à cet écosystème. Il a pris suffisamment d'ampleur pour mériter sa propre histoire : un jeu conçu seul, devenu un projet communautaire grâce aux photos et aux retours de ses joueurs.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="takeaway">
+    <h2 id="takeaway">Un fil qui traverse mon parcours.</h2>
+    <div class="prose"><p>Mario Universalis n'est pas seulement le projet le plus ancien de mon portfolio. C'est l'endroit où j'ai appris le web, puis où j'ai pu continuer à tester des idées sans attendre qu'elles correspondent à un besoin professionnel.</p><p>Garder ce terrain vivant pendant toutes ces années lui donne une place particulière dans mon parcours.</p></div>
+  </section>
+  <a slot="footer" class="text-link" href={universalis.url}>Visiter Mario Universalis <span aria-hidden="true">↗</span></a>
+</StoryLayout>

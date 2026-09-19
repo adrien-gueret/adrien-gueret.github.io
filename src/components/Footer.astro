@@ -1,0 +1,7 @@
+---
+import { profile } from '../data/profile';
+---
+<footer class="site-footer container">
+  <p>© {new Date().getUTCFullYear()} {profile.name}</p>
+  <a href={profile.github}>GitHub <span aria-hidden="true">↗</span></a>
+</footer>

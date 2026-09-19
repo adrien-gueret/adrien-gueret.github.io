@@ -1,0 +1,35 @@
+---
+import StoryLayout from '../../layouts/StoryLayout.astro';
+import ProjectFigure from '../../components/ProjectFigure.astro';
+import { universalis, storyImages, guessr } from '../../data/projects';
+import { number, workPath } from '../../i18n/routes';
+import { en as copy } from '../../i18n/en';
+const locale = 'en';
+---
+<StoryLayout locale={locale} copy={copy} slug={universalis.slug} name={universalis.name} title="Mario Universalis: where I learned the web" description="Since 2007, a Mario fansite has been my testing ground for PHP, GraphQL, Gatsby, guides, SEO, bots and games." context={'Since ' + universalis.created}>
+
+  <Fragment slot="introduction"><p>I started Mario Universalis in high school, around {universalis.created}. It was a Mario fansite and a good reason to learn HTML and CSS. Almost twenty years later, the site is still alive, and I am still learning by building things around it.</p></Fragment>
+  <ProjectFigure image={storyImages.universalis} alt="The Mario Universalis artwork on a starry background." caption="A long-running website that continues to give rise to new projects." pending={copy.labels.figurePending} />
+  <section class="case-section" aria-labelledby="learning">
+    <h2 id="learning">Learning with something to build.</h2>
+    <div class="prose"><p>Mario Universalis has long been my technical testing ground. HTML and CSS led to PHP, JavaScript and MariaDB, then to very different topics: APIs, site generation, search, bots and games.</p><p>This is not one application rewritten all at once. The original PHP and JavaScript site lives alongside more modern projects. Some parts are very old. Others, much less so. That is part of the story of how I learned.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="api">
+    <h2 id="api">Opening up the data, then reusing it.</h2>
+    <div class="prose"><p>I built a public GraphQL API in PHP with webonyx/graphql-php. It exposes data about the {universalis.games} Mario games in the database and serves some of my own projects.</p><p>To experiment with React and Gatsby on a modern part of the site, I consumed GraphQL data at build time. The same database could now support more than the original site's pages.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="wonder">
+    <h2 id="wonder">Writing a guide, and helping people find it.</h2>
+    <div class="prose"><p>I wrote the Super Mario Bros. Wonder walkthrough myself and worked on its SEO. This part of the site received around {number(universalis.wonderClicks, locale)} Google clicks in one year, according to Search Console.</p><p>It ranks very well for some queries. This is another side of the project: building pages, writing useful content, and working on how readers discover it.</p></div>
+  </section>
+  <ProjectFigure image={storyImages.wonder} alt="A page from the Super Mario Bros. Wonder walkthrough on Mario Universalis." caption="The Wonder walkthrough: content I wrote myself, with work on search visibility." pending={copy.labels.figurePending} />
+  <section class="case-section" aria-labelledby="ecosystem">
+    <h2 id="ecosystem">A website that leads to other projects.</h2>
+    <div class="prose"><p>The birthday bot is one example: Node.js, GraphQL data, a cron job, and posts on X and Bluesky. The API, guides, bots and games all belong to the same place for experimentation.</p><p><a href={workPath(locale, guessr.slug)}>Mario Kart World Guessr <span aria-hidden="true">→</span></a> belongs to this ecosystem too. It grew enough to deserve its own story: a game I built on my own, then developed with its community's photos and feedback.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="takeaway">
+    <h2 id="takeaway">A thread through my career.</h2>
+    <div class="prose"><p>Mario Universalis is more than the oldest project in my portfolio. It is where I learned the web, and where I could keep trying ideas without waiting for them to fit a professional need.</p><p>Keeping that space alive over the years gives it a particular place in my journey.</p></div>
+  </section>
+  <a slot="footer" class="text-link" href={universalis.url}>Visit Mario Universalis <span aria-hidden="true">↗</span></a>
+</StoryLayout>

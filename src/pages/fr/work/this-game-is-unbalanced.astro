@@ -1,0 +1,25 @@
+---
+import StoryLayout from '../../../layouts/StoryLayout.astro';
+import ProjectFigure from '../../../components/ProjectFigure.astro';
+import { unbalanced, storyImages } from '../../../data/projects';
+import { fr as copy } from '../../../i18n/fr';
+const locale = 'fr';
+---
+<StoryLayout locale={locale} copy={copy} slug={unbalanced.slug} name={unbalanced.name} title="This Game Is Unbalanced!" description="Gamedev.js 2025 : apprendre Phaser avec GitHub Copilot, comprendre le code généré et ajuster le scope pour livrer un jeu complet." context={unbalanced.context + ' · ' + unbalanced.year}>
+
+  <Fragment slot="introduction"><p>Pour la {unbalanced.context} {unbalanced.year}, je voulais participer à la game jam, apprendre Phaser et utiliser largement GitHub Copilot. Il fallait aussi, à la fin, avoir un jeu terminé.</p></Fragment>
+  <ProjectFigure image={storyImages.unbalanced} alt="Une partie de This Game Is Unbalanced!, le jeu de la Gamedev.js 2025." caption="Apprendre un framework et livrer un jeu dans le temps d'une game jam." pending={copy.labels.figurePending} />
+  <section class="case-section" aria-labelledby="generated">
+    <h2 id="generated">Du code rapide à produire, pas toujours à comprendre.</h2>
+    <div class="prose"><p>Découvrir Phaser avec l'aide de Copilot m'a permis d'expérimenter rapidement. Mais générer du code ne dispensait pas de comprendre ce qu'il faisait, ni la manière dont les morceaux s'assemblaient.</p><p>J'ai repris certaines parties et refactoré du code généré. Cette revue faisait pleinement partie du développement, même si elle était moins immédiate que la génération elle-même.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="scope">
+    <h2 id="scope">Choisir ce qui pouvait vraiment être terminé.</h2>
+    <div class="prose"><p>La deadline de la game jam imposait de faire des choix. J'ai réduit le scope pour pouvoir aller au bout et livrer un jeu complet dans les temps.</p><p>Cette expérience m'a appris autant sur l'utilisation de l'IA que sur le développement de jeux : avancer vite ne suffit pas si le résultat devient trop difficile à comprendre ou trop grand pour être terminé.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="results">
+    <h2 id="results">Un jeu livré, et deux premières places.</h2>
+    <div class="prose"><p>Le jeu a obtenu la première place dans les catégories {unbalanced.ranks.map((rank) => rank.category).join(' et ')}.</p><p>J'en retiens surtout cette combinaison : apprendre un framework, garder un regard critique sur le code généré et accepter de réduire l'idée initiale pour en faire un jeu jouable.</p></div>
+  </section>
+  <a slot="footer" class="text-link" href={unbalanced.url}>Jouer sur itch.io <span aria-hidden="true">↗</span></a>
+</StoryLayout>

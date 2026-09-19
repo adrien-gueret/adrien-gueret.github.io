@@ -1,0 +1,13 @@
+---
+interface Props { title: string; description: string; eyebrow: string; href?: string; linkLabel?: string; stack?: string[] }
+const { title, description, eyebrow, href, linkLabel, stack } = Astro.props;
+const isExternalLink = href?.startsWith('http://') || href?.startsWith('https://');
+---
+<article class="project-card">
+  <p class="eyebrow">{eyebrow}</p>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <slot />
+  {stack && <ul class="tags" aria-label="Technologies">{stack.map((item) => <li>{item}</li>)}</ul>}
+  {href && <a class="text-link" href={href}>{linkLabel}<span aria-hidden="true"> {isExternalLink ? '↗' : '→'}</span></a>}
+</article>

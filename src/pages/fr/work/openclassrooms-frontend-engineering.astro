@@ -1,0 +1,42 @@
+---
+import StoryLayout from '../../../layouts/StoryLayout.astro';
+import { openclassrooms } from '../../../data/projects';
+import { fr as copy } from '../../../i18n/fr';
+import EngineeringFoundations from '../../../components/EngineeringFoundations.astro';
+import { engineering } from '../../../data/career';
+import { typescriptCourse } from '../../../data/teaching';
+const locale = 'fr';
+---
+<StoryLayout locale={locale} copy={copy} slug={openclassrooms.slug} name={openclassrooms.name} title={copy.work.projects.engineering.title} description="TypeScript, accès API, tests et outils : comment j’ai contribué à faire évoluer les fondations frontend et les pratiques des équipes chez OpenClassrooms." context={openclassrooms.name}>
+
+  <Fragment slot="introduction"><p>Chez OpenClassrooms, ma contribution ne se résume pas à une fonctionnalité. J'y ai évolué de Frontend Engineer à Senior, puis Staff Frontend Engineer et Engineering Manager. Au fil des années, un même sujet est revenu : améliorer ce que les développeurs construisent, mais aussi la manière dont ils le construisent.</p></Fragment>
+  <EngineeringFoundations locale={locale} />
+  <section class="case-section" aria-labelledby="typescript">
+    <h2 id="typescript">Faire évoluer une base de code qui existe déjà.</h2>
+    <div class="prose"><p>Notre codebase React était initialement écrite en JavaScript. Passer à TypeScript était une évolution à accompagner dans la durée, avec du code existant et des équipes qui continuaient à développer le produit.</p><p>J'ai travaillé sur la stratégie de migration, le tooling et les standards, mais aussi sur l'accompagnement des équipes. Environ {engineering.typescriptPercent} % de la codebase React a été migrée. Le langage comptait, bien sûr, mais il fallait aussi rendre son adoption praticable au quotidien.</p><p>Ce travail m'a également amené à proposer puis écrire le cours <a href={typescriptCourse.url}>Découvrez TypeScript <span aria-hidden="true">↗</span></a>. Transmettre faisait partie du même sujet.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="api">
+    <h2 id="api">Rapprocher les API du code qui les utilise.</h2>
+    <div class="prose"><p>J'ai développé un SDK JavaScript pour communiquer avec une API OAuth2, puis travaillé sur les couches d'accès aux données. L'enjeu était de donner aux applications des fondations communes pour dialoguer avec le backend.</p><p>Ces fondations ont évolué vers une couche API fortement typée, générée à partir des définitions OpenAPI du backend. Les contrats d'API pouvaient ainsi se retrouver dans les outils des développeurs frontend, plutôt que reposer uniquement sur leur lecture de la documentation.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="tests">
+    <h2 id="tests">Choisir ce que chaque test doit vérifier.</h2>
+    <div class="prose"><p>J'ai piloté la stratégie de tests frontend, avec React Testing Library et Playwright pour les tests d'intégration. Dans ces tests, l'API est mockée : on vérifie le comportement de l'application dans des situations maîtrisées.</p><p>Les tests E2E réels sur les parcours essentiels, les golden paths, restent sous la responsabilité de l'équipe Quality Engineering. Cette distinction permet d'expliciter ce que les tests frontend couvrent et ce qu'ils ne peuvent pas garantir seuls.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="chapter">
+    <h2 id="chapter">Faire vivre les pratiques entre les équipes.</h2>
+    <div class="prose"><p>Le chapter frontend a réuni jusqu'à {engineering.chapterSize} ingénieurs. J'ai participé à son animation et à l'accompagnement transverse autour des standards, des code reviews et du tooling.</p><p>Un outil ou une convention n'a pas beaucoup de valeur si personne ne peut se l'approprier. Cette partie de mon travail reliait les choix techniques à la manière dont les équipes les utilisaient réellement.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="translations">
+    <h2 id="translations">Remplacer un outil quand il ne convient plus.</h2>
+    <div class="prose"><p>Nous utilisions Phrase pour les traductions. Avec le temps, son coût et son adéquation à nos besoins nous ont conduits à chercher une autre solution.</p><p>J'ai créé un outil interne en utilisant largement GitHub Copilot. Il a été utilisé sur le web et sur iOS, avec une économie supérieure à {engineering.annualSavings / 1000} k€ par an. Le résultat utile n'était pas d'avoir un outil de plus : c'était de répondre à nos besoins sans conserver un coût devenu difficile à justifier.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="architecture">
+    <h2 id="architecture">Accepter de revoir les fondations.</h2>
+    <div class="prose"><p>J'ai participé à la remise en question d'une stratégie de micro-frontends, puis à l'évaluation et à l'adoption de Next.js. La performance web faisait partie des motivations, avec Lighthouse comme outil d'observation, la réduction du JavaScript envoyé et l'optimisation ou la mise en cache des appels API.</p><p>J'ai aussi contribué aux fondations UI, puis participé au remplacement d'une solution devenue moins adaptée. Construire une fondation ne veut pas dire la défendre indéfiniment. Il faut pouvoir la réévaluer à mesure que le produit et les équipes évoluent.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="takeaway">
+    <h2 id="takeaway">La technique et les conditions pour bien travailler.</h2>
+    <div class="prose"><p>Ce parcours m'a appris à regarder les deux ensemble. Une migration, une stratégie de tests ou une couche API ne sont pas seulement des sujets de code. Ce sont aussi des décisions qui changent le quotidien des personnes qui construisent le produit.</p><p>C'est ce lien que je continue à travailler aujourd'hui comme Engineering Manager.</p></div>
+  </section>
+</StoryLayout>

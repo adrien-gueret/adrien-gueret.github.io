@@ -1,0 +1,11 @@
+---
+import type { Copy } from '../../i18n/types';
+interface Props { copy: Copy }
+const { copy } = Astro.props;
+---
+<section class="section container" id="approach" aria-labelledby="approach-title">
+  <div class="section-heading"><h2 id="approach-title">{copy.approach.title}</h2></div>
+  <div class="approach-grid">{copy.approach.items.map((item) => <article>
+    <h3>{item.title}</h3><p>{item.body}</p>
+  </article>)}</div>
+</section>

@@ -1,0 +1,18 @@
+---
+import { profile } from '../../data/profile';
+import type { Copy, Locale } from '../../i18n/types';
+interface Props { copy: Copy; locale: Locale }
+const { copy, locale } = Astro.props;
+---
+<section class="hero container" aria-labelledby="hero-title">
+  <div class="hero-heading">
+    <p class="eyebrow"><span class="accent-line" aria-hidden="true"></span>{copy.hero.eyebrow}</p>
+    <h1 id="hero-title">Adrien<br />Guéret<span class="accent">.</span></h1>
+    <p class="hero-introduction">{copy.hero.introduction}</p>
+  </div>
+  <div class="hero-details">
+    <p>{copy.hero.today}</p>
+    <p class="personal-note">{copy.hero.outside}</p>
+    <a class="button resume-link" href={profile.resume[locale]!}>{copy.hero.resume} <span aria-hidden="true">→</span></a>
+  </div>
+</section>

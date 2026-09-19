@@ -1,0 +1,9 @@
+---
+import { homePath } from '../i18n/routes';
+import type { Locale } from '../i18n/types';
+interface Props { locale: Locale; homeLabel: string; title: string; parent?: { name: string; href: string } }
+const { locale, homeLabel, title, parent } = Astro.props;
+---
+<nav class="breadcrumbs" aria-label={locale === 'fr' ? "Fil d'Ariane" : 'Breadcrumb'}>
+  <ol><li><a href={homePath(locale)}>{homeLabel}</a></li>{parent && <li><a href={parent.href}>{parent.name}</a></li>}<li aria-current="page">{title}</li></ol>
+</nav>

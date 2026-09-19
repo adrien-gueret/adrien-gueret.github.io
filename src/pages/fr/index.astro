@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import SelectedWork from '../../components/sections/SelectedWork.astro';
+import Career from '../../components/sections/Career.astro';
+import Teaching from '../../components/sections/Teaching.astro';
+import HowIWork from '../../components/sections/HowIWork.astro';
+import Playground from '../../components/sections/Playground.astro';
+import { fr as copy } from '../../i18n/fr';
+const locale = 'fr';
+---
+<BaseLayout locale={locale} copy={copy} title={copy.meta.title} description={copy.meta.description}>
+  <Hero locale={locale} copy={copy} />
+  <Career locale={locale} copy={copy} />
+  <HowIWork copy={copy} />
+  <Teaching locale={locale} copy={copy} />
+  <SelectedWork locale={locale} copy={copy} />
+  <Playground locale={locale} copy={copy} />
+</BaseLayout>

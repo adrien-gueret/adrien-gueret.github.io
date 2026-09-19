@@ -1,0 +1,38 @@
+---
+import { profile } from '../data/profile';
+import { guessr } from '../data/projects';
+import { alternatePath } from '../i18n/routes';
+import type { Locale } from '../i18n/types';
+interface Props { locale: Locale; title: string; description: string; slug?: string; noindex?: boolean }
+const { locale, title, description, slug, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, profile.site).href;
+const image = slug === guessr.slug ? profile.social.guessr[locale] : !slug ? profile.social.home[locale] : null;
+---
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="theme-color" content="#F7F5F0" />
+<link rel="icon" href="/images/favicon.png" type="image/png" sizes="96x96" />
+{noindex ? <meta name="robots" content="noindex, follow" /> : <>
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="en" href={new URL(alternatePath('en', slug), profile.site).href} />
+  <link rel="alternate" hreflang="fr" href={new URL(alternatePath('fr', slug), profile.site).href} />
+  <link rel="alternate" hreflang="x-default" href={new URL(alternatePath('en', slug), profile.site).href} />
+</>}
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={profile.name} />
+<meta property="og:locale" content={locale === 'fr' ? 'fr_FR' : 'en_GB'} />
+<meta property="og:locale:alternate" content={locale === 'fr' ? 'en_GB' : 'fr_FR'} />
+<meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{image && <>
+  <meta property="og:image" content={new URL(image, profile.site).href} />
+  <meta property="og:image:alt" content={title} />
+  <meta name="twitter:image" content={new URL(image, profile.site).href} />
+  <meta name="twitter:image:alt" content={title} />
+</>}

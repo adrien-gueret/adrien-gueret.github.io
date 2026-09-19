@@ -1,0 +1,34 @@
+---
+import '../styles/global.css';
+import SeoHead from '../components/SeoHead.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { structuredData } from '../lib/structured-data';
+import type { Copy, Locale } from '../i18n/types';
+interface Props { locale: Locale; copy: Copy; title: string; description: string; slug?: string; noindex?: boolean }
+const { locale, copy, title, description, slug, noindex = false } = Astro.props;
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <script is:inline>
+      try {
+        const savedScroll = JSON.parse(sessionStorage.getItem('portfolio-language-scroll') || 'null');
+        if (savedScroll?.path === location.pathname) {
+          document.documentElement.dataset.restoringScroll = '';
+          window.setTimeout(() => delete document.documentElement.dataset.restoringScroll, 500);
+        }
+      } catch { /* Scroll restoration is an optional enhancement. */ }
+    </script>
+    <SeoHead locale={locale} title={title} description={description} slug={slug} noindex={noindex} />
+    {!noindex && <JsonLd graph={structuredData(locale, title, description, slug)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{copy.nav.skip}</a>
+    <Header locale={locale} copy={copy} slug={slug} />
+    <main id="main"><slot /></main>
+    <Footer />
+    <script>import '../scripts/language';</script>
+  </body>
+</html>

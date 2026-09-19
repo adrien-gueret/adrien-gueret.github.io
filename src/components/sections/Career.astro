@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import { career } from '../../data/career';
+import type { Copy, Locale } from '../../i18n/types';
+interface Props { copy: Copy; locale: Locale }
+const { copy, locale } = Astro.props;
+function startLabel(start: string) {
+  if (start.length === 4) return start;
+  return new Intl.DateTimeFormat(locale === 'fr' ? 'fr-FR' : 'en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${start}-01`));
+}
+---
+<section class="section section-tinted" id="career" aria-labelledby="career-title">
+  <div class="container career-layout">
+    <div class="section-heading"><div><h2 id="career-title">{copy.career.title}</h2><p>{copy.career.intro}</p></div></div>
+    <ol class="timeline">
+      {[...career].reverse().map((entry) => {
+        const entryCopy = copy.career.entries[entry.id];
+        return <li>
+          <p class="career-period"><time datetime={entry.start}>{startLabel(entry.start)}</time>{entry.end !== entry.start && <> <span aria-hidden="true">→</span> {entry.end ? <time datetime={entry.end}>{entry.end}</time> : copy.career.present}</>}</p>
+          <h3>{entryCopy.role}</h3>
+          <p class="employer"><Image src={entry.logo} alt="" height={32} loading="lazy" decoding="async" />{entry.employer}</p>
+          {Array.isArray(entryCopy.description)
+            ? <ul class="career-points">{entryCopy.description.map((point) => <li>{point}</li>)}</ul>
+            : <p>{entryCopy.description}</p>}
+        </li>;
+      })}
+    </ol>
+  </div>
+</section>

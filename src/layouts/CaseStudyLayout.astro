@@ -1,0 +1,42 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Metrics from '../components/Metrics.astro';
+import ProjectFigure from '../components/ProjectFigure.astro';
+import { guessr, guessrImages, universalis } from '../data/projects';
+import { date, homePath, number, workPath } from '../i18n/routes';
+import type { Copy, Locale } from '../i18n/types';
+interface Props { locale: Locale; copy: Copy }
+const { locale, copy } = Astro.props;
+---
+<BaseLayout locale={locale} copy={copy} title={copy.meta.caseTitle} description={copy.meta.caseDescription} slug={guessr.slug}>
+  <article class="case-study container">
+    <Breadcrumbs locale={locale} homeLabel={copy.labels.home} title={guessr.name} parent={{ name: universalis.name, href: workPath(locale, universalis.slug) }} />
+    <header class="case-header">
+      <p class="eyebrow"><a href={workPath(locale, universalis.slug)}>{locale === 'fr' ? 'Un projet Mario Universalis' : 'A Mario Universalis project'}</a> / Case study</p>
+      <h1>Mario Kart<br />World Guessr<span class="accent">.</span></h1>
+      <div class="case-introduction"><slot name="introduction" /></div>
+      <dl class="project-details"><div><dt>{copy.labels.role}</dt><dd>{copy.labels.solo}</dd></div><div><dt>{copy.labels.launch}</dt><dd><time datetime={guessr.launched}>{date(guessr.launched, locale)}</time></dd></div></dl>
+      <a class="button" href={guessr.url}>{copy.labels.play}<span aria-hidden="true">↗</span></a>
+    </header>
+    <ProjectFigure
+      image={guessrImages.gameplay}
+      alt={locale === 'fr'
+        ? 'Une partie de Mario Kart World Guessr : la photo à localiser et la carte interactive.'
+        : 'A round of Mario Kart World Guessr showing the photo to locate and the interactive map.'}
+      caption={locale === 'fr'
+        ? "Le point de départ : retrouver sur la carte l'endroit où une photo a été prise."
+        : 'The starting point: find where a photo was taken on the map.'}
+      pending={copy.labels.figurePending}
+      eager
+    />
+    <div class="case-metrics"><Metrics items={[
+      { value: number(guessr.metrics.games, locale), label: copy.labels.games },
+      { value: number(guessr.metrics.accounts, locale), label: copy.labels.accounts },
+      { value: number(guessr.metrics.publishedPhotos, locale), label: copy.labels.photos },
+      { value: number(guessr.metrics.publishedContributors, locale), label: copy.labels.contributors },
+    ]} /><p class="fine-print">{copy.labels.figuresDate} {copy.labels.anonymous}</p></div>
+    <slot />
+    <footer class="case-footer"><a class="text-link" href={`${homePath(locale)}#work`}><span aria-hidden="true">← </span>{copy.labels.back}</a><a class="button" href={guessr.url}>{copy.labels.play}<span aria-hidden="true">↗</span></a></footer>
+  </article>
+</BaseLayout>

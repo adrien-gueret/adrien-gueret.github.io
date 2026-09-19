@@ -1,0 +1,63 @@
+---
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+import ProjectFigure from '../../../components/ProjectFigure.astro';
+import Metrics from '../../../components/Metrics.astro';
+import { guessr, guessrImages } from '../../../data/projects';
+import { date, number } from '../../../i18n/routes';
+import { fr as copy } from '../../../i18n/fr';
+const locale = 'fr';
+const metrics = guessr.metrics;
+---
+<CaseStudyLayout locale={locale} copy={copy}>
+  <Fragment slot="introduction">
+    <p>J'ai lancé Mario Kart World Guessr le {date(guessr.launched, locale)}, peu après la sortie de Mario Kart World. Je voulais profiter de l'intérêt autour du jeu pour tester une idée simple : retrouver sur la carte l'endroit où une capture d'écran a été prise.</p>
+    <p>Comme souvent avec mes projets personnels, ça devait être un petit truc rapide. <strong>Ça a un peu dérapé.</strong></p>
+  </Fragment>
+
+  <section class="case-section" aria-labelledby="idea">
+    <div class="case-section-heading"><h2 id="idea">Une photo, une carte et un doute.</h2></div>
+    <div class="prose"><p>Le principe reprend celui des jeux de géolocalisation. Une photo s'affiche, le joueur explore la carte, place un marqueur et reçoit un score selon la distance avec le véritable emplacement.</p><p>Le terrain de jeu est celui de Mario Kart World. Pour l'explorer, j'utilise React Leaflet avec une carte personnalisée et <code>CRS.Simple</code>. Ce système de coordonnées permet de travailler sur une carte qui n'est pas une carte terrestre, tout en conservant le zoom et le déplacement de Leaflet.</p><p>La boucle de jeu reste courte : observer, chercher, se décider, puis découvrir à quel point on était à côté. Ou, parfois, exactement au bon endroit.</p></div>
+  </section>
+  <ProjectFigure image={guessrImages.result} alt="Le résultat d'une partie avec la position choisie, la véritable position et le score." caption="Le résultat relie le choix du joueur à la véritable position de la photo." pending={copy.labels.figurePending} />
+
+  <section class="case-section" aria-labelledby="community">
+    <div class="case-section-heading"><h2 id="community">Le jeu grandit avec ses photographes.</h2></div>
+    <div class="prose"><p>Les joueurs peuvent proposer leurs propres photos et indiquer l'endroit où elles ont été prises. Le jeu ne dépend donc plus uniquement des images que je peux ajouter moi-même.</p><p>Chaque proposition passe par un processus de revue avant publication. Les GitHub Issues interviennent dans ce système de revue et de validation ; elles ne résument pas, à elles seules, toute la modération.</p></div>
+    <ol class="process"><li><span>01</span>Proposer une photo</li><li><span>02</span>Indiquer sa position</li><li><span>03</span>Revue et validation</li><li><span>04</span>Publication dans le jeu</li></ol>
+    <Metrics items={[
+      { value: number(metrics.submittedPhotos, locale), label: 'photos communautaires proposées' },
+      { value: number(metrics.publishedPhotos, locale), label: 'photos communautaires publiées' },
+      { value: number(metrics.submittedContributors, locale), label: 'personnes ayant proposé une photo' },
+      { value: number(metrics.publishedContributors, locale), label: 'personnes avec une photo publiée' },
+    ]} />
+    <p class="fine-print">{copy.labels.figuresDate}</p>
+  </section>
+  <ProjectFigure image={guessrImages.contribution} alt="Le parcours de proposition d'une photo communautaire avec son emplacement sur la carte." caption="Une contribution comprend une photo et sa position, avant sa revue puis sa publication." pending={copy.labels.figurePending} />
+
+  <section class="case-section" aria-labelledby="albums">
+    <div class="case-section-heading"><h2 id="albums">Donner une place à ceux qui contribuent.</h2></div>
+    <div class="prose"><p>Les photographes peuvent créer leurs albums, sélectionner leurs photos préférées, mettre en avant leur contenu et partager le résultat.</p><p>Leurs photos ne sont plus seulement une matière première pour les parties. Elles peuvent aussi être consultées comme une collection, avec une place pour le regard de la personne qui les a prises.</p></div>
+  </section>
+  <ProjectFigure image={guessrImages.album} alt="Un album de photographe présentant sa sélection de photos dans Mario Kart World Guessr." caption="Les albums permettent aux photographes de sélectionner et partager leurs photos préférées." pending={copy.labels.figurePending} />
+
+  <section class="case-section" aria-labelledby="daily">
+    <div class="case-section-heading"><h2 id="daily">Des raisons de revenir.</h2></div>
+    <div class="prose"><p>Au fil du temps, j'ai ajouté plusieurs modes de jeu, des classements, des achievements, des personnages à débloquer et des notifications.</p><p>Le challenge quotidien, « Photos du jour », sélectionne automatiquement {guessr.dailyPhotos} photos différentes chaque jour. C'est une autre façon de retrouver le jeu, avec une sélection renouvelée sans intervention manuelle quotidienne.</p></div>
+  </section>
+  <ProjectFigure image={guessrImages.daily} alt="Le challenge Photos du jour de Mario Kart World Guessr." caption={`Photos du jour : ${guessr.dailyPhotos} photos différentes sélectionnées automatiquement chaque jour.`} pending={copy.labels.figurePending} />
+
+  <section class="case-section" aria-labelledby="technical">
+    <div class="case-section-heading"><h2 id="technical">Conçu, développé et maintenu seul.</h2></div>
+    <div class="prose"><p>Le frontend utilise React et Vite. React Leaflet prend en charge l'exploration de la carte. Le backend est en PHP vanilla, avec MariaDB pour les données et ImageKit pour les images.</p><p>Je développe et maintiens le projet seul. Les contributions communautaires font grandir son contenu, tandis que les retours et les usages m'aident à décider de la suite.</p><ul class="tags" aria-label="Technologies">{guessr.stack.map((technology) => <li>{technology}</li>)}</ul></div>
+  </section>
+
+  <section class="case-section" aria-labelledby="beyond">
+    <div class="case-section-heading"><h2 id="beyond">Un peu plus loin que prévu.</h2></div>
+    <div class="prose"><p>Le jeu a circulé au-delà de la France. J'ai vu des vidéos et des joueurs français, anglais, allemands et japonais s'y intéresser. Ce n'est pas une mesure d'audience par pays, simplement quelque chose que j'ai pu observer.</p><blockquote>Tomber sur une vidéo japonaise de quelqu'un qui joue à un projet que j'ai développé seul chez moi reste assez rigolo.</blockquote></div>
+  </section>
+
+  <section class="case-section case-takeaway" aria-labelledby="learned">
+    <div class="case-section-heading"><h2 id="learned">Du projet personnel au produit.</h2></div>
+    <div class="prose"><p>Mario Kart World Guessr est probablement mon projet personnel qui ressemble le plus à un vrai produit.</p><p>Au début, les décisions venaient surtout de ce que j'avais envie de construire. Aujourd'hui, elles viennent aussi des usages, des contributions, des retours et des comportements observés.</p><p>Je continue à y mettre mes idées. Mais je construis désormais avec ce que les joueurs font du jeu, et pas seulement avec ce que j'avais imaginé pour eux.</p></div>
+  </section>
+</CaseStudyLayout>

@@ -1,0 +1,25 @@
+---
+import StoryLayout from '../../layouts/StoryLayout.astro';
+import ProjectFigure from '../../components/ProjectFigure.astro';
+import { unbalanced, storyImages } from '../../data/projects';
+import { en as copy } from '../../i18n/en';
+const locale = 'en';
+---
+<StoryLayout locale={locale} copy={copy} slug={unbalanced.slug} name={unbalanced.name} title="This Game Is Unbalanced!" description="Gamedev.js 2025: learning Phaser with GitHub Copilot, understanding generated code and adjusting scope to ship a complete game." context={unbalanced.context + ' · ' + unbalanced.year}>
+
+  <Fragment slot="introduction"><p>For {unbalanced.context} {unbalanced.year}, I wanted to join the game jam, learn Phaser and make extensive use of GitHub Copilot. At the end, I also needed a finished game.</p></Fragment>
+  <ProjectFigure image={storyImages.unbalanced} alt="Gameplay from This Game Is Unbalanced!, built for Gamedev.js 2025." caption="Learning a framework and shipping a game within a game jam's deadline." pending={copy.labels.figurePending} />
+  <section class="case-section" aria-labelledby="generated">
+    <h2 id="generated">Quick to generate, not always quick to understand.</h2>
+    <div class="prose"><p>Learning Phaser with Copilot helped me experiment quickly. But generating code did not remove the need to understand what it did, or how its parts fitted together.</p><p>I reworked sections and refactored generated code. That review was part of development, even when it took longer than generating the code in the first place.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="scope">
+    <h2 id="scope">Choosing what I could actually finish.</h2>
+    <div class="prose"><p>The game jam deadline meant making choices. I cut scope so I could finish and ship a complete game on time.</p><p>The experience taught me as much about using AI as it did about game development. Moving quickly is not enough if the result becomes too hard to understand or too large to finish.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="results">
+    <h2 id="results">A finished game, and two first places.</h2>
+    <div class="prose"><p>The game took first place in both {unbalanced.ranks.map((rank) => rank.category).join(' and ')}.</p><p>What stayed with me was the combination: learning a framework, reviewing generated code critically, and accepting a smaller version of the original idea to make it playable.</p></div>
+  </section>
+  <a slot="footer" class="text-link" href={unbalanced.url}>Play on itch.io <span aria-hidden="true">↗</span></a>
+</StoryLayout>

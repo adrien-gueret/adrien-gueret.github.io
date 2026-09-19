@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adrien-gueret.github.io/sitemap-index.xml

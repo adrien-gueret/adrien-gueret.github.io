@@ -1,0 +1,19 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { homePath } from '../i18n/routes';
+import type { Copy, Locale } from '../i18n/types';
+interface Props { locale: Locale; copy: Copy; slug?: string }
+const { locale, copy, slug } = Astro.props;
+---
+<header class="site-header">
+  <div class="header-inner container">
+    <a class="wordmark" href={homePath(locale)} aria-label="Adrien Guéret">
+      <span class="monogram" aria-hidden="true">ag<span>.</span></span>
+    </a>
+    <nav class="main-nav" aria-label={copy.nav.label}>
+      <a href={`${homePath(locale)}#work`}>{copy.nav.work}</a>
+      <a href={`${homePath(locale)}#career`}>{copy.nav.career}</a>
+    </nav>
+    <LanguageSwitcher locale={locale} slug={slug} label={copy.nav.language} />
+  </div>
+</header>

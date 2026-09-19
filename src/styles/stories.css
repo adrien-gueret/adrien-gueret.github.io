@@ -1,0 +1,206 @@
+.work-stories > .section-heading {
+  margin-bottom: 4.5rem;
+}
+.work-stories > .section-heading h2 {
+  max-width: 22ch;
+}
+.work-stories > .section-heading p {
+  max-width: 65ch;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+}
+.work-story {
+  padding-block: 4.5rem;
+  border-top: 1px solid var(--line);
+}
+.work-story .eyebrow,
+.engineering-foundations .eyebrow {
+  font-size: 0.8rem;
+}
+.story-copy h3 {
+  font-size: clamp(2.25rem, 4.2vw, 3.6rem);
+  margin-block: 1.3rem 1.7rem;
+  letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
+}
+.story-copy p:not(.eyebrow) {
+  color: var(--muted);
+  max-width: 58ch;
+}
+.story-copy strong {
+  color: var(--ink);
+}
+.story-link {
+  margin-top: 1.8rem;
+}
+.story-link span {
+  color: inherit;
+}
+.story-engineering {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 4rem;
+  border-top: 3px solid var(--ink);
+  padding-bottom: 5.5rem;
+}
+.story-engineering h3 {
+  font-size: clamp(2.6rem, 4.5vw, 4rem);
+}
+.engineering-foundations {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(1.5rem, 3vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.foundation-journey {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+.foundation-journey li {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid #68716a;
+}
+.foundation-journey li > span {
+  color: #eeb2a2;
+  font-size: 0.8rem;
+}
+.foundation-journey strong {
+  font-size: clamp(1rem, 1.7vw, 1.3rem);
+  line-height: 1.35;
+}
+.foundation-fact {
+  border-top: 1px solid #68716a;
+  padding-top: 1.5rem;
+}
+.foundation-fact strong {
+  display: block;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  letter-spacing: -0.065em;
+  line-height: 1.2;
+}
+.foundation-fact span {
+  display: block;
+  max-width: 28ch;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+.story-universalis,
+.story-guessr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 4rem;
+  align-items: center;
+  padding-block: 5.5rem;
+}
+.story-universalis .figure-placeholder {
+  aspect-ratio: 4 / 5;
+}
+.work-story .figure-placeholder {
+  border: 0;
+  border-radius: 0;
+  padding: 1.5rem;
+  text-align: center;
+  background: var(--tint);
+}
+.work-story .figure-placeholder span,
+.work-story figcaption {
+  font-size: 0.875rem;
+}
+.story-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  gap: 1.2rem 3rem;
+  margin: 1.7rem 0 0;
+  color: var(--muted);
+}
+.story-numbers strong {
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  margin-right: 0.3rem;
+}
+.story-unbalanced {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 4rem;
+  align-items: center;
+  padding-bottom: 0;
+}
+.story-unbalanced h3 {
+  font-size: clamp(2rem, 3vw, 2.75rem);
+}
+.editorial-case .case-header {
+  max-width: 980px;
+}
+.editorial-case .case-header h1 {
+  font-size: clamp(2.7rem, 5.8vw, 5rem);
+  overflow-wrap: anywhere;
+}
+.editorial-case > .engineering-foundations {
+  max-width: 48rem;
+  margin-block: 3rem;
+}
+.editorial-case .case-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 3.5rem;
+  border-top: 1px solid var(--line);
+}
+.editorial-case .prose {
+  margin-left: 0;
+}
+.editorial-case .project-figure {
+  margin-bottom: 3rem;
+}
+.case-context {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}
+@media (max-width: 900px) {
+  .story-engineering,
+  .story-universalis,
+  .story-guessr,
+  .story-unbalanced,
+  .editorial-case .case-section {
+    gap: 2rem;
+  }
+}
+@media (max-width: 720px) {
+  .work-stories > .section-heading {
+    margin-bottom: 2.5rem;
+  }
+  .work-story {
+    padding-block: 3rem;
+  }
+  .story-engineering,
+  .story-universalis,
+  .story-guessr,
+  .story-unbalanced,
+  .editorial-case .case-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .story-engineering h3 {
+    font-size: clamp(2.3rem, 8vw, 3.3rem);
+  }
+  .story-universalis .figure-placeholder {
+    aspect-ratio: 4 / 3;
+  }
+  .story-numbers {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .editorial-case .case-section {
+    gap: 1.5rem;
+  }
+}
