@@ -10,6 +10,6 @@ dist/
 docs
 
 # Local dev-only feedback reviews (Feedback Dev Toolbar app)
-feedback/
-feedback/*.md
-feedback/*.json
+/feedback/
+/feedback/*.md
+/feedback/*.json
