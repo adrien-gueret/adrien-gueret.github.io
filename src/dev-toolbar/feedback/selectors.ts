@@ -10,8 +10,6 @@ import type { ElementContext, FeedbackRect } from "./types.js";
 /** Attribute flag used on every DOM node created by the Feedback tool. */
 export const TOOL_ATTR = "data-feedback-tool";
 
-const MAX_TEXT_LENGTH = 200;
-
 /** Returns true when the element belongs to the Dev Toolbar or to our own overlays. */
 export function isToolElement(el: Element | null): boolean {
   if (!el) return true;
@@ -88,10 +86,8 @@ function collapse(text: string): string {
   return text.replace(/\s+/g, " ").trim();
 }
 
-function excerpt(text: string): string {
-  const clean = collapse(text);
-  if (clean.length <= MAX_TEXT_LENGTH) return clean;
-  return `${clean.slice(0, MAX_TEXT_LENGTH).trimEnd()}…`;
+function normalizedText(text: string): string {
+  return collapse(text);
 }
 
 /** Index among same-tag siblings, 1-based (for :nth-of-type). */
@@ -212,7 +208,7 @@ export function getElementContext(el: Element): ElementContext {
     selector: generateSelector(el),
     section: sectionSel,
     sectionTitle: sectionTitle(section),
-    text: excerpt(el.textContent ?? ""),
+    text: normalizedText(el.textContent ?? ""),
     rect: toRect(el),
     viewport: { width: window.innerWidth, height: window.innerHeight },
   };

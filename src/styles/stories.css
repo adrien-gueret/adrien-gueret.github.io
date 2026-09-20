@@ -32,7 +32,6 @@
 }
 .story-link {
   margin-top: 1.8rem;
-  display: none;
 }
 #playground {
   display: none;
@@ -161,8 +160,22 @@
   gap: 3.5rem;
   border-top: 1px solid var(--line);
 }
+.editorial-case .case-section > h2 {
+  align-self: start;
+  position: sticky;
+  top: 2rem;
+}
 .editorial-case .prose {
   margin-left: 0;
+}
+.editorial-case .prose strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.editorial-case .prose .prose-divider {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
 }
 .editorial-case .project-figure {
   margin-bottom: 3rem;
@@ -206,5 +219,8 @@
   }
   .editorial-case .case-section {
     gap: 1.5rem;
+  }
+  .editorial-case .case-section > h2 {
+    position: static;
   }
 }

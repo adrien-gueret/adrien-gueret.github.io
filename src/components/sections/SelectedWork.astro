@@ -33,7 +33,6 @@ const [guessrIntro, guessrOutro] = projects.guessr.description.split('Mario Kart
         <li><strong>{number(universalis.twitterFollowers, locale)}+</strong> {fr ? 'followers sur le compte Twitter' : 'followers on the Twitter account'}</li>
         <li><strong>{number(universalis.publishedAnecdotes, locale)}+</strong> {fr ? 'anecdotes Mario publiées' : 'Mario facts published'}</li>
       </ul>
-      <a class="button story-link" href={workPath(locale, universalis.slug)} aria-label={copy.work.study + ' : ' + universalis.name}>{copy.work.study} <span aria-hidden="true">→</span></a>
     </div>
     <ProjectFigure image={storyImages.universalis} alt={fr ? 'Le visuel Mario Universalis sur un fond étoilé.' : 'The Mario Universalis artwork on a starry background.'} caption={fr ? 'Le point de départ de presque vingt ans d’expérimentations.' : 'The starting point for almost twenty years of experiments.'} pending={fr ? 'Mario Universalis · capture à venir' : 'Mario Universalis · screenshot to come'} />
   </article>
@@ -47,7 +46,6 @@ const [guessrIntro, guessrOutro] = projects.guessr.description.split('Mario Kart
         <li><strong>{number(guessr.metrics.publishedPhotos, locale)}+</strong> {copy.labels.photos}</li>
         <li><strong>{number(guessr.metrics.publishedContributors, locale)}+</strong> {copy.labels.contributors}</li>
       </ul>
-      <a class="button story-link" href={workPath(locale, guessr.slug)} aria-label={copy.work.study + ' : ' + guessr.name}>{copy.work.study} <span aria-hidden="true">→</span></a>
     </div>
     <ProjectFigure image={storyImages.guessr[locale]} alt={fr ? 'Le logo Mario Kart World Guessr.' : 'The Mario Kart World Guessr logo.'} pending={fr ? 'Mario Kart World Guessr · visuel à venir' : 'Mario Kart World Guessr · image to come'}>
       <Fragment slot="caption">{fr ? <><em>Mario Kart World Guessr</em> comporte plus de 1700 photos grâce à sa communauté.</> : <> <em>Mario Kart World Guessr</em> has over 1700 photos thanks to its community.</>}</Fragment>
@@ -59,7 +57,6 @@ const [guessrIntro, guessrOutro] = projects.guessr.description.split('Mario Kart
       <h3 id="story-unbalanced-title">{unbalanced.name}</h3>
       <p>{projects.unbalanced.description}</p>
       <ul class="story-numbers">{unbalanced.ranks.map((rank) => <li><strong>{fr ? '1er prix' : '1st prize'}</strong> {fr ? <>dans la catégorie « {rank.category} »</> : <>in the “{rank.category}” category</>}</li>)}</ul>
-      <a class="button story-link" href={workPath(locale, unbalanced.slug)} aria-label={copy.work.study + ' : ' + unbalanced.name}>{copy.work.study} <span aria-hidden="true">→</span></a>
     </div>
     <ProjectFigure image={storyImages.unbalanced[locale]} alt={fr ? "L'écran d'accueil en français de This Game Is Unbalanced!." : 'The English home screen of This Game Is Unbalanced!.'} caption={fr ? 'Une game jam pour apprendre et expérimenter avec l\'intelligence artificielle.' : 'A game jam to learn and experiment with artificial intelligence.'} pending={fr ? 'This Game Is Unbalanced! · capture à venir' : 'This Game Is Unbalanced! · screenshot to come'} />
   </article>

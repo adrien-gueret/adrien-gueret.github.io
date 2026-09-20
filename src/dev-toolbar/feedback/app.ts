@@ -70,6 +70,7 @@ function persist(feedbacks: Feedback[]): void {
 export default defineToolbarApp({
   init(canvas, app, server) {
     let feedbacks = loadFeedbacks();
+    let hasLocalState = localStorage.getItem(STORAGE_KEY) !== null;
     let active = false;
     let hovered: Element | null = null;
     let editing: { id: string | null; context: Feedback } | null = null;
@@ -191,6 +192,7 @@ export default defineToolbarApp({
 
     function save(): void {
       persist(feedbacks);
+      hasLocalState = true;
       app.toggleNotification({ state: feedbacks.length > 0, level: "info" });
     }
 
@@ -465,13 +467,37 @@ export default defineToolbarApp({
       // Comment textarea
       const commentField = el("div", { className: "fb-field" });
       const commentId = "fb-comment";
+      const contentPrefill = ctx.text ? `"${ctx.text}"` : "";
+      const initialComment =
+        !editing.id && ctx.type === "Content" && !ctx.comment
+          ? contentPrefill
+          : ctx.comment;
       commentField.append(
         el("label", { htmlFor: commentId }, ["Feedback (obligatoire)"]),
       );
-      const textarea = el("textarea", { id: commentId, value: ctx.comment });
+      const textarea = el("textarea", { id: commentId, value: initialComment });
       textarea.setAttribute("required", "true");
       commentField.append(textarea);
       panel.append(commentField);
+
+      let previousType = ctx.type;
+      select.addEventListener("change", () => {
+        const nextType = select.value as FeedbackType;
+        if (
+          previousType === "Content" &&
+          nextType !== "Content" &&
+          textarea.value === contentPrefill
+        ) {
+          textarea.value = "";
+        } else if (
+          nextType === "Content" &&
+          textarea.value.trim() === "" &&
+          contentPrefill
+        ) {
+          textarea.value = contentPrefill;
+        }
+        previousType = nextType;
+      });
 
       // Actions
       const actions = el("div", { className: "fb-actions" });
@@ -480,7 +506,7 @@ export default defineToolbarApp({
         textContent: editing.id ? "Enregistrer" : "Ajouter",
       });
       addBtn.type = "button";
-      addBtn.addEventListener("click", () => {
+      const submitFeedback = (): void => {
         const comment = textarea.value.trim();
         if (!comment) {
           textarea.focus();
@@ -488,6 +514,21 @@ export default defineToolbarApp({
           return;
         }
         commitEditor(select.value as FeedbackType, comment);
+      };
+      addBtn.addEventListener("click", submitFeedback);
+      textarea.addEventListener("keydown", (event) => {
+        if (
+          event.key !== "Enter" ||
+          event.shiftKey ||
+          event.ctrlKey ||
+          event.altKey ||
+          event.metaKey ||
+          event.isComposing
+        ) {
+          return;
+        }
+        event.preventDefault();
+        submitFeedback();
       });
       const cancelBtn = el("button", {
         className: "fb-btn",
@@ -662,7 +703,7 @@ export default defineToolbarApp({
       setStatus("Dernier feedback annulé.");
     }
 
-    function clearAll(): void {
+    async function clearAll(): Promise<void> {
       if (feedbacks.length === 0) return;
       const confirmed = window.confirm(
         `Supprimer les ${feedbacks.length} feedbacks ? Cette action est irréversible.`,
@@ -672,7 +713,13 @@ export default defineToolbarApp({
       save();
       renderBadges();
       renderList();
-      setStatus("Tous les feedbacks ont été supprimés.");
+      setStatus("Suppression des feedbacks enregistrés…");
+      const sent = await sendWhenConnected("feedback:clear", {});
+      if (!sent) {
+        setStatus(
+          "Feedbacks supprimés localement, mais serveur de développement indisponible.",
+        );
+      }
     }
 
     // ---------------------------------------------------------------------
@@ -713,7 +760,7 @@ export default defineToolbarApp({
       textContent: "Clear all",
     });
     clearBtn.type = "button";
-    clearBtn.addEventListener("click", clearAll);
+    clearBtn.addEventListener("click", () => void clearAll());
     globalActions.append(exportBtn, promptBtn, undoBtn, clearBtn);
 
     const body = el("div", { className: "fb-body" });
@@ -729,9 +776,10 @@ export default defineToolbarApp({
     // ---------------------------------------------------------------------
     //  Server sync + lifecycle
     // ---------------------------------------------------------------------
-    // On init, restore from disk only if nothing is stored locally yet.
+    // On init, restore from disk only if no local state exists. An explicitly
+    // stored empty list means the user cleared the feedbacks.
     server.on<FeedbackData>("feedback:data", (data) => {
-      if (feedbacks.length === 0 && data?.feedbacks?.length) {
+      if (!hasLocalState && data?.feedbacks?.length) {
         feedbacks = data.feedbacks;
         save();
         renderBadges();
@@ -745,6 +793,16 @@ export default defineToolbarApp({
           result.ok
             ? `Exporté → ${result.markdown}`
             : `Échec export : ${result.error ?? ""}`,
+        );
+      },
+    );
+    server.on<{ ok: boolean; error?: string }>(
+      "feedback:cleared",
+      (result) => {
+        setStatus(
+          result.ok
+            ? "Tous les feedbacks ont été supprimés."
+            : `Suppression incomplète : ${result.error ?? ""}`,
         );
       },
     );

@@ -60,6 +60,23 @@ export default function feedbackToolbar(): AstroIntegration {
             logger.error(`Failed to export feedback: ${message}`);
           }
         });
+
+        toolbar.on("feedback:clear", async () => {
+          try {
+            await writeFeedbackFiles(root, {
+              version: 1,
+              generatedAt: new Date().toISOString(),
+              feedbacks: [],
+            });
+            toolbar.send("feedback:cleared", { ok: true });
+            logger.info("All feedback cleared");
+          } catch (error) {
+            const message =
+              error instanceof Error ? error.message : String(error);
+            toolbar.send("feedback:cleared", { ok: false, error: message });
+            logger.error(`Failed to clear feedback: ${message}`);
+          }
+        });
       },
     },
   };
