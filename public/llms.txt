@@ -1,0 +1,49 @@
+# Adrien Guéret
+
+Adrien Guéret is an Engineering Manager and former Staff Frontend Engineer with more than 10 years of experience building frontend products, developer tooling and engineering practices. This portfolio presents the projects that shaped his professional and personal journey.
+
+The portfolio defaults to English at `/`. Its French version is available at `/fr/`. The key case studies are published in both languages.
+
+## Main pages
+
+- [Portfolio home, English](https://adrien-gueret.github.io/): English overview of Adrien's work, career, teaching and community projects.
+- [Portfolio home, French](https://adrien-gueret.github.io/fr/): French version of the portfolio.
+- [OpenClassrooms frontend engineering, English](https://adrien-gueret.github.io/work/openclassrooms-frontend-engineering/): How Adrien helped evolve frontend foundations and ways of working at OpenClassrooms.
+- [OpenClassrooms frontend engineering, French](https://adrien-gueret.github.io/fr/work/openclassrooms-frontend-engineering/): French version of the OpenClassrooms case study.
+- [Mario Universalis, English](https://adrien-gueret.github.io/work/mario-universalis/): The long-running project on which Adrien learned web development.
+- [Mario Universalis, French](https://adrien-gueret.github.io/fr/work/mario-universalis/): French version of the Mario Universalis case study.
+- [Mario Kart World Guessr, English](https://adrien-gueret.github.io/work/mario-kart-world-guessr/): A community geography game set in Mario Kart World.
+- [Mario Kart World Guessr, French](https://adrien-gueret.github.io/fr/work/mario-kart-world-guessr/): French version of the Mario Kart World Guessr case study.
+- [This Game Is Unbalanced!, English](https://adrien-gueret.github.io/work/this-game-is-unbalanced/): A short game-jam case study about learning, generated code and scope.
+- [This Game Is Unbalanced!, French](https://adrien-gueret.github.io/fr/work/this-game-is-unbalanced/): French version of the game-jam case study.
+
+## Selected work
+
+### OpenClassrooms
+
+Adrien progressed from Frontend Engineer to Senior Frontend Engineer, Staff Frontend Engineer and Engineering Manager. His work included the migration of a JavaScript React codebase towards TypeScript, frontend testing strategy, typed API and OpenAPI tooling, developer experience, and support for a frontend chapter of up to 12 engineers. He also helped create internal localization tooling used by web and iOS teams, saving more than €20,000 per year.
+
+### Mario Universalis
+
+Adrien started Mario Universalis around 2007/2008, while he was in high school, and learned much of web development by building it. It grew from a fan site into an ecosystem of websites, APIs, bots, guides, games, tools and experiments. Its database covers 255 Mario games and is exposed through a public GraphQL API. Mario Kart World Guessr is part of this ecosystem.
+
+### Mario Kart World Guessr
+
+Launched on 21 June 2025, Mario Kart World Guessr is a solo-built community geography game. It has hosted more than 65,000 games and published more than 1,400 community photos from 147 contributors.
+
+### This Game Is Unbalanced!
+
+Adrien created This Game Is Unbalanced! for Gamedev.js Jam 2025 while learning Phaser and making extensive use of GitHub Copilot. The project involved understanding, reviewing and refactoring generated code, then reducing scope to ship a complete game before the deadline. It placed first in both the Innovation and Vibe Coding categories.
+
+## Teaching and mentoring
+
+Adrien has mentored OpenClassrooms students since January 2019 through weekly one-to-one sessions across their training. He also created the public OpenClassrooms course [Découvrez TypeScript](https://openclassrooms.com/fr/courses/8039116-decouvrez-typescript), published in March 2023 and updated in August 2025. The course, written in French, has reached more than 10,500 learners and led to more than 2,200 course certificates.
+
+## External links
+
+- [GitHub](https://github.com/adrien-gueret)
+- [LinkedIn](https://www.linkedin.com/in/adrien-grt)
+- [Mario Universalis](https://www.mariouniversalis.fr/)
+- [This Game Is Unbalanced! on itch.io](https://adrien-gueret.itch.io/this-game-is-unbalanced)
+
+This file is a concise guide to the portfolio. The HTML pages remain the canonical source for complete case studies, current presentation and structured metadata.

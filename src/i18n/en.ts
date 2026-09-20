@@ -6,8 +6,7 @@ import { month, number } from "./routes";
 
 export const en: Copy = {
   meta: {
-    title:
-      "Adrien Guéret | Engineering Manager & former Staff Frontend Engineer",
+    title: "Adrien Guéret | Engineering Manager",
     description:
       "I help engineers grow and build things that people use. My work in engineering management, frontend architecture, and personal projects that got a little out of hand.",
     caseTitle:

@@ -78,7 +78,10 @@ for (const locale of locales) {
       assert.equal(headings[3], 'This Game Is Unbalanced!');
       assert(!work.includes('—'), `${pathname}: no editorial em dash`);
       assert(!work.includes('class="tags"'), `${pathname}: no tag grid`);
-      for (const item of slugs) assert(work.includes(`href="${route(locale, item)}"`));
+      assert(work.includes(`href="${route(locale, 'openclassrooms-frontend-engineering')}"`));
+      for (const item of slugs.filter((slug) => slug !== 'openclassrooms-frontend-engineering')) {
+        assert(!work.includes(`href="${route(locale, item)}"`));
+      }
     }
     for (const img of tags(html, 'img')) {
       assert(Object.hasOwn(img, 'alt'), `${pathname}: image alternative`);
