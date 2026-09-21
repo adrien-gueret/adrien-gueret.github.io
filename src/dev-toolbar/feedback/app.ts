@@ -22,6 +22,7 @@ import {
 } from "./selectors.js";
 
 const STORAGE_KEY = "astro-feedback-tool:v1";
+const WINDOW_POSITION_KEY = "astro-feedback-tool:window-position:v1";
 
 const CODEX_PROMPT = `Lis le fichier feedback/portfolio-review.md.
 
@@ -88,9 +89,20 @@ export default defineToolbarApp({
     shadowStyle.textContent = `
       :host { all: initial; }
       .fb-window { font-family: system-ui, sans-serif; display: flex; flex-direction: column; max-height: 432px; min-height: 0; }
-      .fb-head { flex: 0 0 auto; display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+      .fb-head { flex: 0 0 auto; display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; cursor: grab; user-select: none; }
+      .fb-head.is-dragging { cursor: grabbing; }
       .fb-head h1 { font-size: 1rem; margin: 0; color: white; font-weight: 600; }
       .fb-count { background: #7611a6; color: white; border-radius: 999px; padding: 0 .5rem; font-size: .75rem; line-height: 1.4rem; }
+      button.fb-drag-handle {
+        margin-left: auto; width: 1.75rem; height: 1.75rem; padding: 0;
+        display: inline-flex; align-items: center; justify-content: center;
+        font: 1.15rem/1 system-ui, sans-serif; color: #cbd5e1;
+        background: transparent; border: 1px solid transparent; border-radius: .35rem;
+        cursor: grab; touch-action: none;
+      }
+      .fb-head.is-dragging button.fb-drag-handle { cursor: grabbing; }
+      button.fb-drag-handle:hover { color: white; background: rgba(255,255,255,.1); }
+      button.fb-drag-handle:focus-visible { outline: 2px solid #d97fff; outline-offset: 2px; }
       .fb-hint { flex: 0 0 auto; color: #cbd5e1; font-size: .8rem; margin: 0 0 .75rem; }
       .fb-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; margin: 0 -4px; padding: 0 4px; }
       .fb-foot { flex: 0 0 auto; margin-top: .5rem; padding-top: .75rem; border-top: 1px solid rgba(255,255,255,.1); }
@@ -136,6 +148,62 @@ export default defineToolbarApp({
     ui.className = "fb-window";
     win.appendChild(ui);
     canvas.appendChild(win);
+
+    let hasCustomWindowPosition = false;
+    let dragPointerId: number | null = null;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+
+    function setWindowPosition(
+      left: number,
+      top: number,
+      persistPosition = false,
+    ): void {
+      const rect = win.getBoundingClientRect();
+      const maxLeft = Math.max(0, window.innerWidth - rect.width);
+      const maxTop = Math.max(0, window.innerHeight - rect.height);
+      const nextLeft = Math.min(Math.max(0, left), maxLeft);
+      const nextTop = Math.min(Math.max(0, top), maxTop);
+
+      win.style.left = `${nextLeft}px`;
+      win.style.top = `${nextTop}px`;
+      win.style.right = "auto";
+      win.style.bottom = "auto";
+      win.style.transform = "none";
+      hasCustomWindowPosition = true;
+
+      if (persistPosition) {
+        try {
+          localStorage.setItem(
+            WINDOW_POSITION_KEY,
+            JSON.stringify({ left: nextLeft, top: nextTop }),
+          );
+        } catch {
+          /* storage disabled — the window remains draggable for this session */
+        }
+      }
+    }
+
+    try {
+      const storedPosition = JSON.parse(
+        localStorage.getItem(WINDOW_POSITION_KEY) ?? "null",
+      ) as { left?: unknown; top?: unknown } | null;
+      if (
+        typeof storedPosition?.left === "number" &&
+        Number.isFinite(storedPosition.left) &&
+        typeof storedPosition.top === "number" &&
+        Number.isFinite(storedPosition.top)
+      ) {
+        win.style.left = `${storedPosition.left}px`;
+        win.style.top = `${storedPosition.top}px`;
+        win.style.right = "auto";
+        win.style.bottom = "auto";
+        win.style.transform = "none";
+        hasCustomWindowPosition = true;
+      }
+    } catch {
+      /* malformed / unavailable storage — keep Astro's default placement */
+    }
 
     // Sub-containers are (re)rendered on demand.
     const editorHost = document.createElement("div");
@@ -728,7 +796,67 @@ export default defineToolbarApp({
     const head = el("div", { className: "fb-head" });
     const title = el("h1", { textContent: "Feedback" });
     const countBadge = el("span", { className: "fb-count", textContent: "0" });
-    head.append(title, countBadge);
+    const dragHandle = el("button", {
+      className: "fb-drag-handle",
+      textContent: "⠿",
+      title: "Déplacer la fenêtre",
+    });
+    dragHandle.type = "button";
+    dragHandle.setAttribute("aria-label", "Déplacer la fenêtre de feedback");
+    head.append(title, countBadge, dragHandle);
+
+    head.addEventListener("pointerdown", (event) => {
+      if (!event.isPrimary || event.button !== 0) return;
+      const rect = win.getBoundingClientRect();
+      dragPointerId = event.pointerId;
+      dragOffsetX = event.clientX - rect.left;
+      dragOffsetY = event.clientY - rect.top;
+      head.setPointerCapture(event.pointerId);
+      head.classList.add("is-dragging");
+      event.preventDefault();
+    });
+
+    head.addEventListener("pointermove", (event) => {
+      if (event.pointerId !== dragPointerId) return;
+      setWindowPosition(
+        event.clientX - dragOffsetX,
+        event.clientY - dragOffsetY,
+      );
+    });
+
+    const finishDrag = (event: PointerEvent): void => {
+      if (event.pointerId !== dragPointerId) return;
+      dragPointerId = null;
+      head.classList.remove("is-dragging");
+      if (head.hasPointerCapture(event.pointerId)) {
+        head.releasePointerCapture(event.pointerId);
+      }
+      const rect = win.getBoundingClientRect();
+      setWindowPosition(rect.left, rect.top, true);
+    };
+    head.addEventListener("pointerup", finishDrag);
+    head.addEventListener("pointercancel", finishDrag);
+    head.addEventListener("lostpointercapture", finishDrag);
+
+    dragHandle.addEventListener("keydown", (event) => {
+      const directions: Partial<Record<string, [number, number]>> = {
+        ArrowLeft: [-1, 0],
+        ArrowRight: [1, 0],
+        ArrowUp: [0, -1],
+        ArrowDown: [0, 1],
+      };
+      const direction = directions[event.key];
+      if (!direction) return;
+      const rect = win.getBoundingClientRect();
+      const step = event.shiftKey ? 40 : 10;
+      setWindowPosition(
+        rect.left + direction[0] * step,
+        rect.top + direction[1] * step,
+        true,
+      );
+      event.preventDefault();
+      event.stopPropagation();
+    });
 
     const hint = el("p", {
       className: "fb-hint",
@@ -809,8 +937,22 @@ export default defineToolbarApp({
     void sendWhenConnected("feedback:pull", {});
 
     app.onToggled(({ state }) => {
-      if (state) enable();
+      if (state) {
+        enable();
+        if (hasCustomWindowPosition) {
+          requestAnimationFrame(() => {
+            const rect = win.getBoundingClientRect();
+            setWindowPosition(rect.left, rect.top);
+          });
+        }
+      }
       else disable();
+    });
+
+    window.addEventListener("resize", () => {
+      if (!active || !hasCustomWindowPosition) return;
+      const rect = win.getBoundingClientRect();
+      setWindowPosition(rect.left, rect.top);
     });
 
     // Initial paint of the (hidden until toggled) UI + notification dot.

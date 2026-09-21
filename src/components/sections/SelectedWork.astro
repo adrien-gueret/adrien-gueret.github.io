@@ -1,7 +1,7 @@
 ---
 import '../../styles/stories.css';
 import ProjectFigure from '../ProjectFigure.astro';
-import { guessr, openclassrooms, storyImages, unbalanced, universalis } from '../../data/projects';
+import { guessr, openclassrooms, portfolio, storyImages, unbalanced, universalis } from '../../data/projects';
 import { number, workPath } from '../../i18n/routes';
 import type { Copy, Locale } from '../../i18n/types';
 interface Props { copy: Copy; locale: Locale }
@@ -10,6 +10,10 @@ const projects = copy.work.projects;
 const fr = locale === 'fr';
 const [universalisIntro, universalisOutro] = projects.universalis.description.split(universalis.name);
 const [guessrIntro, guessrOutro] = projects.guessr.description.split('Mario Kart World');
+const visibility = {
+  universalisStudy: false,
+  portfolioStory: false,
+};
 ---
 <section class="section container work-stories" id="work" aria-labelledby="work-title">
   <div class="section-heading"><div><h2 id="work-title">{copy.work.title}</h2><p>{copy.work.intro}</p></div></div>
@@ -33,7 +37,7 @@ const [guessrIntro, guessrOutro] = projects.guessr.description.split('Mario Kart
         <li><strong>{number(universalis.twitterFollowers, locale)}+</strong> {fr ? 'followers sur le compte Twitter' : 'followers on the Twitter account'}</li>
         <li><strong>{number(universalis.publishedAnecdotes, locale)}+</strong> {fr ? 'anecdotes Mario publiées' : 'Mario facts published'}</li>
       </ul>
-      <a class="button story-link" href={workPath(locale, universalis.slug)} aria-label={copy.work.study + ' : ' + universalis.name}>{copy.work.study} <span aria-hidden="true">→</span></a>
+      {visibility.universalisStudy && <a class="button story-link" href={workPath(locale, universalis.slug)} aria-label={copy.work.study + ' : ' + universalis.name}>{copy.work.study} <span aria-hidden="true">→</span></a>}
     </div>
     <ProjectFigure image={storyImages.universalis} alt={fr ? 'Le visuel Mario Universalis sur un fond étoilé.' : 'The Mario Universalis artwork on a starry background.'} caption={fr ? 'Le point de départ de presque vingt ans d’expérimentations.' : 'The starting point for almost twenty years of experiments.'} pending={fr ? 'Mario Universalis · capture à venir' : 'Mario Universalis · screenshot to come'} />
   </article>
@@ -61,4 +65,20 @@ const [guessrIntro, guessrOutro] = projects.guessr.description.split('Mario Kart
     </div>
     <ProjectFigure image={storyImages.unbalanced[locale]} alt={fr ? "L'écran d'accueil en français de This Game Is Unbalanced!." : 'The English home screen of This Game Is Unbalanced!.'} caption={fr ? 'Une game jam pour apprendre et expérimenter avec l\'intelligence artificielle.' : 'A game jam to learn and experiment with artificial intelligence.'} pending={fr ? 'This Game Is Unbalanced! · capture à venir' : 'This Game Is Unbalanced! · screenshot to come'} />
   </article>
+  {visibility.portfolioStory && <article class="work-story story-portfolio" aria-labelledby="story-portfolio-title">
+    <div class="story-copy">
+      <p class="eyebrow">{fr ? 'Ce site · Depuis' : 'This website · Since'} {portfolio.created}</p>
+      <h3 id="story-portfolio-title">{projects.portfolio.title}</h3>
+      <p>{projects.portfolio.description}</p>
+      <a class="text-link portfolio-source-link" href={portfolio.repositoryUrl}>{fr ? 'Voir le code source' : 'View the source code'} <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="portfolio-evolution" aria-label={fr ? 'Évolution du portfolio' : 'Portfolio evolution'}>
+      <p class="eyebrow">{fr ? 'Deux versions, un même fil conducteur' : 'Two versions, one continuous thread'}</p>
+      <ol>
+        <li><span>{portfolio.created}</span><strong>{fr ? 'Première version du portfolio' : 'First version of the portfolio'}</strong></li>
+        <li><span>{portfolio.rebuilt}</span><strong>{fr ? 'Reconstruction complète avec Astro' : 'Complete rebuild with Astro'}</strong></li>
+      </ol>
+      <p class="portfolio-languages">Français <span aria-hidden="true">·</span> English</p>
+    </div>
+  </article>}
 </section>

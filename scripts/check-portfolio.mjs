@@ -79,11 +79,12 @@ for (const locale of locales) {
       assert(headings[1].startsWith('Mario Universalis'));
       assert.equal(headings[2], 'Mario Kart World Guessr');
       assert.equal(headings[3], 'This Game Is Unbalanced!');
+      assert(!work.includes(locale === 'fr' ? 'Ce portfolio, un projet à part entière' : 'This portfolio is a project too'));
+      assert(!work.includes('href="https://github.com/adrien-gueret/adrien-gueret.github.io"'));
       assert(!work.includes('—'), `${pathname}: no editorial em dash`);
       assert(!work.includes('class="tags"'), `${pathname}: no tag grid`);
       assert(work.includes(`href="${route(locale, 'openclassrooms-frontend-engineering')}"`));
-      assert(work.includes(`href="${route(locale, 'mario-universalis')}"`));
-      for (const item of slugs.filter((slug) => !['openclassrooms-frontend-engineering', 'mario-universalis'].includes(slug))) {
+      for (const item of slugs.filter((slug) => slug !== 'openclassrooms-frontend-engineering')) {
         assert(!work.includes(`href="${route(locale, item)}"`));
       }
     }

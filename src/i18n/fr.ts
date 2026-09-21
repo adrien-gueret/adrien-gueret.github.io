@@ -53,6 +53,11 @@ export const fr: Copy = {
         description:
           "De Frontend Engineer à Engineering Manager, j'ai passé la majeure partie de mon temps à OpenClassrooms à faire évoluer nos pratiques frontend.",
       },
+      portfolio: {
+        title: "Ce portfolio, un projet à part entière",
+        description:
+          "Ce dépôt existe depuis 2014. En 2026, je l'ai entièrement reconstruit avec Astro pour mieux raconter mon parcours. Plus qu'une vitrine, c'est un projet éditorial autant que technique : bilingue, statique, et conçu avec une attention particulière portée à la lisibilité, à l'accessibilité et aux performances.",
+      },
       unbalanced: {
         title: "This Game Is Unbalanced!",
         description:

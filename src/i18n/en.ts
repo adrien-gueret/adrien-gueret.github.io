@@ -53,6 +53,11 @@ export const en: Copy = {
         description:
           "From Frontend Engineer to Engineering Manager, I have spent most of my time at OpenClassrooms improving our frontend practices.",
       },
+      portfolio: {
+        title: "This portfolio is a project too",
+        description:
+          "This repository has existed since 2014. In 2026, I rebuilt it from scratch with Astro to tell the story of my journey more clearly. More than a showcase, it is both an editorial and technical project: bilingual, static, and designed with particular attention to readability, accessibility, and performance.",
+      },
       unbalanced: {
         title: "This Game Is Unbalanced!",
         description:

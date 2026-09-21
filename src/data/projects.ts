@@ -81,6 +81,12 @@ export const openclassrooms = {
   slug: "openclassrooms-frontend-engineering",
 };
 
+export const portfolio = {
+  created: "2014",
+  rebuilt: "2026",
+  repositoryUrl: "https://github.com/adrien-gueret/adrien-gueret.github.io",
+};
+
 export const storyImages: {
   engineering: Record<"en" | "fr", ProjectImage>;
   universalis: ProjectImage;
