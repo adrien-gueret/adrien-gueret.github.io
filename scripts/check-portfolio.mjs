@@ -68,6 +68,9 @@ for (const locale of locales) {
       if (slug === 'openclassrooms-frontend-engineering') assert(!graph.some((node) => node['@type'] === 'VideoGame'));
       if (slug === 'mario-universalis') assert.equal(page.mainEntity['@id'], 'https://www.mariouniversalis.fr/#website');
     } else {
+      const timeline = html.split('class="timeline"')[1]?.split('</ol>')[0];
+      assert(timeline, `${pathname}: career timeline`);
+      assert(timeline.indexOf('datetime="2025-11"') < timeline.indexOf('datetime="2008"'), `${pathname}: reverse chronological career`);
       const work = html.split('id="work"')[1]?.split('<section')[0];
       assert(work, `${pathname}: stories section`);
       const headings = [...work.matchAll(/<h3[^>]*>(.*?)<\/h3>/g)].map((match) => match[1]);
@@ -79,7 +82,8 @@ for (const locale of locales) {
       assert(!work.includes('—'), `${pathname}: no editorial em dash`);
       assert(!work.includes('class="tags"'), `${pathname}: no tag grid`);
       assert(work.includes(`href="${route(locale, 'openclassrooms-frontend-engineering')}"`));
-      for (const item of slugs.filter((slug) => slug !== 'openclassrooms-frontend-engineering')) {
+      assert(work.includes(`href="${route(locale, 'mario-universalis')}"`));
+      for (const item of slugs.filter((slug) => !['openclassrooms-frontend-engineering', 'mario-universalis'].includes(slug))) {
         assert(!work.includes(`href="${route(locale, item)}"`));
       }
     }

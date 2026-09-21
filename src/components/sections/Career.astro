@@ -13,7 +13,7 @@ function startLabel(start: string) {
   <div class="container career-layout">
     <div class="section-heading"><div><h2 id="career-title">{copy.career.title}</h2><p>{copy.career.intro}</p></div></div>
     <ol class="timeline">
-      {[...career].reverse().map((entry) => {
+      {career.map((entry) => {
         const entryCopy = copy.career.entries[entry.id];
         return <li>
           <p class="career-period"><time datetime={entry.start}>{startLabel(entry.start)}</time>{entry.end !== entry.start && <> <span aria-hidden="true">→</span> {entry.end ? <time datetime={entry.end}>{entry.end}</time> : copy.career.present}</>}</p>

@@ -33,6 +33,7 @@ const [guessrIntro, guessrOutro] = projects.guessr.description.split('Mario Kart
         <li><strong>{number(universalis.twitterFollowers, locale)}+</strong> {fr ? 'followers sur le compte Twitter' : 'followers on the Twitter account'}</li>
         <li><strong>{number(universalis.publishedAnecdotes, locale)}+</strong> {fr ? 'anecdotes Mario publiées' : 'Mario facts published'}</li>
       </ul>
+      <a class="button story-link" href={workPath(locale, universalis.slug)} aria-label={copy.work.study + ' : ' + universalis.name}>{copy.work.study} <span aria-hidden="true">→</span></a>
     </div>
     <ProjectFigure image={storyImages.universalis} alt={fr ? 'Le visuel Mario Universalis sur un fond étoilé.' : 'The Mario Universalis artwork on a starry background.'} caption={fr ? 'Le point de départ de presque vingt ans d’expérimentations.' : 'The starting point for almost twenty years of experiments.'} pending={fr ? 'Mario Universalis · capture à venir' : 'Mario Universalis · screenshot to come'} />
   </article>

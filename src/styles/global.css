@@ -462,7 +462,7 @@ section[id] {
   border: 1px solid var(--muted);
   border-radius: 50%;
 }
-.timeline li:last-child::before {
+.timeline li:first-child::before {
   background: var(--accent);
   border-color: var(--accent);
 }
