@@ -54,9 +54,7 @@ function findSection(el: Element): {
   element: Element | null;
   selector: string | null;
 } {
-  const section =
-    el.closest("section[id], [data-section], main[id], article[id]") ??
-    el.closest("[id]");
+  const section = el.closest("section, [data-section], main, article");
   if (
     !section ||
     section === document.documentElement ||
@@ -71,6 +69,18 @@ function findSection(el: Element): {
   if (dataSection) {
     return { element: section, selector: `[data-section="${dataSection}"]` };
   }
+
+  const labelledBy = section.getAttribute("aria-labelledby");
+  if (labelledBy) {
+    const selector = `${section.tagName.toLowerCase()}[aria-labelledby="${cssEscape(labelledBy)}"]`;
+    if (matchesUniquely(selector, section)) return { element: section, selector };
+  }
+
+  for (const cls of usefulClasses(section)) {
+    const selector = `${section.tagName.toLowerCase()}.${cssEscape(cls)}`;
+    if (matchesUniquely(selector, section)) return { element: section, selector };
+  }
+
   return { element: section, selector: null };
 }
 
@@ -151,6 +161,20 @@ export function generateSelector(el: Element): string {
       const sel = `${parentSel} > ${tag}:nth-of-type(${nthOfType(el)})`;
       if (matchesUniquely(sel, el)) return sel;
     }
+
+    // Repeated layouts often need the complete path inside their section.
+    // Keep the semantic section anchor so the selector survives other groups
+    // being inserted, removed or reordered.
+    const relativePath: string[] = [];
+    let current: Element | null = el;
+    while (current && current !== section) {
+      relativePath.unshift(
+        `${current.tagName.toLowerCase()}:nth-of-type(${nthOfType(current)})`,
+      );
+      const sel = `${sectionSel} > ${relativePath.join(" > ")}`;
+      if (matchesUniquely(sel, el)) return sel;
+      current = current.parentElement;
+    }
   }
 
   // 3b. Globally-unique semantic class (no section).
@@ -159,22 +183,58 @@ export function generateSelector(el: Element): string {
     if (matchesUniquely(sel, el)) return sel;
   }
 
-  // 5. Last resort: short DOM path with nth-of-type, capped depth.
+  // 5. Last resort: grow the DOM path until it uniquely identifies the
+  // element. Stopping after a fixed number of levels can omit the section and
+  // make repeated card layouts resolve to the first matching group.
   const path: string[] = [];
   let current: Element | null = el;
-  let depth = 0;
-  while (current && current !== document.body && depth < 4) {
+  while (current && current !== document.body) {
     if (current.id) {
       path.unshift(`#${cssEscape(current.id)}`);
-      break;
+      const selector = path.join(" > ");
+      if (matchesUniquely(selector, el)) return selector;
+      current = current.parentElement;
+      continue;
     }
     path.unshift(
       `${current.tagName.toLowerCase()}:nth-of-type(${nthOfType(current)})`,
     );
+    const selector = path.join(" > ");
+    if (matchesUniquely(selector, el)) return selector;
     current = current.parentElement;
-    depth += 1;
   }
   return path.join(" > ");
+}
+
+/**
+ * Resolve a stored selector. Older feedbacks may contain a selector that
+ * matches the same child position in several repeated card grids. In that
+ * case, use the stored element context to recover the intended target.
+ */
+export function resolveStoredTarget(
+  context: Pick<ElementContext, "selector" | "text" | "tag" | "classes">,
+): Element | null {
+  let candidates: Element[] = [];
+  try {
+    candidates = Array.from(document.querySelectorAll(context.selector));
+  } catch {
+    return null;
+  }
+  if (candidates.length <= 1) return candidates[0] ?? null;
+
+  const expectedText = normalizedText(context.text);
+  const matchingContext = candidates.filter((candidate) => {
+    if (candidate.tagName.toLowerCase() !== context.tag) return false;
+    if (
+      context.classes.length > 0 &&
+      !context.classes.every((cls) => candidate.classList.contains(cls))
+    ) {
+      return false;
+    }
+    return !expectedText || normalizedText(candidate.textContent ?? "") === expectedText;
+  });
+
+  return matchingContext[0] ?? candidates[0] ?? null;
 }
 
 function toRect(el: Element): FeedbackRect {

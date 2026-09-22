@@ -2,6 +2,7 @@ import type { ImageMetadata } from "astro";
 import marioKartWorldGuessrFrImage from "../assets/projects/mariokartworldguessr-fr.png";
 import marioKartWorldGuessrEnImage from "../assets/projects/mariokartworldguessr-en.png";
 import marioUniversalisImage from "../assets/projects/mariouniversalis.png";
+import marioWonderSearchConsoleImage from "../assets/projects/mario-universalis/soluce-super-mario-bros-wonder-search-console.png";
 import openclassroomsEnImage from "../assets/projects/openclassrooms-en.png";
 import openclassroomsFrImage from "../assets/projects/openclassrooms-fr.png";
 import unbalancedEnImage from "../assets/projects/this-game-is-unbalanced-en.png";
@@ -91,7 +92,7 @@ export const storyImages: {
   engineering: Record<"en" | "fr", ProjectImage>;
   universalis: ProjectImage;
   guessr: Record<"en" | "fr", ProjectImage>;
-  wonder?: ProjectImage;
+  wonder: ProjectImage;
   unbalanced: Record<"en" | "fr", ProjectImage>;
 } = {
   engineering: {
@@ -103,7 +104,7 @@ export const storyImages: {
     en: marioKartWorldGuessrEnImage,
     fr: marioKartWorldGuessrFrImage,
   },
-  wonder: undefined,
+  wonder: marioWonderSearchConsoleImage,
   unbalanced: {
     en: unbalancedEnImage,
     fr: unbalancedFrImage,

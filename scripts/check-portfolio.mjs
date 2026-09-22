@@ -84,7 +84,8 @@ for (const locale of locales) {
       assert(!work.includes('—'), `${pathname}: no editorial em dash`);
       assert(!work.includes('class="tags"'), `${pathname}: no tag grid`);
       assert(work.includes(`href="${route(locale, 'openclassrooms-frontend-engineering')}"`));
-      for (const item of slugs.filter((slug) => slug !== 'openclassrooms-frontend-engineering')) {
+      assert(work.includes(`href="${route(locale, 'mario-universalis')}"`));
+      for (const item of slugs.filter((slug) => slug !== 'openclassrooms-frontend-engineering' && slug !== 'mario-universalis')) {
         assert(!work.includes(`href="${route(locale, item)}"`));
       }
     }
@@ -115,7 +116,6 @@ for (const [pathname, html] of pages) {
   }
 }
 for (const locale of locales) {
-  assert(pages.get(route(locale, 'mario-universalis')).includes(`href="${route(locale, 'mario-kart-world-guessr')}"`));
   assert(pages.get(route(locale, 'mario-kart-world-guessr')).includes(`href="${route(locale, 'mario-universalis')}"`));
 }
 console.log('PASS: 10 EN/FR pages, metadata, canonical/hreflang, sitemap, JSON-LD, stories, cross-links, anchors and local assets.');

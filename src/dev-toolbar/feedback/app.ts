@@ -18,6 +18,7 @@ import {
   TOOL_ATTR,
   getElementContext,
   isToolElement,
+  resolveStoredTarget,
   shortLabel,
 } from "./selectors.js";
 
@@ -347,12 +348,7 @@ export default defineToolbarApp({
       badges.forEach((b) => b.remove());
       badges.clear();
       for (const { feedback, index } of currentPageFeedbacks()) {
-        let target: Element | null = null;
-        try {
-          target = document.querySelector(feedback.selector);
-        } catch {
-          target = null;
-        }
+        const target = resolveStoredTarget(feedback);
         if (!target || isToolElement(target)) continue;
         const r = target.getBoundingClientRect();
         const badge = document.createElement("div");
@@ -370,12 +366,7 @@ export default defineToolbarApp({
       for (const { feedback, index } of currentPageFeedbacks()) {
         const badge = badges.get(feedback.id);
         if (!badge) continue;
-        let target: Element | null = null;
-        try {
-          target = document.querySelector(feedback.selector);
-        } catch {
-          target = null;
-        }
+        const target = resolveStoredTarget(feedback);
         if (!target) {
           badge.style.display = "none";
           continue;
@@ -637,12 +628,7 @@ export default defineToolbarApp({
         setStatus(`Ce feedback est sur ${feedback.page}.`);
         return;
       }
-      let target: Element | null = null;
-      try {
-        target = document.querySelector(feedback.selector);
-      } catch {
-        target = null;
-      }
+      const target = resolveStoredTarget(feedback);
       if (!target) {
         setStatus("Élément introuvable sur cette page.");
         return;

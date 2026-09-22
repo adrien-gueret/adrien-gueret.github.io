@@ -1,0 +1,479 @@
+---
+import type { Locale } from '../i18n/types';
+import { Image } from 'astro:assets';
+import sitePrincipalImage from '../assets/projects/mario-universalis/site-principal.webp';
+import jeuxMarioImage from '../assets/projects/mario-universalis/minisite.webp';
+import yoshisIslandBossBuilderImage from '../assets/projects/mario-universalis/yoshis-island-boss-builder.webp';
+import bingoDirectImage from '../assets/projects/mario-universalis/bingo-direct.webp';
+import superMarioBrosWonderImage from '../assets/projects/mario-universalis/super-mario-bros-wonder.webp';
+import marioKartWorldGuessrImage from '../assets/projects/mario-universalis/mario-kart-world-guessr.webp';
+import apiGraphqlImage from '../assets/projects/mario-universalis/api-graphql.webp';
+import twitterXImage from '../assets/projects/mario-universalis/twitter-x.webp';
+import bonAnniversaireMarioImage from '../assets/projects/mario-universalis/bon-anniversaire-mario.webp';
+import nintendoRssImage from '../assets/projects/mario-universalis/nintendo-rss.webp';
+import gptMarioUniversalisImage from '../assets/projects/mario-universalis/gpt-mario-universalis.webp';
+import donjonsEtKoopasImage from '../assets/projects/mario-universalis/donjons-et-koopas.webp';
+import toadsJailbreakerImage from '../assets/projects/mario-universalis/toads-jailbreaker.webp';
+
+interface Props { locale: Locale; caption?: string }
+type RichText = string | { text: string; emphasis?: boolean; strong?: boolean; secondary?: boolean }[];
+type GroupId = 'sites' | 'social' | 'ai';
+interface Group {
+  id: GroupId;
+  title: string;
+  description: string;
+  items: { title: RichText; description: RichText }[];
+}
+const { locale, caption } = Astro.props;
+
+// Images are shared by both locales. Replace the placeholders in src/assets without changing their names.
+const itemImages = {
+  sites: [
+    sitePrincipalImage,
+    jeuxMarioImage,
+    yoshisIslandBossBuilderImage,
+    bingoDirectImage,
+    superMarioBrosWonderImage,
+    marioKartWorldGuessrImage,
+    apiGraphqlImage,
+  ],
+  social: [
+    twitterXImage,
+    twitterXImage,
+    bonAnniversaireMarioImage,
+    nintendoRssImage,
+  ],
+  ai: [
+    gptMarioUniversalisImage,
+    donjonsEtKoopasImage,
+    toadsJailbreakerImage,
+  ],
+};
+
+const itemLinks: Record<GroupId, string[]> = {
+  sites: [
+    'https://www.mariouniversalis.fr/',
+    'https://www.mariouniversalis.fr/minisite/',
+    'https://www.mariouniversalis.fr/yoshis-island-boss-builder/',
+    'https://www.mariouniversalis.fr/bingo-direct/',
+    'https://www.mariouniversalis.fr/soluces/super-mario-bros-wonder/',
+    'https://www.mariouniversalis.fr/mario-kart-world-guessr/',
+    'https://www.mariouniversalis.fr/graphql/',
+  ],
+  social: [
+    'https://x.com/MarioUnivRsalis',
+    'https://bsky.app/profile/mariouniversalis.fr',
+    'https://x.com/BonAnnivMario',
+    'https://x.com/RssNintendo',
+  ],
+  ai: [
+    'https://chatgpt.com/g/g-JAFgdqSy4-mario-universalis',
+    'https://chatgpt.com/g/g-DlBSu2sba-donjons-koopas',
+    'https://www.mariouniversalis.fr/toads-jailbreaker/',
+  ],
+};
+
+// Edit the infographic's text here. Keep both locales in sync.
+const content: Record<Locale, Group[]> = {
+  fr: [
+    {
+      id: 'sites', title: 'Sites & outils',
+      description: 'Des sites, outils et autres projets autour de l’univers de Mario.',
+      items: [
+        { title: 'Site principal', description: 'Le site original, créé en 2007. Seule sa base de jeux est mise à jour aujourd’hui.' },
+        { title: 'Mini-site des jeux Mario', description: 'Découvrez tous les jeux Mario, leurs informations et leurs sorties.' },
+        {
+          title: "Yoshi's Island: Boss Builder",
+          description: [
+            { text: 'Un outil pour générer des images de boss personnalisés dans le style de ' },
+            { text: "Yoshi's Island", emphasis: true },
+            { text: '.' },
+          ],
+        },
+        { title: 'Bingo Direct', description: 'Un outil pour définir et partager ses prédictions pour les prochains Nintendo Direct.' },
+        {
+          title: [{ text: 'Soluce de ' }, { text: 'Super Mario Bros. Wonder', emphasis: true }],
+          description: 'Une soluce complète pour finir le jeu à 100%.',
+        },
+        {
+          title: 'Mario Kart World Guessr',
+          description: [
+            { text: 'Un jeu inspiré par ' },
+            { text: 'GeoGuessr', emphasis: true },
+            { text: ', mais sur la carte du jeu ' },
+            { text: 'Mario Kart World', emphasis: true },
+            { text: '.' },
+          ],
+        },
+        { title: 'API GraphQL', description: 'Une API ouverte pour accéder aux données des jeux Mario.' },
+      ],
+    },
+    {
+      id: 'social', title: 'Réseaux & bots',
+      description: 'Pour partager des informations, des anecdotes, des memes ou des réflexions sur Mario et Nintendo en général.',
+      items: [
+        {
+          title: [{ text: 'Compte Twitter/X' }, { text: '@MarioUnivRsalis', secondary: true }],
+          description: [{ text: 'Le compte principal de ' }, { text: 'Mario Universalis', strong: true }, { text: '.' }],
+        },
+        {
+          title: [{ text: 'Compte Bluesky' }, { text: '@mariouniversalis.fr', secondary: true }],
+          description: [{ text: 'Pour les allergiques de X, ' }, { text: 'Mario Universalis', strong: true }, { text: ' est aussi sur Bluesky.' }],
+        },
+        { title: 'Bot “Bon Anniversaire Mario !”', description: 'Un bot qui célèbre chaque jour sur X et Bluesky les anniversaires des jeux Mario.' },
+        { title: 'Bot “Nintendo RSS”', description: 'Un bot qui relaie sur X les dernières actualités Nintendo depuis leur flux RSS officiel.' },
+      ],
+    },
+    {
+      id: 'ai', title: 'Intelligence artificielle',
+      description: 'Pour expérimenter avec l’IA, en étant le plus mesuré et responsable possible.',
+      items: [
+        { title: 'GPT Mario Universalis', description: 'Un GPT personnalisé qui répond aux questions sur les jeux Mario.' },
+        { title: 'Donjons & Koopas', description: 'Un GPT personnalisé qui vous fait vivre des aventures dont vous êtes le héros dans l’univers de Mario.' },
+        {
+          title: 'Toads Jailbreaker',
+          description: [
+            { text: 'Un jeu inspiré de ' },
+            { text: 'Codenames', emphasis: true },
+            { text: ' où nous devons jouer avec une IA pour délivrer les Toads tout en évitant de nous faire croquer par les Chomps.' },
+          ],
+        },
+      ],
+    },
+  ],
+  en: [
+    {
+      id: 'sites', title: 'Websites & tools',
+      description: 'Websites, tools and other projects built around the world of Mario.',
+      items: [
+        { title: 'Main website', description: 'The original website, created in 2007. Today, only its games database is still updated.' },
+        { title: 'Mario games mini-site', description: 'Discover every Mario game, with details and release dates.' },
+        {
+          title: "Yoshi's Island: Boss Builder",
+          description: [
+            { text: 'A tool for generating custom boss images in the style of ' },
+            { text: "Yoshi's Island", emphasis: true },
+            { text: '.' },
+          ],
+        },
+        { title: 'Bingo Direct', description: 'A tool for making and sharing predictions for upcoming Nintendo Directs.' },
+        {
+          title: [{ text: 'Super Mario Bros. Wonder', emphasis: true }, { text: ' walkthrough' }],
+          description: 'A complete walkthrough for finishing the game 100%.',
+        },
+        {
+          title: 'Mario Kart World Guessr',
+          description: [
+            { text: 'A game inspired by ' },
+            { text: 'GeoGuessr', emphasis: true },
+            { text: ', set on the map from ' },
+            { text: 'Mario Kart World', emphasis: true },
+            { text: '.' },
+          ],
+        },
+        { title: 'GraphQL API', description: 'An open API for accessing Mario game data.' },
+      ],
+    },
+    {
+      id: 'social', title: 'Social media & bots',
+      description: 'A place to share news, anecdotes, memes and thoughts about Mario and Nintendo in general.',
+      items: [
+        {
+          title: [{ text: 'Twitter/X account' }, { text: '@MarioUnivRsalis', secondary: true }],
+          description: [{ text: 'The main ' }, { text: 'Mario Universalis', strong: true }, { text: ' account.' }],
+        },
+        {
+          title: [{ text: 'Bluesky account' }, { text: '@mariouniversalis.fr', secondary: true }],
+          description: [{ text: 'For anyone allergic to X, ' }, { text: 'Mario Universalis', strong: true }, { text: ' is also on Bluesky.' }],
+        },
+        { title: '“Happy Birthday Mario!” bot', description: 'A bot celebrating Mario game anniversaries every day on X and Bluesky.' },
+        { title: '“Nintendo RSS” bot', description: 'A bot that shares the latest Nintendo news on X from the official RSS feed.' },
+      ],
+    },
+    {
+      id: 'ai', title: 'Artificial intelligence',
+      description: 'A place to experiment with AI as thoughtfully and responsibly as possible.',
+      items: [
+        { title: 'GPT Mario Universalis', description: 'A custom GPT that answers questions about Mario games.' },
+        { title: 'Donjons & Koopas', description: 'A custom GPT that takes you through adventures where you are the hero in the Mario universe.' },
+        {
+          title: 'Toads Jailbreaker',
+          description: [
+            { text: 'A game inspired by ' },
+            { text: 'Codenames', emphasis: true },
+            { text: ' where you team up with an AI to free the Toads while avoiding being eaten by Chain Chomps.' },
+          ],
+        },
+      ],
+    },
+  ],
+};
+---
+
+<figure class="project-figure mu-figure">
+<section class="mu-infographic" aria-labelledby="mu-infographic-title">
+  <header class="mu-header">
+    <div class="mu-scenery" aria-hidden="true">
+      <span class="mu-cloud mu-cloud-left"></span>
+      <span class="mu-cloud mu-cloud-right"></span>
+      <span class="mu-hills mu-hills-left"></span>
+      <span class="mu-hills mu-hills-right"></span>
+      <span class="mu-pipe"></span>
+      <span class="mu-pillar mu-pillar-left"></span>
+      <span class="mu-pillar mu-pillar-right"></span>
+      <span class="mu-pillar mu-pillar-tall"></span>
+    </div>
+    <h2 id="mu-infographic-title">Mario Universalis</h2>
+    <svg class="mu-mario" viewBox="0 0 74 100" aria-hidden="true" focusable="false">
+      <path d="M26,1 35,1 35,2 39,2 39,17 38,17 38,25 40,25 40,24 42,24 42,25 43,25 43,26 44,26 44,31 43,31 43,32 42,32 42,34 41,34 41,35 40,35 40,38 41,38 41,43 40,43 40,48 41,48 41,49 42,49 42,50 44,50 44,52 45,52 45,54 47,54 47,53 57,53 57,54 58,54 58,53 60,53 60,51 61,51 61,49 62,49 62,48 63,48 63,47 68,47 68,48 70,48 70,49 71,49 71,54 70,54 70,57 69,57 69,59 68,59 68,61 67,61 67,62 68,62 68,65 67,65 67,68 66,68 66,69 64,69 64,70 63,70 63,69 61,69 61,68 58,68 58,67 55,67 55,66 52,66 52,65 50,65 50,66 49,66 49,67 48,67 48,68 47,68 47,69 46,69 46,70 44,70 44,71 43,71 43,72 41,72 41,73 40,73 40,75 39,75 39,76 38,76 38,78 37,78 37,79 36,79 36,81 35,81 35,82 34,82 34,84 33,84 33,85 32,85 32,86 31,86 31,87 30,87 30,88 28,88 28,89 27,89 27,90 26,90 26,91 25,91 25,93 24,93 24,97 23,97 23,98 22,98 22,99 19,99 19,100 18,100 18,99 16,99 16,98 15,98 15,86 14,86 14,79 16,79 16,78 17,78 17,77 20,77 20,78 22,78 22,77 24,77 24,76 25,76 25,75 26,75 26,73 27,73 27,71 28,71 28,70 27,70 27,68 26,68 26,58 24,58 24,59 22,59 22,60 21,60 21,61 19,61 19,63 18,63 18,67 17,67 17,72 16,72 16,73 15,73 15,74 14,74 14,75 10,75 10,74 8,74 8,73 6,73 6,72 4,72 4,71 3,71 3,70 2,70 2,69 1,69 1,67 2,67 2,64 3,64 3,63 4,63 4,62 5,62 5,61 6,61 6,60 8,60 8,59 9,59 9,57 10,57 10,56 14,56 14,55 15,55 15,54 17,54 17,53 18,53 18,52 20,52 20,51 21,51 21,49 20,49 20,48 21,48 21,46 19,46 19,45 18,45 18,44 16,44 16,43 11,43 11,42 10,42 10,41 9,41 9,35 10,35 10,34 11,34 11,25 12,25 12,22 13,22 13,20 14,20 14,18 15,18 15,16 16,16 16,15 17,15 17,14 18,14 18,13 25,13 25,14 27,14 27,13 26,13Z" />
+    </svg>
+  </header>
+
+  {content[locale].map((group) => (
+    <section class:list={['mu-group', `mu-${group.id}`]} aria-labelledby={`mu-${group.id}-title`}>
+      <h3 id={`mu-${group.id}-title`}>{group.title}</h3>
+      <p class="mu-intro">{group.description}</p>
+      <ul class="mu-cards" role="list">
+        {group.items.map((item, itemIndex) => (
+          <li class="mu-card">
+            <a class="mu-card-link" href={itemLinks[group.id][itemIndex]}>
+              <Image
+                class="mu-icon"
+                src={itemImages[group.id][itemIndex]}
+                width={128}
+                height={128}
+                densities={[1.5, 2]}
+                alt=""
+              />
+              <div class="mu-card-copy">
+                <h4>{typeof item.title === 'string' ? item.title : item.title.map((part) => part.secondary ? <><br /><span class="mu-secondary">{part.text}</span></> : part.strong ? <strong>{part.text}</strong> : part.emphasis ? <em>{part.text}</em> : part.text)}</h4>
+                <p>{typeof item.description === 'string' ? item.description : item.description.map((part) => part.secondary ? <span class="mu-secondary">{part.text}</span> : part.strong ? <strong>{part.text}</strong> : part.emphasis ? <em>{part.text}</em> : part.text)}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</section>
+{caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/inter-latin.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Lilita One';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/lilita-one-latin.woff2') format('woff2');
+  }
+  .mu-infographic {
+    container-type: inline-size;
+    width: 100%;
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 0.65rem;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background: #fff;
+    color: #111;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.4;
+  }
+  .mu-figure { margin-block: 3rem; }
+  .mu-figure figcaption {
+    margin-top: 0.8rem;
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+  .mu-header {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 11.5rem;
+    padding-top: 1.5rem;
+    overflow: hidden;
+  }
+  .mu-header h2,
+  .mu-group h3 {
+    font-family: 'Lilita One', 'Arial Black', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 1.08;
+  }
+  .mu-header h2 {
+    max-width: 85%;
+    font-size: clamp(2rem, 6.5cqi, 4.1rem);
+    color: #000;
+    text-shadow: 0 3px 6px #00000012;
+  }
+  .mu-mario { width: 4.6rem; height: 6.2rem; fill: #111; }
+  .mu-scenery { position: absolute; inset: 0; z-index: -1; }
+  .mu-scenery span { position: absolute; display: block; }
+  .mu-cloud {
+    top: 2rem;
+    width: 10.5%;
+    height: 2.4rem;
+    border-radius: 3rem;
+    background: #ceecff;
+  }
+  .mu-cloud::before,
+  .mu-cloud::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    border-radius: 50%;
+    background: inherit;
+  }
+  .mu-cloud::before { left: 20%; width: 55%; height: 3.7rem; }
+  .mu-cloud::after { right: 0; width: 45%; height: 2.7rem; }
+  .mu-cloud-left { left: 4.7%; }
+  .mu-cloud-right { right: 4.7%; }
+  .mu-hills {
+    bottom: -2.5rem;
+    width: 23%;
+    height: 5rem;
+    border-radius: 50%;
+    background: #addfc4;
+  }
+  .mu-hills-left { left: -2%; transform: rotate(5deg); }
+  .mu-hills-right { right: -2%; transform: rotate(-5deg); }
+  .mu-pipe, .mu-pillar { bottom: 0; background: linear-gradient(100deg, #81cfab, #72c99f); }
+  .mu-pipe { left: 2%; width: 5.5%; height: 5.4rem; }
+  .mu-pipe::before {
+    content: ''; position: absolute; top: 0; left: -8%;
+    width: 116%; height: 1.5rem; border-radius: 2px; background: inherit;
+  }
+  .mu-pillar { width: 6.3%; border-radius: 5rem 5rem 0 0; }
+  .mu-pillar-left { left: 9%; height: 4.4rem; }
+  .mu-pillar-right { right: 7.5%; height: 4rem; }
+  .mu-pillar-tall { right: 0; height: 7.5rem; width: 7%; }
+  .mu-group { margin-top: 0.6rem; padding: 0.8rem; border-radius: 1.2rem; }
+  .mu-sites { background: #f65360; --card-color: #ffd3d5; --section-color: #f65360; }
+  .mu-social { background: #4dbbf4; --card-color: #ceeeff; --section-color: #4dbbf4; }
+  .mu-ai { background: #59ce89; --card-color: #daf8e3; --section-color: #59ce89; }
+  .mu-group h3 { font-size: clamp(1.65rem, 4.1cqi, 2.6rem); color: #fff; }
+  .mu-intro { margin: 0.1rem 0 0.65rem; text-align: center; font-size: 1.15rem; }
+  .mu-cards {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .mu-card {
+    grid-column: span 3;
+    min-width: 0;
+  }
+  .mu-card-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    height: 100%;
+    padding: 0.75rem 0.65rem;
+    border-radius: 0.9rem;
+    background: var(--card-color);
+    color: #111;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .mu-card-link:hover,
+  .mu-card-link:focus-visible {
+    color: #111;
+    text-decoration: none;
+    transform: translateY(-0.12rem) scale(1.012);
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.5);
+  }
+  .mu-sites .mu-card:nth-child(n + 5) { grid-column: span 4; }
+  .mu-icon {
+    display: block;
+    width: 5.8rem;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 2px solid var(--section-color);
+  }
+  .mu-card h4 {
+    margin: 0 0 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .mu-secondary {
+    display: inline-block;
+    max-width: 100%;
+    margin-top: 0.35rem;
+    color: #4b6470;
+    font-size: 0.82em;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    overflow-wrap: anywhere;
+  }
+  .mu-card p { font-size: 1.05rem; line-height: 1.35; }
+  .mu-card em {
+    font-style: italic;
+    font-synthesis: style;
+  }
+  .mu-ai .mu-card {
+    grid-column: span 6;
+  }
+  .mu-ai .mu-card-link {
+    flex-direction: row;
+    gap: 1.5rem;
+    padding: 0.85rem 1.5rem;
+    text-align: left;
+  }
+  .mu-ai .mu-card:last-child { grid-column: 4 / span 6; }
+  .mu-ai .mu-icon { width: 6.8rem; }
+  @container (max-width: 760px) {
+    .mu-card, .mu-sites .mu-card:nth-child(n + 5) { grid-column: span 6; }
+    .mu-sites .mu-card:last-child { grid-column: 1 / -1; }
+    .mu-ai .mu-card-link { flex-direction: column; padding: 1rem; gap: 0.7rem; text-align: center; }
+    .mu-header { min-height: 10rem; }
+    .mu-header h2 { max-width: 75%; }
+    .mu-pillar-tall { height: 5rem; }
+    .mu-cloud { top: 1.2rem; }
+  }
+  @container (max-width: 440px) {
+    .mu-group { padding: 0.7rem; }
+    .mu-card, .mu-sites .mu-card:nth-child(n + 5), .mu-ai .mu-card, .mu-ai .mu-card:last-child { grid-column: 1 / -1; }
+    .mu-card-link, .mu-ai .mu-card-link { padding: 1rem; }
+    .mu-icon, .mu-ai .mu-icon { width: 4.5rem; }
+    .mu-card h4 { font-size: 1.15rem; }
+    .mu-card p, .mu-intro { font-size: 1rem; }
+    .mu-header h2 { font-size: 2rem; }
+    .mu-cloud { width: 14%; height: 1.4rem; }
+    .mu-cloud::before { height: 2rem; }
+    .mu-cloud::after { height: 1.6rem; }
+    .mu-pipe { height: 3.5rem; }
+    .mu-pillar-left, .mu-pillar-right { height: 3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mu-card-link { transition: none; }
+    .mu-card-link:hover,
+    .mu-card-link:focus-visible {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+</style>
