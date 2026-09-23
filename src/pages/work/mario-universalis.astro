@@ -2,7 +2,8 @@
 import StoryLayout from '../../layouts/StoryLayout.astro';
 import ProjectFigure from '../../components/ProjectFigure.astro';
 import MarioUniversalisInfographic from '../../components/MarioUniversalisInfographic.astro';
-import { universalis, storyImages } from '../../data/projects';
+import { guessr, universalis, storyImages } from '../../data/projects';
+import { workPath } from '../../i18n/routes';
 import { en as copy } from '../../i18n/en';
 const locale = 'en';
 ---
@@ -14,11 +15,28 @@ const locale = 'en';
     <h2 id="learning">Learning with something to build.</h2>
     <div class="prose"><p><strong>Mario Universalis</strong> has always been my technical testing ground. After HTML and CSS, it gave me a real project through which to learn PHP/MySQL and then JavaScript, with several thousand visitors: in its early days, it was one of the first <em>Super Mario</em> fansites!</p><p>Today, the original PHP and JavaScript website lives alongside more modern projects built with React, Gatsby, GraphQL, and other technologies. Some parts are very old; others are less than a year old. The projects around <strong>Mario Universalis</strong> evolve alongside me.</p></div>
   </section>
+  <header class="projects-heading"><h2>A closer look at a few Mario Universalis projects.</h2></header>
   <section class="case-section" aria-labelledby="wonder">
-    <h2 id="wonder">A project dedicated to SEO.</h2>
+    <div class="project-section-heading">
+      <h3 id="wonder">Complete Super Mario Bros. Wonder walkthrough.</h3>
+      <p>A project dedicated to SEO.</p>
+      <a class="project-direct-link" href={universalis.wonderUrl}>View project <span aria-hidden="true">↗</span></a>
+    </div>
     <div class="prose"><p>I set myself the slightly crazy challenge of writing a complete walkthrough for <strong>Super Mario Bros. Wonder</strong>. Alongside sharing a free guide (with no ads!) that could help many players, I paid particular attention to its SEO. If you search for a French-language guide to the game, there is a good chance it will appear among the top five results!</p></div>
   </section>
   <ProjectFigure image={storyImages.wonder} alt="A page from the Super Mario Bros. Wonder walkthrough on Mario Universalis." pending={copy.labels.figurePending}>
     <Fragment slot="caption">Special attention was paid to the SEO of the <strong>Super Mario Bros. Wonder</strong> walkthrough: <em>Google Search Console</em> reports more than <strong>1 million impressions</strong> and <strong>123,000 organic clicks</strong>, with an <strong>average CTR of 11.9%</strong> and an <strong>average position of 4.4</strong> over a period of just over a year following the guide's publication.</Fragment>
   </ProjectFigure>
+  <section class="case-section" aria-labelledby="guessr">
+    <div class="project-section-heading">
+      <h3 id="guessr">Mario Kart World Guessr.</h3>
+      <p>A project played around the world.</p>
+      <a class="project-direct-link" href={guessr.url}>View project <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="prose">
+      <p>To give <strong>Mario Kart World</strong> players a new experience, I created a web game inspired by <em>GeoGuessr</em>. The project found its audience, with YouTubers from the United States, Germany, and even Japan playing it!</p>
+      <ProjectFigure image={storyImages.guessrSearchConsole} alt="Mario Kart World Guessr performance in Google Search Console." pending={copy.labels.figurePending} />
+      <a class="button story-link" href={workPath(locale, guessr.slug)}>Learn more about Mario Kart World Guessr <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
 </StoryLayout>

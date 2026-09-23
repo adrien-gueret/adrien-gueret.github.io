@@ -50,6 +50,7 @@ const visibility = {
         <li><strong>{number(guessr.metrics.publishedPhotos, locale)}+</strong> {copy.labels.photos}</li>
         <li><strong>{number(guessr.metrics.publishedContributors, locale)}+</strong> {copy.labels.contributors}</li>
       </ul>
+      <a class="button story-link" href={workPath(locale, guessr.slug)} aria-label={`${fr ? 'En savoir plus sur' : 'Learn more about'} ${guessr.name}`}>{fr ? 'En savoir plus' : 'Learn more'} <span aria-hidden="true">→</span></a>
     </div>
     <ProjectFigure image={storyImages.guessr[locale]} alt={fr ? 'Le logo Mario Kart World Guessr.' : 'The Mario Kart World Guessr logo.'} pending={fr ? 'Mario Kart World Guessr · visuel à venir' : 'Mario Kart World Guessr · image to come'}>
       <Fragment slot="caption">{fr ? <><em>Mario Kart World Guessr</em> comporte plus de 1700 photos grâce à sa communauté.</> : <> <em>Mario Kart World Guessr</em> has over 1700 photos thanks to its community.</>}</Fragment>

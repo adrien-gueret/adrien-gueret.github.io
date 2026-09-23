@@ -213,7 +213,7 @@ export const fr: Copy = {
     accounts: "comptes créés",
     games: "parties jouées",
     photos: "photos",
-    contributors: "contributeurs publiés",
+    contributors: "joueurs ont publié au moins une photo",
     codebase: "de la codebase React migrée vers TypeScript",
     savings: "économisés par an en remplaçant Phrase",
     chapter: "ingénieurs à accompagner dans le chapter frontend",

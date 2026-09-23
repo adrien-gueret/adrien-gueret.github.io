@@ -1,63 +1,53 @@
 ---
 import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import ProjectFigure from '../../components/ProjectFigure.astro';
-import Metrics from '../../components/Metrics.astro';
+import ContributionTimeline from '../../components/ContributionTimeline.astro';
 import { guessr, guessrImages } from '../../data/projects';
-import { date, number } from '../../i18n/routes';
 import { en as copy } from '../../i18n/en';
 const locale = 'en';
-const metrics = guessr.metrics;
 ---
 <CaseStudyLayout locale={locale} copy={copy}>
   <Fragment slot="introduction">
-    <p>I launched Mario Kart World Guessr on {date(guessr.launched, locale)}, shortly after Mario Kart World came out. With people exploring the new game, it felt like a good time to try a simple idea: could you find where a screenshot was taken on its map?</p>
-    <p>As with many of my personal projects, this was supposed to be a quick little thing. <strong>It got a little out of hand.</strong></p>
+    <p>I launched <strong>Mario Kart World Guessr</strong> on June 21, 2025, around two weeks after <em>Mario Kart World</em> was released on Nintendo Switch 2. I wanted to test a simple idea: use the game's open world and Photo Mode to create a <em>GeoGuessr</em>-style game.</p>
+    <p>The project began as a small, frontend-only Vanilla JS application, built in under two weeks.</p>
+    <p>More than a year later, following its success and player feedback, <strong>Mario Kart World Guessr</strong> has achievements, difficulty levels, several game modes, leaderboards, and a way for any player to submit their own photos. It now runs on a React frontend connected to a PHP API and a MariaDB database with around twenty tables…</p>
+    <p>You could say this <strong>Mario Kart</strong> project got a little out of hand!</p>
   </Fragment>
 
   <section class="case-section" aria-labelledby="idea">
-    <div class="case-section-heading"><h2 id="idea">One photo. A whole map to search.</h2></div>
-    <div class="prose"><p>The idea follows the familiar geography-game loop: look at a photo, explore the map, place a marker, and get a score based on the distance from the actual location.</p><p>Here, the world is Mario Kart World. I use React Leaflet with a custom map and <code>CRS.Simple</code>. This coordinate system lets me use a map that does not represent the Earth, while keeping Leaflet's zoom and panning controls.</p><p>The loop is short: observe, search, make a decision, and find out how far off you were. Or, occasionally, how surprisingly close.</p></div>
+    <div class="case-section-heading"><h2 id="idea">A game experience shaped by player feedback.</h2></div>
+    <div class="prose"><p>The idea follows the same principle as <em>GeoGuessr</em>. A photo appears, and the player must place a marker on the <strong>Mario Kart World</strong> map to guess where it was taken. They then receive a score based on the distance from the actual location.</p><p>One of the first pieces of feedback I received was that the map was awkward to use; at the time, it was simply a displayed image.</p><p>I decided to improve the experience with <strong>React Leaflet</strong>, which lets players zoom into the map image and makes the game more comfortable for anyone who wants to be truly precise.</p></div>
   </section>
-  <ProjectFigure image={guessrImages.result} alt="A round result showing the player's guess, the actual location and the score." caption="The result connects your guess to the photo's actual location." pending={copy.labels.figurePending} />
+  <ProjectFigure image={guessrImages.result[locale]} alt="A round result showing the player's guess, the actual location and the score." caption="The game scores the player's guess based on its distance from the photo's actual location. It also shows where other players tend to place their guesses for that photo." pending={copy.labels.figurePending} />
 
   <section class="case-section" aria-labelledby="community">
-    <div class="case-section-heading"><h2 id="community">A community behind the camera.</h2></div>
-    <div class="prose"><p>Players can submit their own photos and mark where they took them. That means the game's collection can grow beyond the images I add myself.</p><p>Submissions go through a review process before publication. GitHub Issues are part of that review and validation system, rather than the entire moderation process.</p></div>
-    <ol class="process"><li><span>01</span>Submit a photo</li><li><span>02</span>Mark its location</li><li><span>03</span>Review and validate</li><li><span>04</span>Publish in the game</li></ol>
-    <Metrics items={[
-      { value: number(metrics.submittedPhotos, locale), label: 'community photos submitted' },
-      { value: number(metrics.publishedPhotos, locale), label: 'community photos published' },
-      { value: number(metrics.submittedContributors, locale), label: 'people who submitted a photo' },
-      { value: number(metrics.publishedContributors, locale), label: 'people with a published photo' },
-    ]} />
-    <p class="fine-print">{copy.labels.figuresDate}</p>
+    <div class="case-section-heading"><h2 id="community">The game grows with its players.</h2></div>
+    <div class="prose"><p><strong>Mario Kart World Guessr</strong> launched with my own photos. It quickly became clear that this would not be enough to give players a reason to return, so a photo submission system was the natural next step.</p><p>Technically, when a player submits a photo through the site, an <em>Issue</em> opens in the project's GitHub repository with the photo's details. I am automatically notified and can moderate the submission directly from GitHub. I simply close the <em>Issue</em> with the appropriate status to approve or reject the photo. Either way, the photographer receives a notification directly on the site.</p></div>
+    <ContributionTimeline locale={locale} />
   </section>
-  <ProjectFigure image={guessrImages.contribution} alt="The community photo submission flow, including its location on the map." caption="Each submission pairs a photo with its location before review and publication." pending={copy.labels.figurePending} />
 
   <section class="case-section" aria-labelledby="albums">
-    <div class="case-section-heading"><h2 id="albums">A place for the photographers, too.</h2></div>
-    <div class="prose"><p>Photographers can create albums, pick their favourite photos, put their work on display, and share the collection.</p><p>Their images become more than material for the next round. Albums give people a way to explore a collection through the eyes of the person who took the photos.</p></div>
+    <div class="case-section-heading"><h2 id="albums">A game built around its community.</h2></div>
+    <div class="prose"><p>One of my ambitions is to showcase the photographers who submit their work. They can create albums, select their favourite photos, and share them.</p><p>Players can also start a game of <strong>Mario Kart World Guessr</strong> using only the photos from a particular album—perfect for preparing custom games for friends!</p></div>
   </section>
-  <ProjectFigure image={guessrImages.album} alt="A photographer's album showing a selection of their Mario Kart World photos." caption="Albums let photographers choose and share their favourite photos." pending={copy.labels.figurePending} />
+  <ProjectFigure image={guessrImages.album[locale]} alt="A photographer's album showing a selection of their Mario Kart World photos." caption="Albums let photographers choose and share their favourite photos." pending={copy.labels.figurePending} narrow />
 
   <section class="case-section" aria-labelledby="daily">
     <div class="case-section-heading"><h2 id="daily">Something to come back to.</h2></div>
-    <div class="prose"><p>Over time, I added game modes, leaderboards, achievements, unlockable characters, and notifications.</p><p>The daily challenge automatically selects {guessr.dailyPhotos} different photos each day. It gives players a fresh selection to explore, without requiring me to curate a new set every morning.</p></div>
+    <div class="prose"><p>Over time, I added several game modes, leaderboards, achievements, and unlockable characters.</p><p>The daily challenge automatically selects {guessr.dailyPhotos} different photos each day. It gives players a fresh selection to explore, without requiring me to curate a new set every morning.</p></div>
   </section>
-  <ProjectFigure image={guessrImages.daily} alt="The daily photo challenge in Mario Kart World Guessr." caption={`The daily challenge: ${guessr.dailyPhotos} different photos, automatically selected each day.`} pending={copy.labels.figurePending} />
-
-  <section class="case-section" aria-labelledby="technical">
-    <div class="case-section-heading"><h2 id="technical">Built and maintained on my own.</h2></div>
-    <div class="prose"><p>The frontend uses React and Vite, with React Leaflet for the interactive map. The backend runs on vanilla PHP, with MariaDB for data and ImageKit for images.</p><p>I develop and maintain the project alone. Community contributions grow its content, while feedback and actual usage help me decide what to work on next.</p><ul class="tags" aria-label="Technologies">{guessr.stack.map((technology) => <li>{technology}</li>)}</ul></div>
-  </section>
+  <ProjectFigure image={guessrImages.daily[locale]} alt="The daily photo challenge in Mario Kart World Guessr." caption={`The daily challenge: ${guessr.dailyPhotos} different photos, automatically selected each day.`} pending={copy.labels.figurePending} narrow />
 
   <section class="case-section" aria-labelledby="beyond">
-    <div class="case-section-heading"><h2 id="beyond">Further than I expected.</h2></div>
-    <div class="prose"><p>The game found its way beyond France. I have seen French, English, German and Japanese videos and players. That is an observation, not a country-by-country audience measurement.</p><blockquote>Coming across a Japanese video of someone playing a game I built on my own at home is still pretty funny.</blockquote></div>
+    <div class="case-section-heading"><h2 id="beyond">A game that crossed borders.</h2></div>
+    <div class="prose"><p>The game found an audience beyond France. I have seen videos of American, German, and even Japanese players taking an interest in it.<br />Coming across a Japanese video of someone playing a game I developed is a strange experience!</p></div>
+    <ProjectFigure image={guessrImages.videos} alt="A selection of videos from international players featuring Mario Kart World Guessr." pending={copy.labels.figurePending} narrow>
+      <Fragment slot="caption">Many YouTubers have made one or more videos about <strong>Mario Kart World Guessr</strong>.</Fragment>
+    </ProjectFigure>
   </section>
 
   <section class="case-section case-takeaway" aria-labelledby="learned">
-    <div class="case-section-heading"><h2 id="learned">When a side project becomes a product.</h2></div>
-    <div class="prose"><p>Mario Kart World Guessr is probably the personal project of mine that feels most like a real product.</p><p>At first, decisions mostly came from what I wanted to build. Now they also come from usage, contributions, feedback, and the behaviours I observe.</p><p>There is still plenty of room for my own ideas. But what players actually do with the game now matters as much as what I originally imagined for them.</p></div>
+    <div class="case-section-heading"><h2 id="learned">From personal project to real product.</h2></div>
+    <div class="prose"><p><strong>Mario Kart World Guessr</strong> is probably the personal project of mine that feels most like a real product.</p><p>At first, decisions mostly came from what I wanted to build. Now they also come from usage, contributions, feedback, and what I notice when I watch people play.</p></div>
   </section>
 </CaseStudyLayout>

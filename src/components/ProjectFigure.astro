@@ -1,13 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import type { ProjectImage } from '../data/projects';
-interface Props { image?: ProjectImage; alt: string; caption?: string; pending: string; eager?: boolean; compact?: boolean }
-const { image, alt, caption, pending, eager = false, compact = false } = Astro.props;
+interface Props { image?: ProjectImage; alt: string; caption?: string; pending: string; eager?: boolean; compact?: boolean; narrow?: boolean }
+const { image, alt, caption, pending, eager = false, compact = false, narrow = false } = Astro.props;
 const hasCaptionSlot = Astro.slots.has('caption');
 ---
-<figure class:list={['project-figure', { 'figure-compact': compact }]}>
+<figure class:list={['project-figure', { 'figure-compact': compact, 'figure-narrow': narrow }]}>
   {image ? (
-    <Image src={image} alt={alt} widths={[480, 800, 1200, 1600]} sizes="(max-width: 720px) 92vw, 1120px" format="webp" loading={eager ? 'eager' : 'lazy'} />
+    <Image src={image} alt={alt} widths={[480, 800, 1200, 1600]} sizes={narrow ? '(max-width: 720px) 92vw, 750px' : '(max-width: 720px) 92vw, 1120px'} format="webp" loading={eager ? 'eager' : 'lazy'} />
   ) : (
     <div class="figure-placeholder">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="6" y="8" width="28" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="16" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="m7 28 8-7 6 5 6-9 7 10" stroke="currentColor" stroke-width="1.5"/></svg>

@@ -1,0 +1,107 @@
+---
+import type { Locale } from '../i18n/types';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const steps = locale === 'fr'
+  ? ['Télécharger une photo', 'Indiquer sa position', 'Revue et validation', 'Notification du résultat']
+  : ['Upload a photo', 'Mark its location', 'Review and validate', 'Result notification'];
+---
+<ol class="contribution-timeline">
+  {steps.map((step, index) => (
+    <li>
+      <div class="timeline-illustration" aria-hidden="true">
+        {index === 0 && (
+          <svg viewBox="0 0 160 100">
+            <rect x="24" y="20" width="112" height="68" rx="5" />
+            <circle cx="52" cy="43" r="8" />
+            <path d="m29 80 31-27 21 18 15-13 35 22" />
+            <path class="accent-stroke" d="M80 38V12m-10 10 10-10 10 10" />
+          </svg>
+        )}
+        {index === 1 && (
+          <svg viewBox="0 0 160 100">
+            <path d="m18 29 39-13 46 14 39-13v59l-39 13-46-14-39 13Z" />
+            <path d="M57 16v59m46-45v59" />
+            <path class="accent-stroke accent-fill" d="M103 16c-12 0-21 9-21 21 0 16 21 35 21 35s21-19 21-35c0-12-9-21-21-21Zm0 29a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" />
+          </svg>
+        )}
+        {index === 2 && (
+          <svg viewBox="0 0 160 100">
+            <rect x="23" y="16" width="114" height="72" rx="5" />
+            <path d="M23 32h114M34 24h1m8 0h1m8 0h1" />
+            <circle class="accent-stroke" cx="56" cy="59" r="13" />
+            <path class="accent-stroke" d="m49 59 5 5 10-11M78 50h42M78 61h34M78 72h25" />
+          </svg>
+        )}
+        {index === 3 && (
+          <svg viewBox="0 0 160 100">
+            <rect x="31" y="15" width="98" height="72" rx="5" />
+            <path d="M43 28h48M43 39h34M43 74h74" />
+            <path class="accent-stroke" d="M107 34c-9 0-16 7-16 16v8l-5 8h42l-5-8v-8c0-9-7-16-16-16Zm-6 32c0 4 3 7 6 7s6-3 6-7" />
+          </svg>
+        )}
+      </div>
+      <div class="timeline-label"><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong></div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .contribution-timeline {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+  }
+  .contribution-timeline li { position: relative; min-width: 0; }
+  .contribution-timeline li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 4rem;
+    left: calc(100% - 0.3rem);
+    width: 1.6rem;
+    border-top: 1px solid var(--line);
+  }
+  .timeline-illustration {
+    display: grid;
+    place-items: center;
+    min-height: 8rem;
+    padding: 0.8rem;
+    background: var(--tint);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+  }
+  svg {
+    width: 100%;
+    max-width: 9rem;
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .accent-stroke { stroke: var(--accent); }
+  .accent-fill { fill: var(--paper); }
+  .timeline-label {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.65rem;
+    align-items: baseline;
+    padding-top: 0.85rem;
+    border-top: 2px solid var(--ink);
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+  .timeline-label span { color: var(--accent); font-size: 0.7rem; }
+  .timeline-label strong { font-weight: 600; }
+  @media (max-width: 720px) {
+    .contribution-timeline { grid-template-columns: 1fr 1fr; }
+    .contribution-timeline li::after { display: none; }
+  }
+  @media (max-width: 420px) {
+    .contribution-timeline { grid-template-columns: 1fr; }
+    .timeline-illustration { min-height: 7rem; }
+  }
+</style>

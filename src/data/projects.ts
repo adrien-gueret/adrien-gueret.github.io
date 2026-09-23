@@ -1,7 +1,17 @@
 import type { ImageMetadata } from "astro";
 import marioKartWorldGuessrFrImage from "../assets/projects/mariokartworldguessr-fr.png";
 import marioKartWorldGuessrEnImage from "../assets/projects/mariokartworldguessr-en.png";
+import guessrAlbumEnImage from "../assets/projects/mario-kart-world-guessr/album-en.png";
+import guessrAlbumFrImage from "../assets/projects/mario-kart-world-guessr/album-fr.png";
+import guessrDailyEnImage from "../assets/projects/mario-kart-world-guessr/daily-en.png";
+import guessrDailyFrImage from "../assets/projects/mario-kart-world-guessr/daily-fr.png";
+import guessrHomeEnImage from "../assets/projects/mario-kart-world-guessr/home-en.png";
+import guessrHomeFrImage from "../assets/projects/mario-kart-world-guessr/home-fr.png";
+import guessrPlayEnImage from "../assets/projects/mario-kart-world-guessr/play-en.png";
+import guessrPlayFrImage from "../assets/projects/mario-kart-world-guessr/play-fr.png";
+import guessrVideosImage from "../assets/projects/mario-kart-world-guessr/videos.png";
 import marioUniversalisImage from "../assets/projects/mariouniversalis.png";
+import marioKartWorldGuessrSearchConsoleImage from "../assets/projects/mario-universalis/mario-kart-world-guessr-search-console.png";
 import marioWonderSearchConsoleImage from "../assets/projects/mario-universalis/soluce-super-mario-bros-wonder-search-console.png";
 import openclassroomsEnImage from "../assets/projects/openclassrooms-en.png";
 import openclassroomsFrImage from "../assets/projects/openclassrooms-fr.png";
@@ -41,6 +51,7 @@ export const universalis = {
   name: "Mario Universalis",
   slug: "mario-universalis",
   url: "https://www.mariouniversalis.fr/",
+  wonderUrl: "https://www.mariouniversalis.fr/soluces/super-mario-bros-wonder/",
   games: 255,
   wonderClicks: 104000,
   relatedProjects: 10,
@@ -92,6 +103,7 @@ export const storyImages: {
   engineering: Record<"en" | "fr", ProjectImage>;
   universalis: ProjectImage;
   guessr: Record<"en" | "fr", ProjectImage>;
+  guessrSearchConsole: ProjectImage;
   wonder: ProjectImage;
   unbalanced: Record<"en" | "fr", ProjectImage>;
 } = {
@@ -104,6 +116,7 @@ export const storyImages: {
     en: marioKartWorldGuessrEnImage,
     fr: marioKartWorldGuessrFrImage,
   },
+  guessrSearchConsole: marioKartWorldGuessrSearchConsoleImage,
   wonder: marioWonderSearchConsoleImage,
   unbalanced: {
     en: unbalancedEnImage,
@@ -171,14 +184,10 @@ export const playground: Project[] = [
   },
 ];
 
-// Undefined values render honest structural placeholders, never broken <img> tags.
-export const guessrImages: Record<
-  "gameplay" | "result" | "contribution" | "album" | "daily",
-  ProjectImage | undefined
-> = {
-  gameplay: undefined,
-  result: undefined,
-  contribution: undefined,
-  album: undefined,
-  daily: undefined,
+export const guessrImages = {
+  gameplay: { en: guessrHomeEnImage, fr: guessrHomeFrImage },
+  result: { en: guessrPlayEnImage, fr: guessrPlayFrImage },
+  album: { en: guessrAlbumEnImage, fr: guessrAlbumFrImage },
+  daily: { en: guessrDailyEnImage, fr: guessrDailyFrImage },
+  videos: guessrVideosImage,
 };
