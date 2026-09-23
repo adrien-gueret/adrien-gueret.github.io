@@ -1,0 +1,36 @@
+<script is:inline>
+  (() => {
+    const key = 'portfolio-theme';
+    const root = document.documentElement;
+    const system = window.matchMedia('(prefers-color-scheme: dark)');
+    let preference = null;
+    try { preference = localStorage.getItem(key); } catch { /* Storage is optional. */ }
+    if (preference !== 'light' && preference !== 'dark') preference = null;
+
+    const apply = () => {
+      const theme = preference || (system.matches ? 'dark' : 'light');
+      root.dataset.theme = theme;
+      const button = document.querySelector('[data-theme-toggle]');
+      if (button) {
+        button.setAttribute('aria-pressed', String(theme === 'dark'));
+        button.hidden = false;
+      }
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#181c1a' : '#f7f5f0');
+    };
+    apply();
+    system.addEventListener('change', apply);
+    window.addEventListener('storage', (event) => {
+      if (event.key !== key && event.key !== null) return;
+      preference = event.newValue === 'light' || event.newValue === 'dark' ? event.newValue : null;
+      apply();
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      apply();
+      document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+        preference = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem(key, preference); } catch { /* Keep the choice for this page. */ }
+        apply();
+      });
+    }, { once: true });
+  })();
+</script>

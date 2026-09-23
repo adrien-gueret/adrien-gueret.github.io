@@ -1,5 +1,6 @@
 ---
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
 import { homePath } from '../i18n/routes';
 import type { Copy, Locale } from '../i18n/types';
 interface Props { locale: Locale; copy: Copy; slug?: string }
@@ -14,6 +15,9 @@ const { locale, copy, slug } = Astro.props;
       <a href={`${homePath(locale)}#career`}>{copy.nav.career}</a>
       <a href={`${homePath(locale)}#work`}>{copy.nav.work}</a>
     </nav>
-    <LanguageSwitcher locale={locale} slug={slug} label={copy.nav.language} />
+    <div class="header-preferences">
+      <ThemeToggle locale={locale} />
+      <LanguageSwitcher locale={locale} slug={slug} label={copy.nav.language} />
+    </div>
   </div>
 </header>

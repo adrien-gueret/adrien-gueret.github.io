@@ -4,6 +4,7 @@ import SeoHead from '../components/SeoHead.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ThemeScript from '../components/ThemeScript.astro';
 import { structuredData } from '../lib/structured-data';
 import type { Copy, Locale } from '../i18n/types';
 interface Props { locale: Locale; copy: Copy; title: string; description: string; slug?: string; noindex?: boolean }
@@ -13,6 +14,7 @@ const { locale, copy, title, description, slug, noindex = false } = Astro.props;
 <html lang={locale}>
   <head>
     <SeoHead locale={locale} title={title} description={description} slug={slug} noindex={noindex} />
+    <ThemeScript />
     {!noindex && <JsonLd graph={structuredData(locale, title, description, slug)} />}
   </head>
   <body>

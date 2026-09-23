@@ -1,4 +1,4 @@
-// This is the only browser JavaScript. Content and navigation work without it.
+// Content and navigation also work without browser JavaScript.
 const key = 'portfolio-language';
 
 document.querySelectorAll<HTMLAnchorElement>('a[data-language]').forEach((link) => {

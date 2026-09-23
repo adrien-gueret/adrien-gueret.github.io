@@ -282,8 +282,8 @@ const content: Record<Locale, Group[]> = {
     padding: 0.65rem;
     overflow: hidden;
     border-radius: 1.5rem;
-    background: #fff;
-    color: #111;
+    background: light-dark(#fff, #202622);
+    color: light-dark(#111, #f0f2ec);
     font-family: 'Inter', sans-serif;
     line-height: 1.4;
   }
@@ -317,10 +317,10 @@ const content: Record<Locale, Group[]> = {
   .mu-header h2 {
     max-width: 85%;
     font-size: clamp(2rem, 6.5cqi, 4.1rem);
-    color: #000;
+    color: light-dark(#000, #f0f2ec);
     text-shadow: 0 3px 6px #00000012;
   }
-  .mu-mario { width: 4.6rem; height: 6.2rem; fill: #111; }
+  .mu-mario { width: 4.6rem; height: 6.2rem; fill: light-dark(#111, #f0f2ec); }
   .mu-scenery { position: absolute; inset: 0; z-index: -1; }
   .mu-scenery span { position: absolute; display: block; }
   .mu-cloud {
@@ -328,7 +328,7 @@ const content: Record<Locale, Group[]> = {
     width: 10.5%;
     height: 2.4rem;
     border-radius: 3rem;
-    background: #ceecff;
+    background: light-dark(#ceecff, #2e5064);
   }
   .mu-cloud::before,
   .mu-cloud::after {
@@ -347,11 +347,11 @@ const content: Record<Locale, Group[]> = {
     width: 23%;
     height: 5rem;
     border-radius: 50%;
-    background: #addfc4;
+    background: light-dark(#addfc4, #2d5846);
   }
   .mu-hills-left { left: -2%; transform: rotate(5deg); }
   .mu-hills-right { right: -2%; transform: rotate(-5deg); }
-  .mu-pipe, .mu-pillar { bottom: 0; background: linear-gradient(100deg, #81cfab, #72c99f); }
+  .mu-pipe, .mu-pillar { bottom: 0; background: linear-gradient(100deg, light-dark(#81cfab, #337252), light-dark(#72c99f, #295c43)); }
   .mu-pipe { left: 2%; width: 5.5%; height: 5.4rem; }
   .mu-pipe::before {
     content: ''; position: absolute; top: 0; left: -8%;
@@ -362,10 +362,10 @@ const content: Record<Locale, Group[]> = {
   .mu-pillar-right { right: 7.5%; height: 4rem; }
   .mu-pillar-tall { right: 0; height: 7.5rem; width: 7%; }
   .mu-group { margin-top: 0.6rem; padding: 0.8rem; border-radius: 1.2rem; }
-  .mu-sites { background: #f65360; --card-color: #ffd3d5; --section-color: #f65360; }
-  .mu-social { background: #4dbbf4; --card-color: #ceeeff; --section-color: #4dbbf4; }
-  .mu-ai { background: #59ce89; --card-color: #daf8e3; --section-color: #59ce89; }
-  .mu-group h3 { font-size: clamp(1.65rem, 4.1cqi, 2.6rem); color: #fff; }
+  .mu-sites { background: light-dark(#f65360, #78343e); --card-color: light-dark(#ffd3d5, #3e272c); --section-color: light-dark(#f65360, #78343e); }
+  .mu-social { background: light-dark(#4dbbf4, #245773); --card-color: light-dark(#ceeeff, #213946); --section-color: light-dark(#4dbbf4, #245773); }
+  .mu-ai { background: light-dark(#59ce89, #2c6446); --card-color: light-dark(#daf8e3, #253b2c); --section-color: light-dark(#59ce89, #2c6446); }
+  .mu-group h3 { font-size: clamp(1.65rem, 4.1cqi, 2.6rem); color: #fff; /* Section headings stay white in both themes. */ }
   .mu-intro { margin: 0.1rem 0 0.65rem; text-align: center; font-size: 1.15rem; }
   .mu-cards {
     display: grid;
@@ -388,14 +388,14 @@ const content: Record<Locale, Group[]> = {
     padding: 0.75rem 0.65rem;
     border-radius: 0.9rem;
     background: var(--card-color);
-    color: #111;
+    color: light-dark(#111, #f0f2ec);
     text-decoration: none;
     text-align: center;
     transition: transform 150ms ease, box-shadow 150ms ease;
   }
   .mu-card-link:hover,
   .mu-card-link:focus-visible {
-    color: #111;
+    color: light-dark(#111, #f0f2ec);
     text-decoration: none;
     transform: translateY(-0.12rem) scale(1.012);
     box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.5);
@@ -423,7 +423,7 @@ const content: Record<Locale, Group[]> = {
     display: inline-block;
     max-width: 100%;
     margin-top: 0.35rem;
-    color: #4b6470;
+    color: light-dark(#4b6470, #b3c9d4);
     font-size: 0.82em;
     font-weight: 600;
     letter-spacing: -0.015em;

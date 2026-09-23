@@ -50,8 +50,8 @@
   font-size: clamp(2.6rem, 4.5vw, 4rem);
 }
 .engineering-foundations {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--panel-background);
+  color: var(--panel-ink);
   padding: clamp(1.5rem, 3vw, 3rem);
   display: flex;
   flex-direction: column;
@@ -155,8 +155,8 @@
   margin-top: 1.8rem;
 }
 .portfolio-evolution {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--panel-background);
+  color: var(--panel-ink);
   padding: clamp(1.5rem, 3vw, 3rem);
   display: flex;
   flex-direction: column;
