@@ -1,0 +1,76 @@
+---
+import StoryLayout from '../../layouts/StoryLayout.astro';
+import ProjectFigure from '../../components/ProjectFigure.astro';
+import { openclassrooms, storyImages } from '../../data/projects';
+import { en as copy } from '../../i18n/en';
+import { engineering } from '../../data/career';
+import { codeCoverageArticle, frontendInterviewArticle, modularArchitectureArticle, translationSystemArticle, typescriptCourse } from '../../data/teaching';
+const locale = 'en';
+---
+<StoryLayout locale={locale} copy={copy} slug={openclassrooms.slug} name={openclassrooms.name} title={copy.work.projects.engineering.title} description="From frontend foundations to Engineering Management at OpenClassrooms: technical decisions, user protection, product discovery, coaching and hiring." context={openclassrooms.name}>
+
+  <Fragment slot="introduction"><p>I joined OpenClassrooms as a Frontend Engineer. I quickly became a Senior, then a Staff, and eventually an Engineering Manager. Throughout this journey, I kept the same mission in mind: improving what developers build and how they build it, with the goal of <strong>making education accessible to everyone</strong>.</p></Fragment>
+  <ProjectFigure image={storyImages.engineering.en} alt="The public OpenClassrooms homepage in English." caption="The OpenClassrooms homepage." pending={copy.labels.figurePending} />
+  <header class="projects-heading experience-heading"><p class="eyebrow">My current role</p><h2 class="experience-title">Engineering Management</h2></header>
+  <section class="case-section" aria-labelledby="frontend-hiring">
+    <h3 id="frontend-hiring">Hiring for the frontend role I was leaving.</h3>
+    <div class="prose">
+      <p>When I moved into management, I worked with HR to define the role and design the hiring process end to end. I ran manager interviews, organised the technical and <em>cultural fit</em> interviews, consolidated feedback, contributed to decisions and facilitated <em>salary workshops</em>.</p>
+      <p>For candidates I had met who were not moving forward, I took the time to call them personally and explain our decision. They had invested time in the process, and the least we could do was explain our reasons directly.</p>
+      <p>I also played a significant part in designing the technical interview. You can read more in my article, <a href={frontendInterviewArticle.en.url}>{frontendInterviewArticle.en.name} <span aria-hidden="true">↗</span></a>.</p>
+      <p>Once the hire was confirmed, I prepared <strong>a three-month onboarding plan</strong> with clear goals, so the new team member knew exactly what was expected and could go through probation without any surprises.</p>
+    </div>
+  </section>
+  <section class="case-section" aria-labelledby="user-protection">
+    <h3 id="user-protection">Protecting users when the team has less room to react.</h3>
+    <div class="prose">
+      <p>My squad works on connecting recruiters with talent, <strong>a critical part of OpenClassrooms' business</strong>. Just before Christmas, we unfortunately faced malicious outreach targeting people on the platform. With a full roadmap and fewer people available over the holidays, we had limited capacity to respond to further abuse. We needed to act quickly, but pragmatically.</p>
+      <p>I made a somewhat bold suggestion: <strong>temporarily close the direct contact channel over the holidays</strong>. In simple terms, this meant “switching off the business”. My reasoning was that recruiting activity is much lower at that time, so the temporary business cost seemed lower than the risk of leaving the door open without enough capacity to react.</p>
+      <p>After some discussion, my proposal was accepted on the condition that we put a lasting solution in place after the break. I then proposed a <em>shadow ban</em> mechanism inspired by my previous experience at <strong>Meetic</strong>. We were able to implement it in roughly one sprint.</p>
+      <p>Temporarily blocking everyone was not ideal, but it gave us the space to think through a durable and effective solution that OpenClassrooms can still build on today.</p>
+    </div>
+  </section>
+  <section class="case-section" aria-labelledby="admin-discovery">
+    <h3 id="admin-discovery">Questioning the solution, understanding the need.</h3>
+    <div class="prose">
+      <p>OpenClassrooms' sales teams need to view and manage organisations, recruiters, job postings and applications. To do so, they use a highly customised CRM that contains a substantial amount of business logic.</p>
+      <p>Each new capability therefore brings an unwelcome synchronisation: <strong>the OpenClassrooms platform has to send a significant amount of information to the CRM</strong>. This requires coordination with the technical team responsible for it and extends delivery timelines.</p>
+      <p>When we were asked to add information about applications, I went back to the underlying need: sales teams needed access to that information, but <strong>did not necessarily need it in the CRM itself</strong>. I had previously built a generic admin system that we could extend for these business objects. With the support of my team, I proposed building on that admin to remove the cross-team dependency that was affecting our performance.</p>
+      <p>Without that decision, we would have needed to send several types of events to the CRM, which would then have needed to process them: we estimated the full approach at around <strong>one month of work</strong>. With the new approach, we delivered all application management for sales teams in roughly <strong>one sprint</strong>.</p>
+    </div>
+  </section>
+  <section class="case-section" aria-labelledby="engineer-growth">
+    <h3 id="engineer-growth">Making room for others to take ownership.</h3>
+    <div class="prose">
+      <p>That admin work also created an opportunity to broaden ownership within the team. I encouraged someone on my team, whose work had until then focused on backend development, to join product discussions earlier. They found this especially engaging and began considering a career path more focused on product.</p>
+      <p>They then had considerable latitude to build a substantial part of the admin interfaces now used by sales teams, keeping those teams' needs in mind. My contribution was to create the opportunity and support their autonomy, while leaving them room to own the implementation.</p>
+      <p>This is how I approach career development: gradually opening up opportunities to understand business problems, contribute to the product and take on broader responsibilities, then adapting support to the person's interests.</p>
+      <p>With artificial intelligence, I place even more value on engineers' ability to understand a problem, question proposed solutions and bring their expertise to product decisions. Today, an engineer's contribution is no longer simply about writing code.</p>
+    </div>
+  </section>
+  <header class="projects-heading experience-heading"><p class="eyebrow">The foundations of my work</p><h2 class="experience-title">Staff Frontend Engineering</h2></header>
+  <section class="case-section" aria-labelledby="typescript">
+    <h3 id="typescript">Changing a codebase that already exists.</h3>
+    <div class="prose"><p>When I joined OpenClassrooms, the frontend architecture had not yet been established, even though the codebase was already several years old. Drawing on my experience at Meetic, I proposed and then implemented a <strong>modular architecture</strong>. I wrote about that process in <a href={modularArchitectureArticle.url} lang={modularArchitectureArticle.language} hreflang={modularArchitectureArticle.language}>{modularArchitectureArticle.name} <span aria-hidden="true">↗</span></a> (article in French).</p><p class="prose-divider">Our React codebase was initially written in JavaScript. I pushed for the move to <strong>TypeScript to make the code more precise and rigorous</strong>. It was a change that needed to be supported over time, with existing code and teams continuing to develop the product.</p><p>I worked on the migration strategy, tooling and standards, as well as helping teams adopt them. This led me to propose and write the <a href={typescriptCourse.url} lang="fr" hreflang="fr">Découvrez TypeScript <span aria-hidden="true">↗</span></a> course for OpenClassrooms (in French).</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="api">
+    <h3 id="api">Bringing APIs closer to the code that uses them.</h3>
+    <div class="prose"><p>I built a <strong>JavaScript SDK to communicate with an OAuth2 API</strong>, then worked on data-access layers. The goal was to give applications shared foundations for communicating with the backend.</p><p>These foundations evolved towards an <strong>API layer strongly typed with TypeScript</strong> and generated from backend OpenAPI definitions. This provided precise autocompletion and more robust code.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="chapter">
+    <h3 id="chapter">Making shared practices part of everyday work.</h3>
+    <div class="prose"><p>The frontend chapter brought together <strong>up to {engineering.chapterSize} engineers</strong>. I helped run it and supported teams across standards, code reviews and tooling.</p><p>A new practice to introduce? A library to update? A change to our architecture practices? As a Staff Frontend Engineer, my role was to align the entire chapter so that we could all move in the same direction.</p><p class="prose-divider">To ensure cohesion as new members joined the frontend chapter, <strong>I helped define the technical interview process</strong>. The main goal was to give candidates the best possible experience, <strong>respecting their personal time and avoiding unnecessarily stressful situations</strong>. I wrote more about these interviews in <a href={frontendInterviewArticle.en.url}>{frontendInterviewArticle.en.name} <span aria-hidden="true">↗</span></a>.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="translations">
+    <h3 id="translations">Rethinking how translations are managed.</h3>
+    <div class="prose"><p>When I joined OpenClassrooms, all text was stored directly in the codebase. The main consequence was that developers were responsible for it.</p><p>This was a huge waste of time: <strong>around 80% of quality feedback concerned copy</strong>. I therefore asked the CTO to completely rethink the workflow, and was given <em>carte blanche</em>.</p><p>Working with the Content Designers, I designed a workflow in which developers no longer had to manage copy themselves, based on an external tool: Phrase. I described the entire process in <a href={translationSystemArticle.en.url}>{translationSystemArticle.en.name} <span aria-hidden="true">↗</span></a>.</p><p class="prose-divider">We went on to use Phrase for several years. Unfortunately, over time, its cost and fit with our needs led us to look for another solution.</p><p>I therefore built an internal tool based on GitHub. The idea was for it to meet our exact needs, and nothing more. This allowed us to leave Phrase, which remains a very good tool but no longer matched our needs, <strong>saving around €{engineering.annualSavings / 1000}k per year</strong>.</p></div>
+  </section>
+    <section class="case-section" aria-labelledby="tests">
+    <h3 id="tests">Deciding what each test should prove.</h3>
+    <div class="prose"><p>I helped shape the frontend testing strategy, using React Testing Library and Playwright for integration tests. I advocated for <strong>100% coverage</strong>, despite it being a much-criticised metric. I explain my position in <a href={codeCoverageArticle.en.url}>{codeCoverageArticle.en.name} <span aria-hidden="true">↗</span></a>.</p><p>Real end-to-end tests on essential user journeys, the golden paths, remain the responsibility of Quality Engineering. This distinction makes it clear what frontend tests cover and what they cannot guarantee on their own.</p></div>
+  </section>
+  <section class="case-section" aria-labelledby="takeaway">
+    <h3 id="takeaway">Moving into an Engineering Manager role.</h3>
+    <div class="prose"><p>My long experience as a <strong>technical lead</strong> helped me realise what I enjoyed about my work: making sure my colleagues had everything they needed to do their jobs well, while remaining a technical point of reference.</p><p>When OpenClassrooms gave me the opportunity, I took the logical next step in my career: becoming an Engineering Manager.</p></div>
+  </section>
+</StoryLayout>

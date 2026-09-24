@@ -90,7 +90,7 @@ export const unbalanced = {
 
 export const openclassrooms = {
   name: "OpenClassrooms",
-  slug: "openclassrooms-frontend-engineering",
+  slug: "openclassrooms",
 };
 
 export const portfolio = {

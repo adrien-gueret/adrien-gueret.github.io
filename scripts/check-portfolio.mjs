@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 
 // Run after the production build. No browser or extra dependency required.
 const origin = 'https://adrien-gueret.github.io';
-const slugs = ['openclassrooms-frontend-engineering', 'mario-universalis', 'mario-kart-world-guessr', 'this-game-is-unbalanced'];
+const slugs = ['openclassrooms', 'mario-universalis', 'mario-kart-world-guessr', 'this-game-is-unbalanced'];
 const locales = ['en', 'fr'];
 const route = (locale, slug) => `${locale === 'fr' ? '/fr/' : '/'}${slug ? `work/${slug}/` : ''}`;
 const read = (pathname) => readFileSync(resolve('dist', `.${pathname}index.html`), 'utf8');
@@ -65,7 +65,7 @@ for (const locale of locales) {
       assert.equal(crumbs.at(-1).item, origin + pathname);
       assert.equal(crumbs.length, slug === 'mario-kart-world-guessr' ? 3 : 2);
       assert(!html.includes('—'), `${pathname}: no editorial em dash`);
-      if (slug === 'openclassrooms-frontend-engineering') assert(!graph.some((node) => node['@type'] === 'VideoGame'));
+      if (slug === 'openclassrooms') assert(!graph.some((node) => node['@type'] === 'VideoGame'));
       if (slug === 'mario-universalis') assert.equal(page.mainEntity['@id'], 'https://www.mariouniversalis.fr/#website');
     } else {
       const timeline = html.split('class="timeline"')[1]?.split('</ol>')[0];
@@ -83,11 +83,10 @@ for (const locale of locales) {
       assert(!work.includes('href="https://github.com/adrien-gueret/adrien-gueret.github.io"'));
       assert(!work.includes('—'), `${pathname}: no editorial em dash`);
       assert(!work.includes('class="tags"'), `${pathname}: no tag grid`);
-      assert(work.includes(`href="${route(locale, 'openclassrooms-frontend-engineering')}"`));
-      assert(work.includes(`href="${route(locale, 'mario-universalis')}"`));
-      for (const item of slugs.filter((slug) => slug !== 'openclassrooms-frontend-engineering' && slug !== 'mario-universalis')) {
-        assert(!work.includes(`href="${route(locale, item)}"`));
+      for (const item of ['openclassrooms', 'mario-universalis', 'mario-kart-world-guessr']) {
+        assert(work.includes(`href="${route(locale, item)}"`), `${pathname}: ${item} story link`);
       }
+      assert(!work.includes(`href="${route(locale, 'this-game-is-unbalanced')}"`), `${pathname}: unbalanced story has no detail link`);
     }
     for (const img of tags(html, 'img')) {
       assert(Object.hasOwn(img, 'alt'), `${pathname}: image alternative`);

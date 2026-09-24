@@ -49,7 +49,7 @@ export const fr: Copy = {
           "Un jeu inspiré de GeoGuessr, dans le monde ouvert de Mario Kart World.",
       },
       engineering: {
-        title: "Faire évoluer l'ingénierie frontend chez OpenClassrooms",
+        title: "De Staff Engineer à Engineering Manager chez OpenClassrooms",
         description:
           "De Frontend Engineer à Engineering Manager, j'ai passé la majeure partie de mon temps à OpenClassrooms à faire évoluer nos pratiques frontend.",
       },
